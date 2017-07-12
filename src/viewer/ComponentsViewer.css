@@ -1,0 +1,16 @@
+.components-viewer {
+    display: flex;
+    min-height: 100vh;
+    max-height: 100vh;
+    min-width: 100vw;
+    max-width: 100vw;
+}
+
+.components-viewer .toc {
+    flex: 0 0 350px;
+    border-right: 1px solid #eee;
+}
+
+.components-viewer .preview {
+    flex: 1;
+}
