@@ -1,0 +1,11 @@
+.component-with-description {
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.component-with-description .description {
+    font-weight: bold;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+    border-bottom: solid 1px #ddd;
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './ComponentWithDescription.css'
+
 const ComponentWithDescription = ({description, componentInstance}) => {
     return (
         <div className="component-with-description">

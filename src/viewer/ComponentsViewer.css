@@ -1,5 +1,10 @@
+body {
+    margin: 0;
+}
+
 .components-viewer {
     display: flex;
+    font-family: Verdana, serif;
     min-height: 100vh;
     max-height: 100vh;
     min-width: 100vw;
@@ -11,6 +16,17 @@
     border-right: 1px solid #eee;
 }
 
+.components-viewer .toc .name {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.components-viewer .toc .name.selected {
+    background-color: #eee;
+}
+
 .components-viewer .preview {
     flex: 1;
+    margin: 10px;
 }
