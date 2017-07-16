@@ -8,20 +8,22 @@ class ComponentDemo extends Component {
         const {layoutComponent, instancesWithDescription} = this.props;
 
         const Layout = layoutComponent;
-        const children = Object.keys(instancesWithDescription).map(description =>
+        const layoutItems = Object.keys(instancesWithDescription).map(description =>
             createComponent(description, instancesWithDescription[description]));
 
         return (
             <div>
-                <Layout children={children}/>
+                <Layout>
+                    {layoutItems}
+                </Layout>
             </div>
         )
     }
 }
 
 function createComponent(description, componentInstance) {
-    if (componentInstance instanceof Header) {
-        return componentInstance;
+    if (componentInstance.type === Header) {
+        return React.cloneElement(componentInstance, {key: description, label: description});
     }
 
     return <ComponentWithDescription key={description}

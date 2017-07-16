@@ -1,9 +1,6 @@
-import React, {Component} from 'react'
+import React from 'react'
+import './Header.css'
 
-class Header extends Component {
-    render() {
-        return <div>TODO @@</div>
-    }
-}
+const Header = ({label}) => <div className="header">{label}</div>;
 
 export default Header;
