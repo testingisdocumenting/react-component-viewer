@@ -13,20 +13,23 @@ body {
 
 .components-viewer .toc {
     flex: 0 0 350px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid #4F628E;
+    background-color: #2E4272;
 }
 
 .components-viewer .toc .name {
     padding: 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #7887AB;
+    color: #7887AB;
     cursor: pointer;
 }
 
 .components-viewer .toc .name.selected {
-    background-color: #eee;
+    border-left: 2px solid #fff;
+    color: #fff;
 }
 
 .components-viewer .preview {
     flex: 1;
-    margin: 10px;
+    margin: 10px 10px 10px 20px;
 }
