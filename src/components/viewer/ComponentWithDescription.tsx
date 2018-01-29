@@ -1,8 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 
-import './ComponentWithDescription.css'
+import './ComponentWithDescription.css';
 
-const ComponentWithDescription = ({description, componentInstance}) => {
+export interface Props {
+    description: string;
+    componentInstance: JSX.Element;
+}
+
+const ComponentWithDescription = ({description, componentInstance}: Props) => {
     return (
         <div className="component-with-description">
             <div className="description">
@@ -13,7 +18,7 @@ const ComponentWithDescription = ({description, componentInstance}) => {
                 {componentInstance}
             </div>
         </div>
-    )
+    );
 };
 
 export default ComponentWithDescription;

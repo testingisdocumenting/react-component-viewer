@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import Registry from './registry/Registry';
-import Header from './registry/Header';
-import ComponentsViewer from './viewer/ComponentsViewer';
+import Registry from './components/registry/Registry';
+import Header from './components/registry/Header';
+import ComponentsViewer from './components/viewer/ComponentsViewer';
 
 const TestComponent = ({label}) => <div>TC: {label}</div>;
 const AnotherTestComponent = ({label}) => <div>Another TC: {label}</div>;

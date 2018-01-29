@@ -1,23 +1,33 @@
-import React, {Component} from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 
 import './ComponentsViewer.css';
+import Registry from '../registry/Registry';
 
 const queryParamNames = {
-    demoName: "demo"
+    demoName: 'demo'
 };
 
-class ComponentsViewer extends Component {
-    constructor(props) {
+export interface Props {
+    registry: Registry;
+}
+
+export interface State {
+    selectedDemoName: string;
+}
+
+class ComponentsViewer extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         const {registry} = this.props;
 
         this.state = {selectedDemoName: registry.demoNames[0]};
     }
 
-    selectDemo = (demoName) => {
+    selectDemo = (demoName: string) => {
         this.setState({selectedDemoName: demoName});
-        window.history.pushState({}, null, `?${queryParamNames.demoName}=` + demoName);
-    };
+        window.history.pushState({}, '', `?${queryParamNames.demoName}=` + demoName);
+    }
 
     render() {
         const {registry} = this.props;
@@ -30,13 +40,13 @@ class ComponentsViewer extends Component {
                 <div className="toc">
                     {registry.demoNames.map(name => {
                         const isSelected = selectedDemoName === name;
-                        const className = "name" + (isSelected ? " selected" : "");
+                        const className = 'name' + (isSelected ? ' selected' : '');
 
                         return (
                             <div key={name} className={className} onClick={() => this.selectDemo(name)}>
                                 {name}
                             </div>
-                        )
+                        );
                     })}
 
                 </div>
@@ -44,7 +54,7 @@ class ComponentsViewer extends Component {
                     {componentsDemo}
                 </div>
             </div>
-        )
+        );
     }
 
     componentDidMount() {
@@ -56,4 +66,4 @@ class ComponentsViewer extends Component {
     }
 }
 
-export default ComponentsViewer;
+export {ComponentsViewer};
