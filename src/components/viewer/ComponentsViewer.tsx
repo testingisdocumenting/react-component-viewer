@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Component } from 'react';
 
 import './ComponentsViewer.css';
-import Registry from '../registry/Registry';
+import { Registry } from '../registry/Registry';
+import { ComponentDemo } from './ComponentDemo';
 
 const queryParamNames = {
     demoName: 'demo'
@@ -21,7 +22,7 @@ class ComponentsViewer extends Component<Props, State> {
         super(props);
         const {registry} = this.props;
 
-        this.state = {selectedDemoName: registry.demoNames[0]};
+        this.state = {selectedDemoName: registry.names[0]};
     }
 
     selectDemo = (demoName: string) => {
@@ -33,12 +34,12 @@ class ComponentsViewer extends Component<Props, State> {
         const {registry} = this.props;
         const {selectedDemoName} = this.state;
 
-        const componentsDemo = registry.findComponentsDemoByName(selectedDemoName);
+        const componentsInstances = registry.findByName(selectedDemoName);
 
         return (
             <div className="components-viewer">
                 <div className="toc">
-                    {registry.demoNames.map(name => {
+                    {registry.names.map(name => {
                         const isSelected = selectedDemoName === name;
                         const className = 'name' + (isSelected ? ' selected' : '');
 
@@ -51,7 +52,7 @@ class ComponentsViewer extends Component<Props, State> {
 
                 </div>
                 <div className="preview">
-                    {componentsDemo}
+                    <ComponentDemo componentInstances={componentsInstances}/>
                 </div>
             </div>
         );

@@ -1,47 +1,43 @@
 import * as React from 'react';
 import { Component } from 'react';
 
-import ComponentWithDescription from './ComponentWithDescription';
+import { LabeledInstance } from './LabeledInstance';
 
-import { Header } from '../registry/Header';
-import { LayoutProps } from '../layouts/GridLayout';
+import { ComponentInstances } from '../registry/ComponentInstances';
+import { DescriptionAndInstance } from '../registry/DescriptionAndInstance';
 
 export interface Props {
-    name: string;
-    layoutComponent: React.ComponentClass<LayoutProps> | React.StatelessComponent<LayoutProps>;
-    instancesWithDescription: {[name: string]: JSX.Element };
+    componentInstances: ComponentInstances;
 }
 
 class ComponentDemo extends Component<Props> {
     render() {
-        const {layoutComponent, instancesWithDescription} = this.props;
-        const Layout = layoutComponent;
+        const {componentInstances} = this.props;
 
-        const layoutItems = Object.keys(instancesWithDescription).map(description =>
-            createComponent(description, instancesWithDescription[description]));
+        const layoutItems = componentInstances.namedInstances.map(namedInstance =>
+            renderComponent(namedInstance));
 
+        const layout = React.cloneElement(componentInstances.layoutInstance, {}, layoutItems);
         return (
             <div>
-                <Layout>
-                    {layoutItems}
-                </Layout>
+                {layout}
             </div>
         );
     }
 }
 
-function createComponent(description: string, componentInstance: JSX.Element) {
-    if (componentInstance.type === Header) {
-        return React.cloneElement(componentInstance, {key: description, label: description});
-    }
+function renderComponent(nameAndInstance: DescriptionAndInstance) {
+    // if (componentInstance.type === Header) {
+    //     return React.cloneElement(componentInstance, {key: description, label: description});
+    // }
 
     return (
-        <ComponentWithDescription
-            key={description}
-            description={description}
-            componentInstance={componentInstance}
+        <LabeledInstance
+            key={nameAndInstance.DescriptionAndInstance}
+            name={nameAndInstance.DescriptionAndInstance}
+            element={nameAndInstance.instance}
         />
     );
 }
 
-export default ComponentDemo;
+export {ComponentDemo};

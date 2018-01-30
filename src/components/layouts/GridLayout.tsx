@@ -1,11 +1,11 @@
 import * as React from 'react';
 import './GridLayout.css';
 
-export interface LayoutProps {
-    children: JSX.Element[];
+export interface Props {
+    children?: JSX.Element[];
 }
 
-const GridLayout = ({children}: LayoutProps) => {
+const GridLayout = ({children}: Props) => {
     return (
         <div className="grid-layout">
             {children}
@@ -13,4 +13,4 @@ const GridLayout = ({children}: LayoutProps) => {
     );
 };
 
-export default GridLayout;
+export {GridLayout};

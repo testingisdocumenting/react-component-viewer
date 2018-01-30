@@ -1,9 +1,9 @@
-.component-with-description {
+.labeled-instance {
     margin-bottom: 20px;
     margin-right: 20px;
 }
 
-.component-with-description .description {
+.labeled-instance .description {
     font-weight: bold;
     padding-bottom: 4px;
     margin-bottom: 4px;
