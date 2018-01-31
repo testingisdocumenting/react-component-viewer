@@ -1,4 +1,4 @@
 export interface DescriptionAndInstance {
-    DescriptionAndInstance: string;
+    description: string;
     instance: JSX.Element;
 }

@@ -1,24 +1,28 @@
 import * as React from 'react';
 
-import { ComponentInstances } from './ComponentInstances';
-import { GridLayout } from '../';
+import { DemoEntry } from './DemoEntry';
+import { GridLayout, LayoutProps, TabsLayout } from '../';
 
 class Registry {
     _usedNames: string[] = [];
 
-    _componentsInstances: ComponentInstances[] = [];
-    _currentInstances?: ComponentInstances;
+    _componentsInstances: DemoEntry[] = [];
+    _currentInstances?: DemoEntry;
 
     registerAsGrid(name: string) {
-        return this.register(name, <GridLayout/>);
+        return this.register(name, GridLayout);
     }
 
-    register(name: string, layoutInstance: JSX.Element) {
+    registerAsTabs(name: string) {
+        return this.register(name, TabsLayout);
+    }
+
+    register(name: string, layoutComponent: React.StatelessComponent<LayoutProps>) {
         if (this._usedNames.indexOf(name) !== -1) {
             throw new Error(`name ${name} was already used`);
         }
 
-        this._currentInstances = new ComponentInstances(name, layoutInstance);
+        this._currentInstances = new DemoEntry(name, layoutComponent);
         this._componentsInstances.push(this._currentInstances);
 
         this._usedNames.push(name);
@@ -40,7 +44,7 @@ class Registry {
         return this;
     }
 
-    findByName(name: string): ComponentInstances {
+    findByName(name: string): DemoEntry {
         const byName = this._componentsInstances
             .filter(instances => instances.name === name);
 

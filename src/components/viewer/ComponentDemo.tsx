@@ -1,43 +1,32 @@
 import * as React from 'react';
 import { Component } from 'react';
 
-import { LabeledInstance } from './LabeledInstance';
-
-import { ComponentInstances } from '../registry/ComponentInstances';
-import { DescriptionAndInstance } from '../registry/DescriptionAndInstance';
+import { DemoEntry } from '../registry/DemoEntry';
 
 export interface Props {
-    componentInstances: ComponentInstances;
+    componentInstances: DemoEntry;
+    selectedDescription: string;
+    onInstanceSelect: (name: string) => void;
 }
 
 class ComponentDemo extends Component<Props> {
     render() {
-        const {componentInstances} = this.props;
+        const {componentInstances, selectedDescription} = this.props;
 
-        const layoutItems = componentInstances.namedInstances.map(namedInstance =>
-            renderComponent(namedInstance));
-
-        const layout = React.cloneElement(componentInstances.layoutInstance, {}, layoutItems);
         return (
             <div>
-                {layout}
+                <componentInstances.layoutComponent
+                    selectedDescription={selectedDescription}
+                    instancesWithDescription={componentInstances.instancesWithDescription}
+                    onSelect={this.onComponentSelect}
+                />
             </div>
         );
     }
-}
 
-function renderComponent(nameAndInstance: DescriptionAndInstance) {
-    // if (componentInstance.type === Header) {
-    //     return React.cloneElement(componentInstance, {key: description, label: description});
-    // }
-
-    return (
-        <LabeledInstance
-            key={nameAndInstance.DescriptionAndInstance}
-            name={nameAndInstance.DescriptionAndInstance}
-            element={nameAndInstance.instance}
-        />
-    );
+    onComponentSelect = (description: string) => {
+        this.props.onInstanceSelect(description);
+    }
 }
 
 export {ComponentDemo};

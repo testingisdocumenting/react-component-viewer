@@ -15,7 +15,7 @@ registry
     .add('state two', <TestComponent label="2"/>)
     .add('state three', <AnotherTestComponent label="3"/>)
     .add('state four', <AnotherTestComponent label="4"/>)
-    .registerAsGrid('Buttons')
+    .registerAsTabs('Buttons')
     .add('state one', <TestComponent label="1"/>)
     .add('state three', <AnotherTestComponent label="3"/>);
 
