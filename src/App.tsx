@@ -15,7 +15,8 @@ registry
     .add('state one', <TestComponent label="1"/>)
     .add('state two', <TestComponent label="2"/>)
     .add('state three', <AnotherTestComponent label="3"/>)
-    .add('state four', <AnotherTestComponent label="4"/>);
+    .add('state four', <AnotherTestComponent label="4"/>)
+    .registerSingle('Single Screen', <TestComponent label="8"/>);
 
 registerButtons(registry);
 

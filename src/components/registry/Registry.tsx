@@ -3,6 +3,7 @@ import * as React from 'react';
 import { DemoEntry } from './DemoEntry';
 import { GridLayout, LayoutProps, TabsLayout } from '../';
 import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
+import { SingleItemLayout } from '../layouts/SingleItemLayout';
 
 class Registry {
     _usedNames: string[] = [];
@@ -20,6 +21,13 @@ class Registry {
 
     registerAsTwoColumnTable(name: string) {
         return this.register(name, LabelInstanceTableLayout);
+    }
+
+    registerSingle(name: string, componentInstance: JSX.Element) {
+        this.register(name, SingleItemLayout);
+        this.add('', componentInstance);
+
+        return this;
     }
 
     register(name: string, layoutComponent: React.StatelessComponent<LayoutProps>) {
