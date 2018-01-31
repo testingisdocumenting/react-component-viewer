@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { DemoEntry } from './DemoEntry';
 import { GridLayout, LayoutProps, TabsLayout } from '../';
+import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
 
 class Registry {
     _usedNames: string[] = [];
@@ -15,6 +16,10 @@ class Registry {
 
     registerAsTabs(name: string) {
         return this.register(name, TabsLayout);
+    }
+
+    registerAsTwoColumnTable(name: string) {
+        return this.register(name, LabelInstanceTableLayout);
     }
 
     register(name: string, layoutComponent: React.StatelessComponent<LayoutProps>) {

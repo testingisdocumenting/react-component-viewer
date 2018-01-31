@@ -20,7 +20,7 @@
     "declaration": true
   },
   "include": [
-    "src/components/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

@@ -5,14 +5,14 @@ import { AllItemsAtOnceLayoutBase } from './AllItemsAtOnceLayoutBase';
 
 import { DescriptionAndInstanceLayoutItem } from './DescriptionAndInstanceLayoutItem';
 
-import './GridLayout.css';
+import './LabelInstanceTableLayout.css';
 
-const GridItem = DescriptionAndInstanceLayoutItem('grid-item');
+const GridItem = DescriptionAndInstanceLayoutItem('table-item');
 
-export function GridLayout({selectedDescription, instancesWithDescription, onSelect}: LayoutProps) {
+export function LabelInstanceTableLayout({selectedDescription, instancesWithDescription, onSelect}: LayoutProps) {
     return (
         <AllItemsAtOnceLayoutBase
-            topLevelClassName="grid-layout"
+            topLevelClassName="label-instance-table-layout"
             selectedDescription={selectedDescription}
             instancesWithDescription={instancesWithDescription}
             onSelect={onSelect}
