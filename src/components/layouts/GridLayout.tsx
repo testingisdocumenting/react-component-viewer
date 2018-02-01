@@ -9,11 +9,11 @@ import './GridLayout.css';
 
 const GridItem = DescriptionAndInstanceLayoutItem('grid-item');
 
-export function GridLayout({selectedDescription, instancesWithDescription, onSelect}: LayoutProps) {
+export function GridLayout({selectedTitle, instancesWithDescription, onSelect}: LayoutProps) {
     return (
         <AllItemsAtOnceLayoutBase
             topLevelClassName="grid-layout"
-            selectedDescription={selectedDescription}
+            selectedTitle={selectedTitle}
             instancesWithDescription={instancesWithDescription}
             onSelect={onSelect}
             LayoutItemComponent={GridItem}

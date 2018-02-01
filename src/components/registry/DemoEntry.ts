@@ -14,7 +14,7 @@ export class DemoEntry {
         this.instancesWithDescription = new InstancesWithDescription();
     }
 
-    add(description: string, instance: JSX.Element) {
-        this.instancesWithDescription.add(description, instance);
+    add(title: string, description: string, instance: JSX.Element) {
+        this.instancesWithDescription.add(title, description, instance);
     }
 }

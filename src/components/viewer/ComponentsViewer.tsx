@@ -8,7 +8,7 @@ import './ComponentsViewer.css';
 
 const queryParamNames = {
     demoName: 'demo',
-    demoDescription: 'description',
+    demoTitle: 'title',
 };
 
 export interface Props {
@@ -17,12 +17,12 @@ export interface Props {
 
 export interface State {
     selectedDemoName: string;
-    selectedDemoDescription: string;
+    selectedDemoTitle: string;
 }
 
 class ComponentsViewer extends Component<Props, State> {
     private static pushWindowHistory(demoName: string, description: string) {
-        const url = `?${queryParamNames.demoName}=${demoName}&${queryParamNames.demoDescription}=${description}`;
+        const url = `?${queryParamNames.demoName}=${demoName}&${queryParamNames.demoTitle}=${description}`;
         window.history.pushState({}, '', url);
     }
 
@@ -32,24 +32,24 @@ class ComponentsViewer extends Component<Props, State> {
         const name = this.firstName();
         this.state = {
             selectedDemoName: name,
-            selectedDemoDescription: this.firstDescriptionByName(name)
+            selectedDemoTitle: this.firstTitleByName(name)
         };
     }
 
     selectDemo = (demoName: string) => {
         this.setState({
             selectedDemoName: demoName,
-            selectedDemoDescription: this.firstDescriptionByName(demoName)
+            selectedDemoTitle: this.firstTitleByName(demoName)
         });
 
-        ComponentsViewer.pushWindowHistory(demoName, this.firstDescriptionByName(demoName));
+        ComponentsViewer.pushWindowHistory(demoName, this.firstTitleByName(demoName));
     }
 
-    selectInstanceByDescription = (description: string) => {
+    selectInstanceByTitle = (title: string) => {
         const {selectedDemoName} = this.state;
 
-        this.setState({selectedDemoDescription: description});
-        ComponentsViewer.pushWindowHistory(selectedDemoName, description);
+        this.setState({selectedDemoTitle: title});
+        ComponentsViewer.pushWindowHistory(selectedDemoName, title);
     }
 
     firstName() {
@@ -57,14 +57,14 @@ class ComponentsViewer extends Component<Props, State> {
         return registry.names[0];
     }
 
-    firstDescriptionByName(name: string) {
+    firstTitleByName(name: string) {
         const {registry} = this.props;
-        return registry.findByName(name).instancesWithDescription.data[0].description;
+        return registry.findByName(name).instancesWithDescription.data[0].title;
     }
 
     render() {
         const {registry} = this.props;
-        const {selectedDemoName, selectedDemoDescription} = this.state;
+        const {selectedDemoName, selectedDemoTitle} = this.state;
 
         const componentsInstances = registry.findByName(selectedDemoName);
 
@@ -86,8 +86,8 @@ class ComponentsViewer extends Component<Props, State> {
                 <div className="preview">
                     <ComponentDemo
                         componentInstances={componentsInstances}
-                        selectedDescription={selectedDemoDescription}
-                        onInstanceSelect={this.selectInstanceByDescription}
+                        selectedTitle={selectedDemoTitle}
+                        onInstanceSelect={this.selectInstanceByTitle}
                     />
                 </div>
             </div>
@@ -98,11 +98,11 @@ class ComponentsViewer extends Component<Props, State> {
         const searchParams = new URLSearchParams(document.location.search);
         const selectedDemoName = searchParams.get(queryParamNames.demoName) ||
             this.firstName();
-        const selectedDemoDescription = searchParams.get(queryParamNames.demoDescription) ||
-            this.firstDescriptionByName(selectedDemoName);
+        const selectedDemoTitle = searchParams.get(queryParamNames.demoTitle) ||
+            this.firstTitleByName(selectedDemoName);
 
         if (selectedDemoName) {
-            this.setState({selectedDemoName, selectedDemoDescription});
+            this.setState({selectedDemoName, selectedDemoTitle});
         }
     }
 }

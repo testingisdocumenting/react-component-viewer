@@ -5,18 +5,18 @@ import { DemoEntry } from '../registry/DemoEntry';
 
 export interface Props {
     componentInstances: DemoEntry;
-    selectedDescription: string;
+    selectedTitle: string;
     onInstanceSelect: (name: string) => void;
 }
 
 class ComponentDemo extends Component<Props> {
     render() {
-        const {componentInstances, selectedDescription} = this.props;
+        const {componentInstances, selectedTitle} = this.props;
 
         return (
             <div>
                 <componentInstances.layoutComponent
-                    selectedDescription={selectedDescription}
+                    selectedTitle={selectedTitle}
                     instancesWithDescription={componentInstances.instancesWithDescription}
                     onSelect={this.onComponentSelect}
                 />
@@ -24,8 +24,8 @@ class ComponentDemo extends Component<Props> {
         );
     }
 
-    onComponentSelect = (description: string) => {
-        this.props.onInstanceSelect(description);
+    onComponentSelect = (title: string) => {
+        this.props.onInstanceSelect(title);
     }
 }
 

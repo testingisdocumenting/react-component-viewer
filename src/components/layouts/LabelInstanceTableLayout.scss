@@ -10,14 +10,14 @@
         padding-bottom: 20px;
         cursor: pointer;
 
-        .description {
+        .title {
             padding-right: 10px;
             margin-right: 10px;
             flex: 0 0 200px;
             text-align: right;
         }
 
-        .description.selected {
+        .title.selected {
             font-weight: bold;
         }
     }

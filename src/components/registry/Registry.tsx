@@ -47,9 +47,9 @@ class Registry {
         return this._usedNames;
     }
 
-    add(name: string, componentInstance: JSX.Element) {
+    add(title: string, componentInstance: JSX.Element) {
         if (this._currentInstances) {
-            this._currentInstances.add(name, componentInstance);
+            this._currentInstances.add(title, '', componentInstance);
         } else {
             throw new Error('call register method prior adding elements');
         }

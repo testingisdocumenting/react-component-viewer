@@ -2,7 +2,8 @@ import { LayoutProps } from './LayoutProps';
 import * as React from 'react';
 
 export interface SingleLayoutItemProps {
-    description: string;
+    title: string;
+    description?: string;
     instance: JSX.Element;
     isSelected: boolean;
     onSelect: (description: string) => void;
@@ -15,7 +16,7 @@ export interface Props {
 
 export function AllItemsAtOnceLayoutBase (
     {
-        selectedDescription,
+        selectedTitle,
         instancesWithDescription,
         onSelect,
         topLevelClassName,
@@ -25,10 +26,11 @@ export function AllItemsAtOnceLayoutBase (
         <div className={topLevelClassName}>
             {instancesWithDescription.data.map(withDescription =>
                 <LayoutItemComponent
-                    key={withDescription.description}
+                    key={withDescription.title}
+                    title={withDescription.title}
                     description={withDescription.description}
                     instance={withDescription.instance}
-                    isSelected={selectedDescription === withDescription.description}
+                    isSelected={selectedTitle === withDescription.title}
                     onSelect={onSelect}
                 />
             )}

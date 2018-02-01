@@ -11,7 +11,7 @@ const AnotherTestComponent = ({label}: {label: string}) => <div>Another TC: {lab
 const registry = new Registry();
 
 registry
-    .registerAsGrid('Links')
+    .registerAsTabs('Links')
     .add('state one', <TestComponent label="1"/>)
     .add('state two', <TestComponent label="2"/>)
     .add('state three', <AnotherTestComponent label="3"/>)

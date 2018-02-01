@@ -12,15 +12,15 @@ export function TabsLayout(props: LayoutProps) {
     );
 }
 
-function TabsHeader({selectedDescription, instancesWithDescription, onSelect}: LayoutProps) {
+function TabsHeader({selectedTitle, instancesWithDescription, onSelect}: LayoutProps) {
     return (
         <div className="tabs-header">
             {instancesWithDescription.data.map(withDescription => {
-                const isSelected = withDescription.description === selectedDescription;
+                const isSelected = withDescription.title === selectedTitle;
                 return (
                     <TabHeader
-                        key={withDescription.description}
-                        name={withDescription.description}
+                        key={withDescription.title}
+                        name={withDescription.title}
                         isSelected={isSelected}
                         onSelect={onSelect}
                     />);
@@ -29,8 +29,8 @@ function TabsHeader({selectedDescription, instancesWithDescription, onSelect}: L
     );
 }
 
-function SelectedTabContent({selectedDescription, instancesWithDescription}: LayoutProps) {
-    const instance = instancesWithDescription.findByDescription(selectedDescription);
+function SelectedTabContent({selectedTitle, instancesWithDescription}: LayoutProps) {
+    const instance = instancesWithDescription.findByTitle(selectedTitle);
 
     return (
         <div className="tab-content">

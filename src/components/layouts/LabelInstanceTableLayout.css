@@ -8,10 +8,10 @@
     margin-right: 20px;
     padding-bottom: 20px;
     cursor: pointer; }
-    .label-instance-table-layout .table-item .description {
+    .label-instance-table-layout .table-item .title {
       padding-right: 10px;
       margin-right: 10px;
       flex: 0 0 200px;
       text-align: right; }
-    .label-instance-table-layout .table-item .description.selected {
+    .label-instance-table-layout .table-item .title.selected {
       font-weight: bold; }
