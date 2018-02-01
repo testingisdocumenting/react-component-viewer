@@ -1,0 +1,27 @@
+.grid-layout {
+    display: flex;
+    flex-wrap: wrap;
+
+    .grid-item {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+
+        .description {
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            border-bottom: solid 1px #ddd;
+        }
+
+        .description.selected {
+            font-weight: bold;
+        }
+
+        .instance {
+            margin-bottom: 20px;
+            margin-right: 20px;
+        }
+    }
+}

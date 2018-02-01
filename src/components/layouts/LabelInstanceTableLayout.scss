@@ -1,0 +1,24 @@
+.label-instance-table-layout {
+    display: flex;
+    flex-direction: column;
+
+    .table-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: 20px;
+        padding-bottom: 20px;
+        cursor: pointer;
+
+        .description {
+            padding-right: 10px;
+            margin-right: 10px;
+            flex: 0 0 200px;
+            text-align: right;
+        }
+
+        .description.selected {
+            font-weight: bold;
+        }
+    }
+}

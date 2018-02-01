@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+}
+
+.components-viewer {
+    display: flex;
+    font-family: Verdana, serif;
+    min-height: 100vh;
+    max-height: 100vh;
+    min-width: 100vw;
+    max-width: 100vw;
+
+    .toc {
+        flex: 0 0 350px;
+        border-right: 1px solid #4F628E;
+        background-color: #2E4272;
+
+        .name {
+            padding: 15px;
+            border-bottom: 1px solid #7887AB;
+            color: #7887AB;
+            cursor: pointer;
+        }
+
+        .name.selected {
+            border-left: 2px solid #fff;
+            color: #fff;
+        }
+    }
+
+    .preview {
+        flex: 1;
+        margin: 10px 10px 10px 20px;
+    }
+}

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 
-import './ComponentsViewer.css';
 import { Registry } from '../registry/Registry';
 import { ComponentDemo } from './ComponentDemo';
+
+import './ComponentsViewer.css';
 
 const queryParamNames = {
     demoName: 'demo',
