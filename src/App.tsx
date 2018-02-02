@@ -3,22 +3,16 @@ import { Component } from 'react';
 
 import { Registry } from './components';
 import { ComponentsViewer } from './components';
-import { registerButtons } from './demos/buttons';
-
-const TestComponent = ({label}: {label: string}) => <div>TC: {label}</div>;
-const AnotherTestComponent = ({label}: {label: string}) => <div>Another TC: {label}</div>;
+import { buttonsDemo } from './demos/buttons';
+import { linksDemo } from './demos/links';
+import { profileScreenDemo } from './demos/profileScreen';
 
 const registry = new Registry();
 
 registry
-    .registerAsTabs('Links')
-    .add('state one', <TestComponent label="1"/>)
-    .add('state two', <TestComponent label="2"/>)
-    .add('state three', <AnotherTestComponent label="3"/>)
-    .add('state four', <AnotherTestComponent label="4"/>)
-    .registerSingle('Single Screen', <TestComponent label="8"/>);
-
-registerButtons(registry);
+    .registerAsTabs('Links', linksDemo)
+    .registerAsTwoColumnTable('Buttons', buttonsDemo)
+    .registerSingle('Single Screen', profileScreenDemo);
 
 class Demo extends Component {
     render() {

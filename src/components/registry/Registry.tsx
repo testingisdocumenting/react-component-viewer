@@ -11,26 +11,27 @@ class Registry {
     _componentsInstances: DemoEntry[] = [];
     _currentInstances?: DemoEntry;
 
-    registerAsGrid(name: string) {
-        return this.register(name, GridLayout);
+    registerAsGrid(name: string, componentsRegistrator: (registry: Registry) => void) {
+        return this.register(name, GridLayout, componentsRegistrator);
     }
 
-    registerAsTabs(name: string) {
-        return this.register(name, TabsLayout);
+    registerAsTabs(name: string, componentsRegistrator: (registry: Registry) => void) {
+        return this.register(name, TabsLayout, componentsRegistrator);
     }
 
-    registerAsTwoColumnTable(name: string) {
-        return this.register(name, LabelInstanceTableLayout);
+    registerAsTwoColumnTable(name: string, componentsRegistrator: (registry: Registry) => void) {
+        return this.register(name, LabelInstanceTableLayout, componentsRegistrator);
     }
 
-    registerSingle(name: string, componentInstance: JSX.Element) {
-        this.register(name, SingleItemLayout);
-        this.add('', componentInstance);
-
+    registerSingle(name: string, componentsRegistrator: (registry: Registry) => void) {
+        this.register(name, SingleItemLayout, componentsRegistrator);
         return this;
     }
 
-    register(name: string, layoutComponent: React.StatelessComponent<LayoutProps>) {
+    register(name: string,
+             layoutComponent: React.StatelessComponent<LayoutProps>,
+             componentsRegistrator: (registry: Registry) => void) {
+
         if (this._usedNames.indexOf(name) !== -1) {
             throw new Error(`name ${name} was already used`);
         }
@@ -39,6 +40,8 @@ class Registry {
         this._componentsInstances.push(this._currentInstances);
 
         this._usedNames.push(name);
+
+        componentsRegistrator(this);
 
         return this;
     }
