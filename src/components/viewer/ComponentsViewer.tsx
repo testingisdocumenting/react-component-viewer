@@ -18,6 +18,7 @@ export interface Props {
 export interface State {
     selectedDemoName: string;
     selectedDemoTitle: string;
+    filterText: string;
 }
 
 class ComponentsViewer extends Component<Props, State> {
@@ -32,56 +33,45 @@ class ComponentsViewer extends Component<Props, State> {
         const name = this.firstName();
         this.state = {
             selectedDemoName: name,
-            selectedDemoTitle: this.firstTitleByName(name)
+            selectedDemoTitle: this.firstTitleByName(name),
+            filterText: ''
         };
-    }
-
-    selectDemo = (demoName: string) => {
-        this.setState({
-            selectedDemoName: demoName,
-            selectedDemoTitle: this.firstTitleByName(demoName)
-        });
-
-        ComponentsViewer.pushWindowHistory(demoName, this.firstTitleByName(demoName));
-    }
-
-    selectInstanceByTitle = (title: string) => {
-        const {selectedDemoName} = this.state;
-
-        this.setState({selectedDemoTitle: title});
-        ComponentsViewer.pushWindowHistory(selectedDemoName, title);
-    }
-
-    firstName() {
-        const {registry} = this.props;
-        return registry.names[0];
-    }
-
-    firstTitleByName(name: string) {
-        const {registry} = this.props;
-        return registry.findByName(name).instancesWithDescription.data[0].title;
     }
 
     render() {
         const {registry} = this.props;
-        const {selectedDemoName, selectedDemoTitle} = this.state;
+        const {
+            selectedDemoName,
+            selectedDemoTitle,
+            filterText
+        } = this.state;
 
         const componentsInstances = registry.findByName(selectedDemoName);
 
         return (
             <div className="components-viewer">
-                <div className="toc">
-                    {registry.names.map(name => {
-                        const isSelected = selectedDemoName === name;
-                        const className = 'name' + (isSelected ? ' selected' : '');
+                <div className="toc-panel">
+                    <div className="search-box">
+                        <input
+                            value={filterText}
+                            placeholder="filter by demo name..."
+                            onChange={this.onFilterTextChange}
+                        />
+                    </div>
 
-                        return (
-                            <div key={name} className={className} onClick={() => this.selectDemo(name)}>
-                                {name}
-                            </div>
-                        );
-                    })}
+                    <div className="toc">
+                        {this.demoNames.map(name => {
+                            const isSelected = selectedDemoName === name;
+                            const className = 'name' + (isSelected ? ' selected' : '');
 
+                            return (
+                                <div key={name} className={className} onClick={() => this.selectDemo(name)}>
+                                    {name}
+                                </div>
+                            );
+                        })}
+
+                    </div>
                 </div>
                 <div className="preview">
                     <ComponentDemo
@@ -104,6 +94,44 @@ class ComponentsViewer extends Component<Props, State> {
         if (selectedDemoName) {
             this.setState({selectedDemoName, selectedDemoTitle});
         }
+    }
+
+    private selectDemo = (demoName: string) => {
+        this.setState({
+            selectedDemoName: demoName,
+            selectedDemoTitle: this.firstTitleByName(demoName)
+        });
+
+        ComponentsViewer.pushWindowHistory(demoName, this.firstTitleByName(demoName));
+    }
+
+    private selectInstanceByTitle = (title: string) => {
+        const {selectedDemoName} = this.state;
+
+        this.setState({selectedDemoTitle: title});
+        ComponentsViewer.pushWindowHistory(selectedDemoName, title);
+    }
+
+    private get demoNames() {
+        const {registry} = this.props;
+        const {filterText} = this.state;
+
+        return registry.names.filter(name =>
+            name.toLocaleLowerCase().indexOf(filterText.toLowerCase()) >= 0);
+    }
+
+    private firstName() {
+        const {registry} = this.props;
+        return registry.names[0];
+    }
+
+    private firstTitleByName(name: string) {
+        const {registry} = this.props;
+        return registry.findByName(name).instancesWithDescription.data[0].title;
+    }
+
+    private onFilterTextChange = (e: React.FormEvent<HTMLInputElement>) => {
+        this.setState({filterText: e.currentTarget.value});
     }
 }
 
