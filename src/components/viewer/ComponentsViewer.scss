@@ -1,27 +1,41 @@
 :root {
-  --primary-text-color: #555;
-  --primary-background-color: #ddd;
-  --primary-border-color: #aaa;
+  --rcw-primary-text-color: #555;
+  --rcw-primary-background-color: #f2f2f2;
+  --rcw-primary-border-color: #ddd;
+  --rcw-secondary-text-color: #313149;
+  --rcw-secondary-border-color: #c8c4c1;
+  --rcw-secondary-background-color: #747780;
+  --rcw-selected-background-color: #313149;
+  --rcw-attention-text-color: #e38a59;
 }
 
 body {
   margin: 0;
 }
 
-.components-viewer {
-  display: flex;
+.rcw-components-viewer {
+  font-size: 14px;
   font-family: Verdana, serif;
+
+  display: flex;
+  flex-direction: column;
+
   min-height: 100vh;
   max-height: 100vh;
   min-width: 100vw;
   max-width: 100vw;
+
+  .toc-panel-and-preview {
+    display: flex;
+    flex: 1;
+  }
 
   .toc-panel {
     display: flex;
     flex: 0 0 280px;
     flex-direction: column;
 
-    border-right: 1px solid var(--primary-border-color);
+    border-right: 1px solid var(--rcw-primary-border-color);
 
     .search-box input {
       width: 100%;
@@ -33,24 +47,6 @@ body {
 
       border: none;
       outline: none;
-    }
-
-    .toc {
-      flex: 1;
-      background-color: var(--primary-background-color);
-
-      .name {
-        font-size: 14px;
-        padding: 8px 15px;
-        border-bottom: 1px solid var(--primary-border-color);
-        color: var(--primary-text-color);
-        cursor: pointer;
-      }
-
-      .name.selected {
-        border-left: 4px solid var(--primary-text-color);
-        font-weight: bold;
-      }
     }
   }
 

@@ -6,10 +6,15 @@ import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
 import { SingleItemLayout } from '../layouts/SingleItemLayout';
 
 class Registry {
+    name: string;
     _usedNames: string[] = [];
 
     _componentsInstances: DemoEntry[] = [];
     _currentInstances?: DemoEntry;
+
+    constructor(name: string) {
+        this.name = name;
+    }
 
     registerAsGrid(name: string, componentsRegistrator: (registry: Registry) => void) {
         return this.register(name, GridLayout, componentsRegistrator);
@@ -50,9 +55,13 @@ class Registry {
         return this._usedNames;
     }
 
-    add(title: string, componentInstance: JSX.Element) {
+    description(markdown: string) {
+        return this;
+    }
+
+    add(title: string, componentInstance: JSX.Element, description: string = '') {
         if (this._currentInstances) {
-            this._currentInstances.add(title, '', componentInstance);
+            this._currentInstances.add(title, description, componentInstance);
         } else {
             throw new Error('call register method prior adding elements');
         }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Component } from 'react';
 
 import { DemoEntry } from '../registry/DemoEntry';
 
@@ -9,7 +8,7 @@ export interface Props {
     onInstanceSelect: (name: string) => void;
 }
 
-class ComponentDemo extends Component<Props> {
+class ComponentDemo extends React.PureComponent<Props> {
     render() {
         const {componentInstances, selectedTitle} = this.props;
 

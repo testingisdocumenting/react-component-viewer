@@ -5,7 +5,7 @@ import './TabsLayout.css';
 
 export function TabsLayout(props: LayoutProps) {
     return (
-        <div className="tabs-layout">
+        <div className="rcw-tabs-layout">
             <TabsHeader {...props}/>
             <SelectedTabContent {...props}/>
         </div>

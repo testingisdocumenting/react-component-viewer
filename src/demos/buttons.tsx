@@ -9,6 +9,9 @@ function onClick() {
 
 export function buttonsDemo(registry: Registry) {
     registry
-        .add('enabled', <Button label="click me" onClick={onClick}/>)
+        .description(`in between layouts description`)
+        .add('enabled', <Button label="click me" onClick={onClick}/>,
+             `long description
+             multiline markdown`)
         .add('disabled', <Button label="click me" onClick={onClick}/>);
 }

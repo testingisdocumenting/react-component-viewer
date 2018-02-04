@@ -1,0 +1,19 @@
+.rcw-toc {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--rcw-primary-background-color);
+
+  .name {
+    font-size: 14px;
+    padding: 8px 15px;
+    border-bottom: 1px solid var(--rcw-primary-border-color);
+    color: var(--rcw-primary-text-color);
+    cursor: pointer;
+  }
+
+  .name.selected {
+    border-left: 4px solid var(--rcw-primary-text-color);
+    font-weight: bold;
+  }
+}

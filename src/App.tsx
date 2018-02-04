@@ -7,17 +7,19 @@ import { buttonsDemo } from './demos/buttons';
 import { linksDemo } from './demos/links';
 import { profileScreenDemo } from './demos/profileScreen';
 
-const registry = new Registry();
-
-registry
+const core = new Registry('core');
+core
     .registerAsTabs('Links', linksDemo)
-    .registerAsTwoColumnTable('Buttons', buttonsDemo)
     .registerSingle('Single Screen', profileScreenDemo);
+
+const widgets = new Registry('widgets');
+widgets
+    .registerAsTwoColumnTable('Buttons', buttonsDemo);
 
 class Demo extends Component {
     render() {
         return (
-            <ComponentsViewer registry={registry}/>
+            <ComponentsViewer registries={[core, widgets]}/>
         );
     }
 }

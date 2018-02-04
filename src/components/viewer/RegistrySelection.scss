@@ -1,0 +1,23 @@
+.rcw-registry-selection {
+  display: flex;
+  flex: 0 0 28px;
+  border-bottom: 1px var(--rcw-secondary-border-color) solid;
+
+  .tabs-selection {
+    display: flex;
+    font-size: 12px;
+
+    .tab {
+      display: flex;
+      align-items: center;
+      color: var(--rcw-secondary-text-color);
+      padding: 0 15px;
+
+      cursor: pointer;
+    }
+
+    .tab.selected {
+      color: var(--rcw-attention-text-color);
+    }
+  }
+}

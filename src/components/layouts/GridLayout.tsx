@@ -12,7 +12,7 @@ const GridItem = DescriptionAndInstanceLayoutItem('grid-item');
 export function GridLayout({selectedTitle, instancesWithDescription, onSelect}: LayoutProps) {
     return (
         <AllItemsAtOnceLayoutBase
-            topLevelClassName="grid-layout"
+            topLevelClassName="rcw-grid-layout"
             selectedTitle={selectedTitle}
             instancesWithDescription={instancesWithDescription}
             onSelect={onSelect}

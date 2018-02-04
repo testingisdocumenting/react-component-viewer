@@ -5,80 +5,106 @@ import { Registry } from '../registry/Registry';
 import { ComponentDemo } from './ComponentDemo';
 
 import './ComponentsViewer.css';
+import { RegistrySelection } from './RegistrySelection';
+import { TableOfContents } from './toc/TableOfContents';
 
 const queryParamNames = {
+    registryName: 'registry',
     demoName: 'demo',
     demoTitle: 'title',
 };
 
 export interface Props {
-    registry: Registry;
+    registries: Registry[];
 }
 
 export interface State {
+    selectedRegistryName: string;
     selectedDemoName: string;
     selectedDemoTitle: string;
     filterText: string;
 }
 
 class ComponentsViewer extends Component<Props, State> {
-    private static pushWindowHistory(demoName: string, description: string) {
-        const url = `?${queryParamNames.demoName}=${demoName}&${queryParamNames.demoTitle}=${description}`;
+    private _registryNames: string[];
+
+    private static pushWindowHistory(registryName: string, demoName: string, description: string) {
+        const url = '?' +
+            queryParamNames.registryName + '=' + registryName + '&' +
+            queryParamNames.demoName + '=' + demoName + '&' +
+            queryParamNames.demoTitle + '=' + description;
+
         window.history.pushState({}, '', url);
+    }
+
+    private static firstDemoName(registry: Registry) {
+        return registry.names[0];
+    }
+
+    private static firstTitleByDemoName(registry: Registry, name: string) {
+        return registry.findByName(name).instancesWithDescription.data[0].title;
     }
 
     constructor(props: Props) {
         super(props);
 
-        const name = this.firstName();
+        const {registries} = this.props;
+
+        const registry = this.firstRegistry;
+        const demoName = ComponentsViewer.firstDemoName(registry);
+
         this.state = {
-            selectedDemoName: name,
-            selectedDemoTitle: this.firstTitleByName(name),
+            selectedRegistryName: registry.name,
+            selectedDemoName: demoName,
+            selectedDemoTitle: ComponentsViewer.firstTitleByDemoName(registry, demoName),
             filterText: ''
         };
+
+        this._registryNames = registries.map(r => r.name);
     }
 
     render() {
-        const {registry} = this.props;
         const {
+            selectedRegistryName,
             selectedDemoName,
             selectedDemoTitle,
             filterText
         } = this.state;
 
-        const componentsInstances = registry.findByName(selectedDemoName);
+        const componentsInstances = this.selectedRegistry.findByName(selectedDemoName);
 
         return (
-            <div className="components-viewer">
-                <div className="toc-panel">
-                    <div className="search-box">
-                        <input
-                            value={filterText}
-                            placeholder="filter by demo name..."
-                            onChange={this.onFilterTextChange}
+            <div className="rcw-components-viewer">
+                <RegistrySelection
+                    names={this._registryNames}
+                    selectedName={selectedRegistryName}
+                    onSelect={this.selectRegistry}
+                />
+
+                <div className="toc-panel-and-preview">
+                    <div className="toc-panel">
+                        <div className="search-box">
+                            <input
+                                value={filterText}
+                                placeholder="filter by demo name..."
+                                onChange={this.onFilterTextChange}
+                            />
+                        </div>
+
+                        <TableOfContents
+                            names={this.demoNames}
+                            selectedName={selectedDemoName}
+                            onSelect={this.selectDemo}
                         />
                     </div>
 
-                    <div className="toc">
-                        {this.demoNames.map(name => {
-                            const isSelected = selectedDemoName === name;
-                            const className = 'name' + (isSelected ? ' selected' : '');
-
-                            return (
-                                <div key={name} className={className} onClick={() => this.selectDemo(name)}>
-                                    {name}
-                                </div>
-                            );
-                        })}
-
+                    <div className="preview">
+                        <ComponentDemo
+                            componentInstances={componentsInstances}
+                            selectedTitle={selectedDemoTitle}
+                            onInstanceSelect={this.selectInstanceByTitle}
+                        />
                     </div>
-                </div>
-                <div className="preview">
-                    <ComponentDemo
-                        componentInstances={componentsInstances}
-                        selectedTitle={selectedDemoTitle}
-                        onInstanceSelect={this.selectInstanceByTitle}
-                    />
                 </div>
             </div>
         );
@@ -86,48 +112,83 @@ class ComponentsViewer extends Component<Props, State> {
 
     componentDidMount() {
         const searchParams = new URLSearchParams(document.location.search);
+
+        const selectedRegistryName = searchParams.get(queryParamNames.registryName) ||
+            this.firstRegistry.name;
         const selectedDemoName = searchParams.get(queryParamNames.demoName) ||
-            this.firstName();
+            ComponentsViewer.firstDemoName(this.firstRegistry);
         const selectedDemoTitle = searchParams.get(queryParamNames.demoTitle) ||
-            this.firstTitleByName(selectedDemoName);
+            ComponentsViewer.firstTitleByDemoName(this.firstRegistry, selectedDemoName);
 
         if (selectedDemoName) {
-            this.setState({selectedDemoName, selectedDemoTitle});
+            this.setState({selectedRegistryName, selectedDemoName, selectedDemoTitle});
         }
     }
 
-    private selectDemo = (demoName: string) => {
+    private selectRegistry = (registryName: string) => {
+        const registry = this.registryByName(registryName);
+        const demoName = ComponentsViewer.firstDemoName(registry);
+        const demoTitle = ComponentsViewer.firstTitleByDemoName(registry, demoName);
+
         this.setState({
+            selectedRegistryName: registryName,
             selectedDemoName: demoName,
-            selectedDemoTitle: this.firstTitleByName(demoName)
+            selectedDemoTitle: demoTitle
         });
 
-        ComponentsViewer.pushWindowHistory(demoName, this.firstTitleByName(demoName));
+        ComponentsViewer.pushWindowHistory(registryName, demoName, demoTitle);
+    }
+
+    private selectDemo = (demoName: string) => {
+        const demoTitle = ComponentsViewer.firstTitleByDemoName(this.selectedRegistry, demoName);
+        this.setState({
+            selectedDemoName: demoName,
+            selectedDemoTitle: demoTitle
+        });
+
+        ComponentsViewer.pushWindowHistory(this.selectedRegistry.name, demoName, demoTitle);
     }
 
     private selectInstanceByTitle = (title: string) => {
         const {selectedDemoName} = this.state;
 
         this.setState({selectedDemoTitle: title});
-        ComponentsViewer.pushWindowHistory(selectedDemoName, title);
+        ComponentsViewer.pushWindowHistory(this.selectedRegistry.name, selectedDemoName, title);
+    }
+
+    private get selectedRegistry(): Registry {
+        const {registries} = this.props;
+
+        if (! this.state) {
+            return registries[0];
+        }
+
+        const {selectedRegistryName} = this.state;
+        return this.registryByName(selectedRegistryName);
+    }
+
+    private registryByName(name: string) {
+        const {registries} = this.props;
+
+        const found = registries.filter(r => r.name === name);
+
+        if (found.length === 0) {
+            throw new Error(`cannot find registry with ${name} name`);
+        }
+
+        return found.length ? found[0] : registries[0];
     }
 
     private get demoNames() {
-        const {registry} = this.props;
         const {filterText} = this.state;
 
-        return registry.names.filter(name =>
+        return this.selectedRegistry.names.filter(name =>
             name.toLocaleLowerCase().indexOf(filterText.toLowerCase()) >= 0);
     }
 
-    private firstName() {
-        const {registry} = this.props;
-        return registry.names[0];
-    }
-
-    private firstTitleByName(name: string) {
-        const {registry} = this.props;
-        return registry.findByName(name).instancesWithDescription.data[0].title;
+    private get firstRegistry() {
+        const {registries} = this.props;
+        return registries[0];
     }
 
     private onFilterTextChange = (e: React.FormEvent<HTMLInputElement>) => {
