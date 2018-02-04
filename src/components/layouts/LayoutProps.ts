@@ -1,7 +1,7 @@
-import { InstancesWithDescription } from '../registry/InstancesWithDescription';
+import { DemoInstancesGroup } from '../registry/DemoInstancesGroup';
 
 export interface LayoutProps {
     selectedTitle: string;
-    instancesWithDescription: InstancesWithDescription;
+    demoInstancesGroup: DemoInstancesGroup;
     onSelect: (name: string) => void;
 }

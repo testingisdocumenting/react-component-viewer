@@ -2,23 +2,32 @@ import * as React from 'react';
 
 import { DemoEntry } from '../registry/DemoEntry';
 
+import './ComponentDemo.css';
+
 export interface Props {
-    componentInstances: DemoEntry;
+    demoEntry: DemoEntry;
     selectedTitle: string;
     onInstanceSelect: (name: string) => void;
 }
 
 class ComponentDemo extends React.PureComponent<Props> {
     render() {
-        const {componentInstances, selectedTitle} = this.props;
+        const {demoEntry, selectedTitle} = this.props;
 
         return (
-            <div>
-                <componentInstances.layoutComponent
-                    selectedTitle={selectedTitle}
-                    instancesWithDescription={componentInstances.instancesWithDescription}
-                    onSelect={this.onComponentSelect}
-                />
+            <div className="rcw-component-demo">
+                {demoEntry.demoInstances.groups.map((group, idx) => {
+                    return (
+                        <div key={idx} className="group-with-description">
+                            <div className="description">{group.description}</div>
+                            <demoEntry.layoutComponent
+                                selectedTitle={selectedTitle}
+                                demoInstancesGroup={group}
+                                onSelect={this.onComponentSelect}
+                            />
+                        </div>
+                    );
+                })}
             </div>
         );
     }
@@ -28,4 +37,4 @@ class ComponentDemo extends React.PureComponent<Props> {
     }
 }
 
-export {ComponentDemo};
+export { ComponentDemo };

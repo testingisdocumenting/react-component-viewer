@@ -9,12 +9,12 @@ import './GridLayout.css';
 
 const GridItem = DescriptionAndInstanceLayoutItem('grid-item');
 
-export function GridLayout({selectedTitle, instancesWithDescription, onSelect}: LayoutProps) {
+export function GridLayout({selectedTitle, demoInstancesGroup, onSelect}: LayoutProps) {
     return (
         <AllItemsAtOnceLayoutBase
             topLevelClassName="rcw-grid-layout"
             selectedTitle={selectedTitle}
-            instancesWithDescription={instancesWithDescription}
+            demoInstancesGroup={demoInstancesGroup}
             onSelect={onSelect}
             LayoutItemComponent={GridItem}
         />

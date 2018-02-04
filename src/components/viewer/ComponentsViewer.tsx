@@ -42,7 +42,7 @@ class ComponentsViewer extends Component<Props, State> {
     }
 
     private static firstTitleByDemoName(registry: Registry, name: string) {
-        return registry.findByName(name).instancesWithDescription.data[0].title;
+        return registry.findByName(name).demoInstances.all[0].title;
     }
 
     constructor(props: Props) {
@@ -100,7 +100,7 @@ class ComponentsViewer extends Component<Props, State> {
 
                     <div className="preview">
                         <ComponentDemo
-                            componentInstances={componentsInstances}
+                            demoEntry={componentsInstances}
                             selectedTitle={selectedDemoTitle}
                             onInstanceSelect={this.selectInstanceByTitle}
                         />

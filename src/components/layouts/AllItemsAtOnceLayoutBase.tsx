@@ -14,23 +14,22 @@ export interface Props {
     LayoutItemComponent: React.StatelessComponent<SingleLayoutItemProps>;
 }
 
-export function AllItemsAtOnceLayoutBase (
-    {
-        selectedTitle,
-        instancesWithDescription,
-        onSelect,
-        topLevelClassName,
-        LayoutItemComponent
-    }: LayoutProps & Props) {
+export function AllItemsAtOnceLayoutBase({
+                                             selectedTitle,
+                                             demoInstancesGroup,
+                                             onSelect,
+                                             topLevelClassName,
+                                             LayoutItemComponent
+                                         }: LayoutProps & Props) {
     return (
         <div className={topLevelClassName}>
-            {instancesWithDescription.data.map(withDescription =>
+            {demoInstancesGroup.data.map(demoInstance =>
                 <LayoutItemComponent
-                    key={withDescription.title}
-                    title={withDescription.title}
-                    description={withDescription.description}
-                    instance={withDescription.instance}
-                    isSelected={selectedTitle === withDescription.title}
+                    key={demoInstance.title}
+                    title={demoInstance.title}
+                    description={demoInstance.description}
+                    instance={demoInstance.instance}
+                    isSelected={selectedTitle === demoInstance.title}
                     onSelect={onSelect}
                 />
             )}

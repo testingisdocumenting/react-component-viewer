@@ -10,7 +10,7 @@ class Registry {
     _usedNames: string[] = [];
 
     _componentsInstances: DemoEntry[] = [];
-    _currentInstances?: DemoEntry;
+    _currentDemo?: DemoEntry;
 
     constructor(name: string) {
         this.name = name;
@@ -41,8 +41,8 @@ class Registry {
             throw new Error(`name ${name} was already used`);
         }
 
-        this._currentInstances = new DemoEntry(name, layoutComponent);
-        this._componentsInstances.push(this._currentInstances);
+        this._currentDemo = new DemoEntry(name, layoutComponent);
+        this._componentsInstances.push(this._currentDemo);
 
         this._usedNames.push(name);
 
@@ -56,12 +56,18 @@ class Registry {
     }
 
     description(markdown: string) {
+        if (this._currentDemo) {
+            this._currentDemo.description(markdown);
+        } else {
+            throw new Error('call register method prior setting the description');
+        }
+
         return this;
     }
 
     add(title: string, componentInstance: JSX.Element, description: string = '') {
-        if (this._currentInstances) {
-            this._currentInstances.add(title, description, componentInstance);
+        if (this._currentDemo) {
+            this._currentDemo.add(title, description, componentInstance);
         } else {
             throw new Error('call register method prior adding elements');
         }

@@ -9,12 +9,12 @@ import './LabelInstanceTableLayout.css';
 
 const GridItem = DescriptionAndInstanceLayoutItem('table-item');
 
-export function LabelInstanceTableLayout({selectedTitle, instancesWithDescription, onSelect}: LayoutProps) {
+export function LabelInstanceTableLayout({selectedTitle, demoInstancesGroup, onSelect}: LayoutProps) {
     return (
         <AllItemsAtOnceLayoutBase
             topLevelClassName="rcw-label-instance-table-layout"
             selectedTitle={selectedTitle}
-            instancesWithDescription={instancesWithDescription}
+            demoInstancesGroup={demoInstancesGroup}
             onSelect={onSelect}
             LayoutItemComponent={GridItem}
         />
