@@ -1,9 +1,9 @@
-import { Registry } from 'components/registry/Registry';
-import { ComponentDemo } from 'components/viewer/ComponentDemo';
-import { ComponentsViewer } from 'components/viewer/ComponentsViewer';
-import { GridLayout } from 'components/layouts/GridLayout';
-import { TabsLayout } from 'components/layouts/TabsLayout';
-import { LayoutProps } from 'components/layouts/LayoutProps';
+import { Registry } from './registry/Registry';
+import { ComponentDemo } from './viewer/ComponentDemo';
+import { ComponentsViewer } from './viewer/ComponentsViewer';
+import { GridLayout } from './layouts/GridLayout';
+import { TabsLayout } from './layouts/TabsLayout';
+import { LayoutProps } from './layouts/LayoutProps';
 
 export {
     Registry,

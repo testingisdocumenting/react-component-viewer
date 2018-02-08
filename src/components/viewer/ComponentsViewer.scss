@@ -25,33 +25,33 @@ body {
   min-width: 100vw;
   max-width: 100vw;
 
-  .toc-panel-and-preview {
+  > .toc-panel-and-preview {
     display: flex;
     flex: 1;
-  }
 
-  .toc-panel {
-    display: flex;
-    flex: 0 0 280px;
-    flex-direction: column;
+    > .toc-panel {
+      display: flex;
+      flex: 0 0 280px;
+      flex-direction: column;
 
-    border-right: 1px solid var(--rcw-primary-border-color);
+      border-right: 1px solid var(--rcw-primary-border-color);
 
-    .search-box input {
-      width: 100%;
-      height: 34px;
-      box-sizing: border-box;
+      .search-box input {
+        width: 100%;
+        height: 34px;
+        box-sizing: border-box;
 
-      padding: 10px 4px 10px 15px;
-      margin: 0;
+        padding: 10px 4px 10px 15px;
+        margin: 0;
 
-      border: none;
-      outline: none;
+        border: none;
+        outline: none;
+      }
     }
-  }
 
-  .preview {
-    flex: 1;
-    margin: 10px 10px 10px 20px;
+    > .preview {
+      flex: 1;
+      margin: 10px 10px 10px 20px;
+    }
   }
 }

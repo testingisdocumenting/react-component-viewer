@@ -3,11 +3,11 @@
   flex: 0 0 28px;
   border-bottom: 1px var(--rcw-secondary-border-color) solid;
 
-  .tabs-selection {
+  > .tabs-selection {
     display: flex;
     font-size: 12px;
 
-    .tab {
+    > .tab {
       display: flex;
       align-items: center;
       color: var(--rcw-secondary-text-color);
@@ -16,7 +16,7 @@
       cursor: pointer;
     }
 
-    .tab.selected {
+    > .tab.selected {
       color: var(--rcw-attention-text-color);
     }
   }

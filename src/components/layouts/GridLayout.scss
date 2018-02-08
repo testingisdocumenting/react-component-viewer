@@ -2,24 +2,24 @@
     display: flex;
     flex-wrap: wrap;
 
-    .grid-item {
+    > .grid-item {
         display: flex;
         flex-direction: column;
         margin-right: 20px;
         margin-bottom: 20px;
         cursor: pointer;
 
-        .title {
+        > .title {
             padding-bottom: 4px;
             margin-bottom: 4px;
             border-bottom: solid 1px #ddd;
         }
 
-        .title.selected {
+        > .title.selected {
             font-weight: bold;
         }
 
-        .instance {
+        > .instance {
             margin-bottom: 20px;
             margin-right: 20px;
         }

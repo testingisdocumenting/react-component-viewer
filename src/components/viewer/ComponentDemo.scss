@@ -1,6 +1,8 @@
 .rcw-component-demo {
-  .description {
-    color: var(--rcw-primary-text-color);
-    margin-bottom: 10px;
+  > .group-with-description {
+    > .description {
+      color: var(--rcw-primary-text-color);
+      margin-bottom: 10px;
+    }
   }
 }
