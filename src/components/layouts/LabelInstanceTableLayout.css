@@ -4,14 +4,13 @@
   .rcw-label-instance-table-layout > .table-item {
     display: flex;
     flex-direction: row;
-    align-items: center;
     margin-right: 20px;
-    padding-bottom: 20px;
-    cursor: pointer; }
+    padding-bottom: 20px; }
     .rcw-label-instance-table-layout > .table-item > .title {
       padding-right: 10px;
       margin-right: 10px;
       flex: 0 0 200px;
-      text-align: right; }
+      text-align: right;
+      cursor: pointer; }
     .rcw-label-instance-table-layout > .table-item > .title.selected {
       font-weight: bold; }
