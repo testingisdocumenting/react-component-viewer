@@ -52,6 +52,7 @@ body {
     > .preview {
       flex: 1;
       margin: 10px 10px 10px 20px;
+      overflow: auto;
     }
   }
 }
