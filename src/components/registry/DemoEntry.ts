@@ -6,11 +6,13 @@ import { DemoInstances } from './DemoInstances';
 export class DemoEntry {
     name: string;
     layoutComponent: React.StatelessComponent<LayoutProps>;
+    layoutOpts: object;
     demoInstances: DemoInstances;
 
-    constructor(name: string, layoutInstance: React.StatelessComponent) {
+    constructor(name: string, layoutInstance: React.StatelessComponent, layoutOpts: object) {
         this.name = name;
         this.layoutComponent = layoutInstance;
+        this.layoutOpts = layoutOpts;
         this.demoInstances = new DemoInstances();
     }
 

@@ -9,9 +9,10 @@ export interface SingleLayoutItemProps {
     onSelect: (description: string) => void;
 }
 
-export interface Props {
+export interface Props extends LayoutProps {
     topLevelClassName: string;
     LayoutItemComponent: React.StatelessComponent<SingleLayoutItemProps>;
+    style?: object;
 }
 
 export function AllItemsAtOnceLayoutBase({
@@ -19,10 +20,11 @@ export function AllItemsAtOnceLayoutBase({
                                              demoInstancesGroup,
                                              onSelect,
                                              topLevelClassName,
-                                             LayoutItemComponent
-                                         }: LayoutProps & Props) {
+                                             LayoutItemComponent,
+                                             style = {}
+                                         }: Props) {
     return (
-        <div className={topLevelClassName}>
+        <div className={topLevelClassName} style={style}>
             {demoInstancesGroup.data.map(demoInstance =>
                 <LayoutItemComponent
                     key={demoInstance.title}

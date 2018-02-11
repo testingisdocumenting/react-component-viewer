@@ -1,18 +1,18 @@
 .rcw-grid-layout {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-gap: 20px;
+    //grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
     > .grid-item {
         display: flex;
         flex-direction: column;
-        margin-right: 20px;
-        margin-bottom: 20px;
-        cursor: pointer;
 
         > .title {
-            padding-bottom: 4px;
-            margin-bottom: 4px;
+            font-size: 12px;
+            padding-bottom: 2px;
+            margin-bottom: 6px;
             border-bottom: solid 1px #ddd;
+            cursor: pointer;
         }
 
         > .title.selected {
@@ -20,8 +20,6 @@
         }
 
         > .instance {
-            margin-bottom: 20px;
-            margin-right: 20px;
         }
     }
 }

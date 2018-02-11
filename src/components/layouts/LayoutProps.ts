@@ -4,4 +4,5 @@ export interface LayoutProps {
     selectedTitle: string;
     demoInstancesGroup: DemoInstancesGroup;
     onSelect: (name: string) => void;
+    layoutOpts?: object;
 }

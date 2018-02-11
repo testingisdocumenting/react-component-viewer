@@ -16,8 +16,8 @@ class Registry {
         this.name = name;
     }
 
-    registerAsGrid(name: string, componentsRegistrator: (registry: Registry) => void) {
-        return this.register(name, GridLayout, componentsRegistrator);
+    registerAsGrid(name: string, minWidth: number, componentsRegistrator: (registry: Registry) => void) {
+        return this.register(name, GridLayout, componentsRegistrator, {minWidth});
     }
 
     registerAsTabs(name: string, componentsRegistrator: (registry: Registry) => void) {
@@ -35,13 +35,14 @@ class Registry {
 
     register(name: string,
              layoutComponent: React.StatelessComponent<LayoutProps>,
-             componentsRegistrator: (registry: Registry) => void) {
+             componentsRegistrator: (registry: Registry) => void,
+             layoutOpts: object = {}) {
 
         if (this._usedNames.indexOf(name) !== -1) {
             throw new Error(`name ${name} was already used`);
         }
 
-        this._currentDemo = new DemoEntry(name, layoutComponent);
+        this._currentDemo = new DemoEntry(name, layoutComponent, layoutOpts);
         this._componentsInstances.push(this._currentDemo);
 
         this._usedNames.push(name);

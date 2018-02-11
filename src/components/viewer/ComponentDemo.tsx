@@ -24,6 +24,7 @@ class ComponentDemo extends React.PureComponent<Props> {
                                 selectedTitle={selectedTitle}
                                 demoInstancesGroup={group}
                                 onSelect={this.onComponentSelect}
+                                layoutOpts={demoEntry.layoutOpts}
                             />
                         </div>
                     );

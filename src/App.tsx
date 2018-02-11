@@ -10,6 +10,7 @@ import { profileScreenDemo } from './demos/profileScreen';
 const core = new Registry('core');
 core
     .registerAsTabs('Links', linksDemo)
+    .registerAsGrid('Links as Grid', 300, linksDemo)
     .registerSingle('Single Screen', profileScreenDemo);
 
 const widgets = new Registry('widgets');
