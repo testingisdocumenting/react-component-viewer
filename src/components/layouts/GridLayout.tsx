@@ -15,11 +15,15 @@ interface GridLayoutOpts {
 
 export function GridLayout({selectedTitle, demoInstancesGroup, layoutOpts, onSelect}: LayoutProps) {
     const opts = layoutOpts as GridLayoutOpts;
+    const widthToUse = opts && opts.minWidth > 0 ?
+        `repeat(auto-fill, minmax(${opts.minWidth}px, 1fr))` :
+        '1fr';
 
-    const minWidthToUse = opts && opts.minWidth > 0 ? (opts.minWidth + 'px') : '1fr';
     const style = {
-        gridTemplateColumns: `repeat(auto-fill, minmax(${minWidthToUse}, 1fr))`
+        gridTemplateColumns: widthToUse
     };
+
+    console.log('style', style);
 
     return (
         <AllItemsAtOnceLayoutBase
