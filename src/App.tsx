@@ -11,6 +11,7 @@ const core = new Registry('core');
 core
     .registerAsTabs('Links', linksDemo)
     .registerAsGrid('Links as Grid', 300, linksDemo)
+    .registerAsGrid('Links as 1 column Long long title Grid', 0, linksDemo)
     .registerSingle('Single Screen', profileScreenDemo);
 
 const widgets = new Registry('widgets');

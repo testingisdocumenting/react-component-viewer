@@ -75,36 +75,36 @@ class ComponentsViewer extends Component<Props, State> {
 
         return (
             <div className="rcw-components-viewer">
-                <RegistrySelection
-                    names={this._registryNames}
-                    selectedName={selectedRegistryName}
-                    onSelect={this.selectRegistry}
-                />
+                <div className="registry-selection-panel">
+                    <RegistrySelection
+                        names={this._registryNames}
+                        selectedName={selectedRegistryName}
+                        onSelect={this.selectRegistry}
+                    />
+                </div>
 
-                <div className="toc-panel-and-preview">
-                    <div className="toc-panel">
-                        <div className="search-box">
-                            <input
-                                value={filterText}
-                                placeholder="filter by demo name..."
-                                onChange={this.onFilterTextChange}
-                            />
-                        </div>
+                <div className="search-box">
+                    <input
+                        value={filterText}
+                        placeholder="filter by demo name..."
+                        onChange={this.onFilterTextChange}
+                    />
+                </div>
 
-                        <TableOfContents
-                            names={this.demoNames}
-                            selectedName={selectedDemoName}
-                            onSelect={this.selectDemo}
-                        />
-                    </div>
+                <div className="toc-panel">
+                    <TableOfContents
+                        names={this.demoNames}
+                        selectedName={selectedDemoName}
+                        onSelect={this.selectDemo}
+                    />
+                </div>
 
-                    <div className="preview">
-                        <ComponentDemo
-                            demoEntry={componentsInstances}
-                            selectedTitle={selectedDemoTitle}
-                            onInstanceSelect={this.selectInstanceByTitle}
-                        />
-                    </div>
+                <div className="preview">
+                    <ComponentDemo
+                        demoEntry={componentsInstances}
+                        selectedTitle={selectedDemoTitle}
+                        onInstanceSelect={this.selectInstanceByTitle}
+                    />
                 </div>
             </div>
         );
@@ -159,7 +159,7 @@ class ComponentsViewer extends Component<Props, State> {
     private get selectedRegistry(): Registry {
         const {registries} = this.props;
 
-        if (! this.state) {
+        if (!this.state) {
             return registries[0];
         }
 

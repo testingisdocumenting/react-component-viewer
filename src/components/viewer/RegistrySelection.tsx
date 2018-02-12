@@ -18,18 +18,16 @@ export class RegistrySelection extends React.PureComponent<Props> {
 
         return (
             <div className="rcw-registry-selection">
-                <div className="tabs-selection">
-                    {names.map(name => {
-                        const isSelected = name === selectedName;
-                        const className = 'tab ' + (isSelected ? ' selected' : '');
+                {names.map(name => {
+                    const isSelected = name === selectedName;
+                    const className = 'tab ' + (isSelected ? ' selected' : '');
 
-                        return (
-                            <div key={name} className={className} onClick={() => onSelect(name)}>
-                                {name}
-                            </div>
-                        );
-                    })}
-                </div>
+                    return (
+                        <div key={name} className={className} onClick={() => onSelect(name)}>
+                            {name}
+                        </div>
+                    );
+                })}
             </div>
         );
     }
