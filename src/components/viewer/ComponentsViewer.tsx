@@ -4,14 +4,17 @@ import { Component } from 'react';
 import { Registry } from '../registry/Registry';
 import { ComponentDemo } from './ComponentDemo';
 
-import './ComponentsViewer.css';
 import { RegistrySelection } from './RegistrySelection';
 import { TableOfContents } from './toc/TableOfContents';
+
+import { DemoEntryAndRegistry } from '../registry/DemoEntryAndRegistry';
+
+import './ComponentsViewer.css';
 
 const queryParamNames = {
     registryName: 'registry',
     demoName: 'demo',
-    demoTitle: 'title',
+    demoEntryTitle: 'title',
 };
 
 export interface Props {
@@ -21,7 +24,7 @@ export interface Props {
 export interface State {
     selectedRegistryName: string;
     selectedDemoName: string;
-    selectedDemoTitle: string;
+    selectedEntryTitle: string;
     filterText: string;
 }
 
@@ -32,7 +35,7 @@ class ComponentsViewer extends Component<Props, State> {
         const url = '?' +
             queryParamNames.registryName + '=' + registryName + '&' +
             queryParamNames.demoName + '=' + demoName + '&' +
-            queryParamNames.demoTitle + '=' + description;
+            queryParamNames.demoEntryTitle + '=' + description;
 
         window.history.pushState({}, '', url);
     }
@@ -42,7 +45,7 @@ class ComponentsViewer extends Component<Props, State> {
     }
 
     private static firstTitleByDemoName(registry: Registry, name: string) {
-        return registry.findByName(name).demoInstances.all[0].title;
+        return registry.findByName(name).firstEntryTitle;
     }
 
     constructor(props: Props) {
@@ -56,7 +59,7 @@ class ComponentsViewer extends Component<Props, State> {
         this.state = {
             selectedRegistryName: registry.name,
             selectedDemoName: demoName,
-            selectedDemoTitle: ComponentsViewer.firstTitleByDemoName(registry, demoName),
+            selectedEntryTitle: ComponentsViewer.firstTitleByDemoName(registry, demoName),
             filterText: ''
         };
 
@@ -67,11 +70,21 @@ class ComponentsViewer extends Component<Props, State> {
         const {
             selectedRegistryName,
             selectedDemoName,
-            selectedDemoTitle,
+            selectedEntryTitle,
             filterText
         } = this.state;
 
-        const componentsInstances = this.selectedRegistry.findByName(selectedDemoName);
+        const demoEntry = this.selectedRegistry.findByName(selectedDemoName);
+
+        if (demoEntry.isMiniApp()) {
+            return (
+                <ComponentDemo
+                    demoEntry={demoEntry}
+                    selectedTitle={selectedEntryTitle}
+                    onInstanceSelect={this.selectInstanceByTitle}
+                />
+            );
+        }
 
         return (
             <div className="rcw-components-viewer">
@@ -101,8 +114,8 @@ class ComponentsViewer extends Component<Props, State> {
 
                 <div className="preview">
                     <ComponentDemo
-                        demoEntry={componentsInstances}
-                        selectedTitle={selectedDemoTitle}
+                        demoEntry={demoEntry}
+                        selectedTitle={selectedEntryTitle}
                         onInstanceSelect={this.selectInstanceByTitle}
                     />
                 </div>
@@ -117,42 +130,58 @@ class ComponentsViewer extends Component<Props, State> {
             this.firstRegistry.name;
         const selectedDemoName = searchParams.get(queryParamNames.demoName) ||
             ComponentsViewer.firstDemoName(this.firstRegistry);
-        const selectedDemoTitle = searchParams.get(queryParamNames.demoTitle) ||
+        const selectedEntryTitle = searchParams.get(queryParamNames.demoEntryTitle) ||
             ComponentsViewer.firstTitleByDemoName(this.firstRegistry, selectedDemoName);
 
-        if (selectedDemoName) {
-            this.setState({selectedRegistryName, selectedDemoName, selectedDemoTitle});
+        const miniAppByUrl = this.miniAppByUrl(document.location.pathname);
+        if (miniAppByUrl) {
+            this.setState({
+                selectedRegistryName: miniAppByUrl.registry.name,
+                selectedDemoName: miniAppByUrl.demoEntry.name,
+                selectedEntryTitle: miniAppByUrl.demoEntry.firstEntryTitle
+            });
+        } else if (selectedDemoName) {
+            this.setState({selectedRegistryName, selectedDemoName, selectedEntryTitle});
         }
+    }
+
+    private miniAppByUrl(url: string): DemoEntryAndRegistry | null {
+        const foundDemos = this.props.registries.map(r => ({miniApp: r.firstMiniAppByUrl(url), registry: r}))
+            .filter(found => found.miniApp !== null);
+
+        return foundDemos.length > 0 ?
+            {demoEntry: foundDemos[0].miniApp, registry: foundDemos[0].registry} as DemoEntryAndRegistry :
+            null;
     }
 
     private selectRegistry = (registryName: string) => {
         const registry = this.registryByName(registryName);
         const demoName = ComponentsViewer.firstDemoName(registry);
-        const demoTitle = ComponentsViewer.firstTitleByDemoName(registry, demoName);
+        const demoEntryTitle = ComponentsViewer.firstTitleByDemoName(registry, demoName);
 
         this.setState({
             selectedRegistryName: registryName,
             selectedDemoName: demoName,
-            selectedDemoTitle: demoTitle
+            selectedEntryTitle: demoEntryTitle
         });
 
-        ComponentsViewer.pushWindowHistory(registryName, demoName, demoTitle);
+        ComponentsViewer.pushWindowHistory(registryName, demoName, demoEntryTitle);
     }
 
     private selectDemo = (demoName: string) => {
-        const demoTitle = ComponentsViewer.firstTitleByDemoName(this.selectedRegistry, demoName);
+        const demoEntryTitle = ComponentsViewer.firstTitleByDemoName(this.selectedRegistry, demoName);
         this.setState({
             selectedDemoName: demoName,
-            selectedDemoTitle: demoTitle
+            selectedEntryTitle: demoEntryTitle
         });
 
-        ComponentsViewer.pushWindowHistory(this.selectedRegistry.name, demoName, demoTitle);
+        ComponentsViewer.pushWindowHistory(this.selectedRegistry.name, demoName, demoEntryTitle);
     }
 
     private selectInstanceByTitle = (title: string) => {
         const {selectedDemoName} = this.state;
 
-        this.setState({selectedDemoTitle: title});
+        this.setState({selectedEntryTitle: title});
         ComponentsViewer.pushWindowHistory(this.selectedRegistry.name, selectedDemoName, title);
     }
 

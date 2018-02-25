@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { DemoEntry } from './DemoEntry';
 import { GridLayout, LayoutProps, TabsLayout } from '../';
 import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
@@ -9,7 +7,7 @@ class Registry {
     name: string;
     _usedNames: string[] = [];
 
-    _componentsInstances: DemoEntry[] = [];
+    _demoEntries: DemoEntry[] = [];
     _currentDemo?: DemoEntry;
 
     constructor(name: string) {
@@ -17,7 +15,7 @@ class Registry {
     }
 
     registerAsGrid(name: string, minWidth: number, componentsRegistrator: (registry: Registry) => void) {
-        return this.register(name, GridLayout, componentsRegistrator, {minWidth});
+        return this.register(name, GridLayout, componentsRegistrator, '', {minWidth});
     }
 
     registerAsTabs(name: string, componentsRegistrator: (registry: Registry) => void) {
@@ -33,17 +31,22 @@ class Registry {
         return this;
     }
 
+    registerAsMiniApp(name: string, urlPrefix: string, componentsRegistrator: (registry: Registry) => void) {
+        this.register(name, SingleItemLayout, componentsRegistrator, urlPrefix);
+    }
+
     register(name: string,
              layoutComponent: React.StatelessComponent<LayoutProps>,
              componentsRegistrator: (registry: Registry) => void,
+             urlPrefix: string = '',
              layoutOpts: object = {}) {
 
         if (this._usedNames.indexOf(name) !== -1) {
             throw new Error(`name ${name} was already used`);
         }
 
-        this._currentDemo = new DemoEntry(name, layoutComponent, layoutOpts);
-        this._componentsInstances.push(this._currentDemo);
+        this._currentDemo = new DemoEntry(name, layoutComponent, urlPrefix, layoutOpts);
+        this._demoEntries.push(this._currentDemo);
 
         this._usedNames.push(name);
 
@@ -76,9 +79,16 @@ class Registry {
         return this;
     }
 
+    firstMiniAppByUrl(url: string): DemoEntry | null {
+        const byUrl = this._demoEntries
+            .filter(entry => entry.isMiniApp() && url.startsWith(entry.urlPrefix));
+
+        return byUrl.length > 0 ? byUrl[0] : null;
+    }
+
     findByName(name: string): DemoEntry {
-        const byName = this._componentsInstances
-            .filter(instances => instances.name === name);
+        const byName = this._demoEntries
+            .filter(entry => entry.name === name);
 
         if (byName.length === 0) {
             throw new Error(`cannot find components by name: ${name}`);

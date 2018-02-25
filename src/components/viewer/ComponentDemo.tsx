@@ -12,6 +12,32 @@ export interface Props {
 
 class ComponentDemo extends React.PureComponent<Props> {
     render() {
+        const {demoEntry} = this.props;
+
+        if (demoEntry.isMiniApp()) {
+            return this.renderMiniApp();
+        } else {
+            return this.renderInstances();
+        }
+    }
+
+    onComponentSelect = (title: string) => {
+        this.props.onInstanceSelect(title);
+    }
+
+    private renderMiniApp() {
+        const {demoEntry, selectedTitle} = this.props;
+
+        return (
+            <demoEntry.layoutComponent
+                selectedTitle={selectedTitle}
+                demoInstancesGroup={demoEntry.demoInstances.groups[0]}
+                onSelect={this.onComponentSelect}
+                layoutOpts={demoEntry.layoutOpts}
+            />);
+    }
+
+    private renderInstances() {
         const {demoEntry, selectedTitle} = this.props;
 
         return (
@@ -31,10 +57,6 @@ class ComponentDemo extends React.PureComponent<Props> {
                 })}
             </div>
         );
-    }
-
-    onComponentSelect = (title: string) => {
-        this.props.onInstanceSelect(title);
     }
 }
 

@@ -23,8 +23,6 @@ export function GridLayout({selectedTitle, demoInstancesGroup, layoutOpts, onSel
         gridTemplateColumns: widthToUse
     };
 
-    console.log('style', style);
-
     return (
         <AllItemsAtOnceLayoutBase
             style={style}
