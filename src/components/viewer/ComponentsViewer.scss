@@ -22,7 +22,10 @@ body {
   grid-template-columns: 280px 1fr;
   grid-template-rows: 28px 34px 1fr;
 
-  grid-template-areas: "registry-selection registry-selection" "search-box preview" "toc preview";
+  grid-template-areas:
+          "registry-selection registry-selection tool-bar"
+          "search-box preview preview"
+          "toc preview preview";
 
   min-height: 100vh;
   max-height: 100vh;
@@ -31,6 +34,11 @@ body {
 
   > .registry-selection-panel {
     grid-area: registry-selection;
+    border-bottom: 1px var(--rcw-secondary-border-color) solid;
+  }
+
+  > .toolbar-panel {
+    grid-area: tool-bar;
     border-bottom: 1px var(--rcw-secondary-border-color) solid;
   }
 
