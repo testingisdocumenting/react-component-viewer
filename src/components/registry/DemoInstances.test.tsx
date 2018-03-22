@@ -12,7 +12,7 @@ describe('DemoInstances', () => {
         demoInstances.add('enabled', 'description', <div/>);
         expect(() => {
             demoInstances.add('enabled', 'description', <div/>);
-        }).toThrow('element with \'enabled\' title is already registered');
+        }).toThrow('element with \"enabled\" title is already registered');
     });
 
     it('should create a default group with no description', () => {

@@ -7,15 +7,18 @@ import './ComponentDemo.css';
 export interface Props {
     demoEntry: DemoEntry;
     selectedTitle: string;
+    onlySelected: boolean;
     onInstanceSelect: (name: string) => void;
 }
 
 class ComponentDemo extends React.PureComponent<Props> {
     render() {
-        const {demoEntry} = this.props;
+        const {demoEntry, onlySelected} = this.props;
 
         if (demoEntry.isMiniApp()) {
             return this.renderMiniApp();
+        } else if (onlySelected) {
+            return this.renderOnlySelected();
         } else {
             return this.renderInstances();
         }
@@ -35,6 +38,13 @@ class ComponentDemo extends React.PureComponent<Props> {
                 onSelect={this.onComponentSelect}
                 layoutOpts={demoEntry.layoutOpts}
             />);
+    }
+
+    private renderOnlySelected() {
+        const {demoEntry, selectedTitle} = this.props;
+        const demoInstance = demoEntry.findByTitle(selectedTitle);
+
+        return demoInstance.instance;
     }
 
     private renderInstances() {

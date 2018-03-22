@@ -1,0 +1,10 @@
+.rcw-toolbar {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    > .action {
+        margin: 6px;
+        cursor: pointer;
+    }
+}

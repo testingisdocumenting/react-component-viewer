@@ -14,9 +14,7 @@ export class Toolbar extends React.PureComponent<Props> {
     render() {
         return (
             <div className="rcw-toolbar">
-                <div className="action" onClick={this.props.actions.onFullScreen}>
-                    Full Screen
-                </div>
+                <div className="action" onClick={this.props.actions.onFullScreen}>&#x2922;</div>
             </div>
         );
     }

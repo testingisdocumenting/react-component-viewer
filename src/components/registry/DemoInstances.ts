@@ -20,12 +20,21 @@ export class DemoInstances {
 
     add(title: string, description: string, instance: JSX.Element) {
         if (this.all.filter(ni => ni.title === title).length) {
-            throw new Error(`element with '${title}' title is already registered`);
+            throw new Error(`element with "${title}" title is already registered`);
         }
 
         const newEntry = {title, description, instance};
         this.all.push(newEntry);
         this.currentGroup.data.push(newEntry);
+    }
+
+    findByTitle(title: string): DemoInstance {
+        const found = this.all.filter(instance => instance.title === title);
+        if (! found.length) {
+            throw new Error('cannot find instance with "' + title + '" title');
+        }
+
+        return found[0];
     }
 
     private createNewGroup(description: string) {

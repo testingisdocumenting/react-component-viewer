@@ -32,6 +32,13 @@ describe('ComponentsViewerStateCreator', () => {
         });
     });
 
+    it('should take fullscreen state from url', () => {
+        const stateCreator = new ComponentsViewerStateCreator(registries);
+        const state = stateCreator.stateFromUrl('fullScreen=true');
+
+        expect(state.isFullScreen).toEqual(true);
+    });
+
     it('should build url search params based on state', () => {
         const stateCreator = new ComponentsViewerStateCreator(registries);
         const url = stateCreator.buildUrlSearchParams({
@@ -42,6 +49,6 @@ describe('ComponentsViewerStateCreator', () => {
             filterText: ''
         });
 
-        expect(url).toEqual('registryName=core&demoName=demo-name&isFullScreen=true');
+        expect(url).toEqual('registryName=core&demoName=demo-name&fullScreen=true');
     });
 });

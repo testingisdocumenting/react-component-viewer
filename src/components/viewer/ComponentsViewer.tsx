@@ -42,16 +42,18 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
             registryName,
             demoName,
             entryTitle,
-            filterText
+            filterText,
+            isFullScreen
         } = this.state;
 
         const demoEntry = this.selectedRegistry.findByName(demoName);
 
-        if (demoEntry.isMiniApp()) {
+        if (demoEntry.isMiniApp() || isFullScreen) {
             return (
                 <ComponentDemo
                     demoEntry={demoEntry}
                     selectedTitle={entryTitle}
+                    onlySelected={true}
                     onInstanceSelect={this.selectInstanceByTitle}
                 />
             );
@@ -91,6 +93,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
                     <ComponentDemo
                         demoEntry={demoEntry}
                         selectedTitle={entryTitle}
+                        onlySelected={false}
                         onInstanceSelect={this.selectInstanceByTitle}
                     />
                 </div>
@@ -118,7 +121,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     }
 
     private onFullScreen = () => {
-        console.log('fulls screen');
+        this.pushUrl(this.state.registryName, this.state.demoName, this.state.entryTitle, true);
     }
 
     private selectRegistry = (registryName: string) => {

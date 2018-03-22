@@ -8,7 +8,7 @@ const queryParamNames = {
     registryName: 'registryName',
     demoName: 'demoName',
     entryTitle: 'entryTitle',
-    fullScreen: 'fullScreen'
+    isFullScreen: 'fullScreen'
 };
 
 export class ComponentsViewerStateCreator {
@@ -49,7 +49,7 @@ export class ComponentsViewerStateCreator {
         const entryTitle = searchParams.get(queryParamNames.entryTitle) ||
             ComponentsViewerStateCreator.firstTitleByDemoName(registry, demoName);
 
-        const fullScreenValue = searchParams.get(queryParamNames.fullScreen) || 'false';
+        const fullScreenValue = searchParams.get(queryParamNames.isFullScreen) || 'false';
         const isFullScreen = fullScreenValue === 'true';
 
         return {
@@ -68,7 +68,7 @@ export class ComponentsViewerStateCreator {
             const v = state[k];
 
             if (v) {
-                searchParams.set(k, v.toString());
+                searchParams.set(queryParamNames[k], v.toString());
             }
         });
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { LayoutProps } from '../layouts/LayoutProps';
 import { DemoInstances } from './DemoInstances';
+import { DemoInstance } from './DemoInstance';
 
 export class DemoEntry {
     name: string;
@@ -24,6 +25,10 @@ export class DemoEntry {
 
     description(description: string) {
         this.demoInstances.description(description);
+    }
+
+    findByTitle(title: string): DemoInstance {
+        return this.demoInstances.findByTitle(title);
     }
 
     isMiniApp(): boolean {
