@@ -24,18 +24,14 @@ class ComponentDemo extends React.PureComponent<Props> {
         }
     }
 
-    onComponentSelect = (title: string) => {
-        this.props.onInstanceSelect(title);
-    }
-
     private renderMiniApp() {
-        const {demoEntry, selectedTitle} = this.props;
+        const {demoEntry, selectedTitle, onInstanceSelect} = this.props;
 
         return (
             <demoEntry.layoutComponent
                 selectedTitle={selectedTitle}
                 demoInstancesGroup={demoEntry.demoInstances.groups[0]}
-                onSelect={this.onComponentSelect}
+                onSelect={onInstanceSelect}
                 layoutOpts={demoEntry.layoutOpts}
             />);
     }
@@ -48,7 +44,7 @@ class ComponentDemo extends React.PureComponent<Props> {
     }
 
     private renderInstances() {
-        const {demoEntry, selectedTitle} = this.props;
+        const {demoEntry, selectedTitle, onInstanceSelect} = this.props;
 
         return (
             <div className="rcw-component-demo">
@@ -59,7 +55,7 @@ class ComponentDemo extends React.PureComponent<Props> {
                             <demoEntry.layoutComponent
                                 selectedTitle={selectedTitle}
                                 demoInstancesGroup={group}
-                                onSelect={this.onComponentSelect}
+                                onSelect={onInstanceSelect}
                                 layoutOpts={demoEntry.layoutOpts}
                             />
                         </div>
