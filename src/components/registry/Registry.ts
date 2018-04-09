@@ -1,5 +1,7 @@
 import { DemoEntry } from './DemoEntry';
-import { GridLayout, LayoutProps, TabsLayout } from '../';
+import { GridLayout } from '../layouts/GridLayout';
+import { TabsLayout } from '../layouts/TabsLayout';
+import { LayoutProps } from '../layouts/LayoutProps';
 import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
 import { SingleItemLayout } from '../layouts/SingleItemLayout';
 
