@@ -20,6 +20,10 @@ class Registry {
         return this.register(name, GridLayout, componentsRegistrator, '', {minWidth});
     }
 
+    registerAsRows(name: string, componentsRegistrator: (registry: Registry) => void) {
+        return this.register(name, GridLayout, componentsRegistrator, '', {minWidth: 0});
+    }
+
     registerAsTabs(name: string, componentsRegistrator: (registry: Registry) => void) {
         return this.register(name, TabsLayout, componentsRegistrator);
     }
