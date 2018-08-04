@@ -22,8 +22,8 @@
     "build/lib"
   ],
   "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "url-search-params-polyfill": "^3.0.0"
   },
   "scripts": {
