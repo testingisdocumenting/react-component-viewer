@@ -14,7 +14,7 @@ export function TabsLayout(props: LayoutProps) {
 
 function TabsHeader({selectedTitle, demoInstancesGroup, onSelect}: LayoutProps) {
     return (
-        <div className="tabs-header">
+        <div className="rcw-tabs-layout-tabs-header">
             {demoInstancesGroup.data.map(withDescription => {
                 const isSelected = withDescription.title === selectedTitle;
                 return (
@@ -46,7 +46,7 @@ interface TabHeaderProps {
 }
 
 function TabHeader({name, isSelected, onSelect}: TabHeaderProps) {
-    const className = 'tab-header' + (isSelected ? ' selected' : '');
+    const className = 'rcw-tabs-layout-tab-header' + (isSelected ? ' selected' : '');
     return (
         <div className={className} onClick={() => onSelect(name)}>
             {name}

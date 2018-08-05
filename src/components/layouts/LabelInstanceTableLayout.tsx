@@ -7,8 +7,6 @@ import { DescriptionAndInstanceLayoutItem } from './DescriptionAndInstanceLayout
 
 import './LabelInstanceTableLayout.css';
 
-const GridItem = DescriptionAndInstanceLayoutItem('table-item');
-
 export function LabelInstanceTableLayout({selectedTitle, demoInstancesGroup, onSelect}: LayoutProps) {
     return (
         <AllItemsAtOnceLayoutBase
@@ -16,7 +14,7 @@ export function LabelInstanceTableLayout({selectedTitle, demoInstancesGroup, onS
             selectedTitle={selectedTitle}
             demoInstancesGroup={demoInstancesGroup}
             onSelect={onSelect}
-            LayoutItemComponent={GridItem}
+            LayoutItemComponent={DescriptionAndInstanceLayoutItem}
         />
     );
 }
