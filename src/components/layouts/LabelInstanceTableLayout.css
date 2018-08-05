@@ -1,0 +1,25 @@
+.rcw-label-instance-table-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.rcw-label-instance-table-layout .rcw-demo-layout-item {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+    padding-bottom: 20px;
+}
+
+.rcw-label-instance-table-layout .rcw-demo-layout-item-title {
+    font-family: var(--rcw-font-family);
+
+    padding-right: 10px;
+    margin-right: 10px;
+    flex: 0 0 200px;
+    text-align: right;
+    cursor: pointer;
+}
+
+.rcw-label-instance-table-layout .rcw-demo-layout-item-title.selected {
+    font-weight: bold;
+}

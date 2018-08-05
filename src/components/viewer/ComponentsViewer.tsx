@@ -61,7 +61,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
 
         return (
             <div className="rcw-components-viewer">
-                <div className="registry-selection-panel">
+                <div className="rcw-registry-selection-panel">
                     <RegistrySelection
                         names={this._registries.names}
                         selectedName={registryName}
@@ -69,19 +69,20 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
                     />
                 </div>
 
-                <div className="toolbar-panel">
+                <div className="rcw-toolbar-panel">
                     <Toolbar actions={this._actions}/>
                 </div>
 
-                <div className="search-box">
+                <div className="rcw-search-box">
                     <input
+                        className="rcw-search-box-input"
                         value={filterText}
                         placeholder="filter by demo name..."
                         onChange={this.onFilterTextChange}
                     />
                 </div>
 
-                <div className="toc-panel">
+                <div className="rcw-toc-panel">
                     <TableOfContents
                         names={this.demoNames}
                         selectedName={demoName}
@@ -89,7 +90,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
                     />
                 </div>
 
-                <div className="preview">
+                <div className="rcw-preview">
                     <ComponentDemo
                         demoEntry={demoEntry}
                         selectedTitle={entryTitle}

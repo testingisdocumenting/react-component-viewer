@@ -50,8 +50,8 @@ class ComponentDemo extends React.PureComponent<Props> {
             <div className="rcw-component-demo">
                 {demoEntry.demoInstances.groups.map((group, idx) => {
                     return (
-                        <div key={idx} className="group-with-description">
-                            <div className="description">{group.description}</div>
+                        <div key={idx} className="rcw-component-group-with-description">
+                            <div className="rcw-component-group-description">{group.description}</div>
                             <demoEntry.layoutComponent
                                 selectedTitle={selectedTitle}
                                 demoInstancesGroup={group}

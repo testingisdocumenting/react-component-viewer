@@ -1,21 +1,24 @@
-import { SingleLayoutItemProps } from './AllItemsAtOnceLayoutBase';
 import * as React from 'react';
 
-export function DescriptionAndInstanceLayoutItem(itemClassName: string):
-    React.StatelessComponent<SingleLayoutItemProps> {
+import { SingleLayoutItemProps } from './AllItemsAtOnceLayoutBase';
 
-    return function LayoutItem({title, description, instance, isSelected, onSelect}: SingleLayoutItemProps) {
-        const titleClassName = 'title' + (isSelected ? ' selected' : '');
+export function DescriptionAndInstanceLayoutItem({
+                                                     title,
+                                                     description,
+                                                     instance,
+                                                     isSelected,
+                                                     onSelect
+                                                 }: SingleLayoutItemProps) {
+    const titleClassName = 'rcw-demo-layout-item-title' + (isSelected ? ' selected' : '');
 
-        return (
-            <div className={itemClassName}>
-                <div className={titleClassName} onClick={() => onSelect(title)}>
-                    {title}
-                </div>
-                <div className="instance">
-                    {instance}
-                </div>
+    return (
+        <div className="rcw-demo-layout-item">
+            <div className={titleClassName} onClick={() => onSelect(title)}>
+                {title}
             </div>
-        );
-    };
+            <div className="rcw-demo-layout-instance">
+                {instance}
+            </div>
+        </div>
+    );
 }
