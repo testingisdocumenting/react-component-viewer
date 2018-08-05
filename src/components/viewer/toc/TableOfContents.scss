@@ -3,6 +3,7 @@
   flex-direction: column;
 
   .name {
+    flex-shrink: 0;
     font-size: 14px;
     white-space: nowrap;
     overflow-x: hidden;
