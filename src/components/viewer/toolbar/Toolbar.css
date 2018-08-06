@@ -2,9 +2,10 @@
     display: flex;
     align-items: center;
     height: 100%;
+    margin-right: 20px;
 }
 
 .rcw-toolbar-action {
-    margin: 6px;
+    line-height: 1;
     cursor: pointer;
 }

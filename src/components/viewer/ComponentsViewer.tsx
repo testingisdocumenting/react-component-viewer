@@ -9,7 +9,7 @@ import { ComponentDemo } from './ComponentDemo';
 import { RegistrySelection } from './RegistrySelection';
 import { TableOfContents } from './toc/TableOfContents';
 
-import { Toolbar, ToolbarActions } from './Toolbar';
+import { Toolbar, ToolbarActions } from './toolbar/Toolbar';
 import { ComponentsViewerState } from './ComponentsViewerState';
 import { ComponentsViewerStateCreator } from './ComponentsViewerStateCreator';
 
@@ -116,12 +116,16 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     }
 
     private subscribeToUrlChanges() {
-        window.addEventListener('popstate', (e) => {
+        window.addEventListener('popstate', () => {
             this.updateStateFromUrl();
         });
     }
 
     private onFullScreen = () => {
+        if (this.state.isFullScreen) {
+            return;
+        }
+
         this.pushUrl(this.state.registryName, this.state.demoName, this.state.entryTitle, true);
     }
 
