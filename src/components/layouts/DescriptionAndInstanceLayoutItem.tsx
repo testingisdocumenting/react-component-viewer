@@ -16,8 +16,8 @@ export class DescriptionAndInstanceLayoutItem extends React.Component<SingleLayo
         const titleClassName = 'rcw-demo-layout-item-title' + (isSelected ? ' selected' : '');
 
         return (
-            <div className="rcw-demo-layout-item">
-                <div className={titleClassName} onClick={() => onSelect(title)} ref={this.saveNodeRef}>
+            <div className="rcw-demo-layout-item" ref={this.saveNodeRef}>
+                <div className={titleClassName} onClick={() => onSelect(title)}>
                     {title}
                 </div>
                 <div className="rcw-demo-layout-instance">
@@ -39,7 +39,7 @@ export class DescriptionAndInstanceLayoutItem extends React.Component<SingleLayo
         const {isSelected} = this.props;
 
         if (isSelected) {
-            this.instanceNode.scrollIntoView({block: 'nearest'});
+            this.instanceNode.scrollIntoView({block: 'start'});
         }
     }
 }
