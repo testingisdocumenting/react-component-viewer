@@ -2,23 +2,44 @@ import * as React from 'react';
 
 import { SingleLayoutItemProps } from './AllItemsAtOnceLayoutBase';
 
-export function DescriptionAndInstanceLayoutItem({
-                                                     title,
-                                                     description,
-                                                     instance,
-                                                     isSelected,
-                                                     onSelect
-                                                 }: SingleLayoutItemProps) {
-    const titleClassName = 'rcw-demo-layout-item-title' + (isSelected ? ' selected' : '');
+export class DescriptionAndInstanceLayoutItem extends React.Component<SingleLayoutItemProps> {
+    private instanceNode: HTMLDivElement;
 
-    return (
-        <div className="rcw-demo-layout-item">
-            <div className={titleClassName} onClick={() => onSelect(title)}>
-                {title}
+    render() {
+        const {
+            title,
+            instance,
+            isSelected,
+            onSelect
+        } = this.props;
+
+        const titleClassName = 'rcw-demo-layout-item-title' + (isSelected ? ' selected' : '');
+
+        return (
+            <div className="rcw-demo-layout-item">
+                <div className={titleClassName} onClick={() => onSelect(title)} ref={this.saveNodeRef}>
+                    {title}
+                </div>
+                <div className="rcw-demo-layout-instance">
+                    {instance}
+                </div>
             </div>
-            <div className="rcw-demo-layout-instance">
-                {instance}
-            </div>
-        </div>
-    );
+        );
+    }
+
+    saveNodeRef = (node: HTMLDivElement) => {
+        this.instanceNode = node;
+    }
+
+    componentDidMount() {
+        this.scrollIntoView();
+    }
+
+    scrollIntoView() {
+        const {isSelected} = this.props;
+
+        if (isSelected) {
+            this.instanceNode.scrollIntoView({block: 'nearest'});
+        }
+    }
 }

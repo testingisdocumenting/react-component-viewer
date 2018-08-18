@@ -11,7 +11,7 @@ export interface SingleLayoutItemProps {
 
 export interface Props extends LayoutProps {
     topLevelClassName: string;
-    LayoutItemComponent: React.StatelessComponent<SingleLayoutItemProps>;
+    LayoutItemComponent: React.ComponentType<SingleLayoutItemProps>;
     style?: object;
 }
 
