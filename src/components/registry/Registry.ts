@@ -92,12 +92,12 @@ class Registry {
         return byUrl.length > 0 ? byUrl[0] : null;
     }
 
-    findByName(name: string): DemoEntry {
+    findByName(name: string): DemoEntry | null {
         const byName = this._demoEntries
             .filter(entry => entry.name === name);
 
         if (byName.length === 0) {
-            throw new Error(`cannot find components by name: ${name}`);
+            return null;
         }
 
         return byName[0];
