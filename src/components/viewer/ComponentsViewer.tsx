@@ -15,6 +15,10 @@ import { ComponentsViewerStateCreator } from './ComponentsViewerStateCreator';
 
 import { DemoEntry } from '../registry/DemoEntry';
 
+import { GlobalHotKeysHandler } from '../hotkeys/GlobalHotKeysHandler';
+
+import { HotKeyBoundActions } from '../hotkeys/HotKeyBoundActions';
+
 import './ComponentsViewer.css';
 
 export interface Props {
@@ -26,6 +30,8 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     private _stateCreator: ComponentsViewerStateCreator;
     private _actions: ToolbarActions;
 
+    private _hotKeyBoundActions: HotKeyBoundActions;
+
     constructor(props: Props) {
         super(props);
 
@@ -34,9 +40,10 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         this._registries = new Registries(registries);
         this._stateCreator = new ComponentsViewerStateCreator(this._registries);
 
-        this._actions = {onFullScreen: this.onFullScreen};
+        this._actions = {onFullScreen: this.onFullScreenToggle};
 
         this.state = this.stateFromUrl();
+        this._hotKeyBoundActions = {'Alt F': this.onFullScreenToggle};
     }
 
     render() {
@@ -47,11 +54,16 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
 
         const demoEntry = this.selectedRegistry.findByName(demoName);
 
-        if (demoEntry && (demoEntry.isMiniApp() || isFullScreen)) {
-            return this.renderDemo(demoEntry);
-        }
+        const rendered = demoEntry && (demoEntry.isMiniApp() || isFullScreen) ?
+            this.renderDemo(demoEntry, true) :
+            this.renderSelectionPanelAndDemo(demoEntry);
 
-        return this.renderSelectionPanelAndDemo(demoEntry);
+        return (
+            <React.Fragment>
+                <GlobalHotKeysHandler keyBoundActions={this._hotKeyBoundActions}/>
+                {rendered}
+            </React.Fragment>
+        );
     }
 
     renderSelectionPanelAndDemo(demoEntry: DemoEntry | null) {
@@ -62,44 +74,44 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         } = this.state;
 
         return (
-           <div className="rcw-components-viewer">
-               <div className="rcw-registry-selection-panel">
-                   <RegistrySelection
-                       names={this._registries.names}
-                       selectedName={registryName}
-                       onSelect={this.selectRegistry}
-                   />
-               </div>
+            <div className="rcw-components-viewer">
+                <div className="rcw-registry-selection-panel">
+                    <RegistrySelection
+                        names={this._registries.names}
+                        selectedName={registryName}
+                        onSelect={this.selectRegistry}
+                    />
+                </div>
 
-               <div className="rcw-toolbar-panel">
-                   <Toolbar actions={this._actions}/>
-               </div>
+                <div className="rcw-toolbar-panel">
+                    <Toolbar actions={this._actions}/>
+                </div>
 
-               <div className="rcw-search-box">
-                   <input
-                       className="rcw-search-box-input"
-                       value={filterText}
-                       placeholder="filter by demo name..."
-                       onChange={this.onFilterTextChange}
-                   />
-               </div>
+                <div className="rcw-search-box">
+                    <input
+                        className="rcw-search-box-input"
+                        value={filterText}
+                        placeholder="filter by demo name..."
+                        onChange={this.onFilterTextChange}
+                    />
+                </div>
 
-               <div className="rcw-toc-panel">
-                   <TableOfContents
-                       names={this.demoNames}
-                       selectedName={demoName}
-                       onSelect={this.selectDemo}
-                   />
-               </div>
+                <div className="rcw-toc-panel">
+                    <TableOfContents
+                        names={this.demoNames}
+                        selectedName={demoName}
+                        onSelect={this.selectDemo}
+                    />
+                </div>
 
-               <div className="rcw-preview">
-                   {this.renderDemo(demoEntry)}
-               </div>
-           </div>
-       );
+                <div className="rcw-preview">
+                    {this.renderDemo(demoEntry, false)}
+                </div>
+            </div>
+        );
     }
 
-    renderDemo(demoEntry: DemoEntry | null) {
+    renderDemo(demoEntry: DemoEntry | null, onlySelected: boolean) {
         const {registryName, demoName, entryTitle} = this.state;
 
         if (!demoEntry) {
@@ -112,7 +124,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
             <ComponentDemo
                 demoEntry={demoEntry}
                 selectedTitle={entryTitle}
-                onlySelected={false}
+                onlySelected={onlySelected}
                 onInstanceSelect={this.selectInstanceByTitle}
             />
         );
@@ -137,12 +149,8 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         });
     }
 
-    private onFullScreen = () => {
-        if (this.state.isFullScreen) {
-            return;
-        }
-
-        this.pushUrl(this.state.registryName, this.state.demoName, this.state.entryTitle, true);
+    private onFullScreenToggle = () => {
+        this.pushUrl(this.state.registryName, this.state.demoName, this.state.entryTitle, !this.state.isFullScreen);
     }
 
     private selectRegistry = (registryName: string) => {

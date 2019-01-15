@@ -25,19 +25,4 @@ export class Toolbar extends React.PureComponent<Props> {
             </div>
         );
     }
-
-    componentDidMount() {
-        document.addEventListener('keydown', this.onKeyDown);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.onKeyDown);
-    }
-
-    onKeyDown = (e: object) => {
-        // @ts-ignore
-        if (e.altKey && e.code === 'KeyF') {
-            this.props.actions.onFullScreen();
-        }
-    }
 }
