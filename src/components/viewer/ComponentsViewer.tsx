@@ -13,6 +13,8 @@ import { Toolbar, ToolbarActions } from './toolbar/Toolbar';
 import { ComponentsViewerState } from './ComponentsViewerState';
 import { ComponentsViewerStateCreator } from './ComponentsViewerStateCreator';
 
+import { DemoEntry } from '../registry/DemoEntry';
+
 import './ComponentsViewer.css';
 
 export interface Props {
@@ -39,66 +41,80 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
 
     render() {
         const {
-            registryName,
             demoName,
-            entryTitle,
-            filterText,
             isFullScreen
         } = this.state;
 
         const demoEntry = this.selectedRegistry.findByName(demoName);
 
-        if (demoEntry.isMiniApp() || isFullScreen) {
+        if (demoEntry && (demoEntry.isMiniApp() || isFullScreen)) {
+            return this.renderDemo(demoEntry);
+        }
+
+        return this.renderSelectionPanelAndDemo(demoEntry);
+    }
+
+    renderSelectionPanelAndDemo(demoEntry: DemoEntry | null) {
+        const {
+            registryName,
+            demoName,
+            filterText,
+        } = this.state;
+
+        return (
+           <div className="rcw-components-viewer">
+               <div className="rcw-registry-selection-panel">
+                   <RegistrySelection
+                       names={this._registries.names}
+                       selectedName={registryName}
+                       onSelect={this.selectRegistry}
+                   />
+               </div>
+
+               <div className="rcw-toolbar-panel">
+                   <Toolbar actions={this._actions}/>
+               </div>
+
+               <div className="rcw-search-box">
+                   <input
+                       className="rcw-search-box-input"
+                       value={filterText}
+                       placeholder="filter by demo name..."
+                       onChange={this.onFilterTextChange}
+                   />
+               </div>
+
+               <div className="rcw-toc-panel">
+                   <TableOfContents
+                       names={this.demoNames}
+                       selectedName={demoName}
+                       onSelect={this.selectDemo}
+                   />
+               </div>
+
+               <div className="rcw-preview">
+                   {this.renderDemo(demoEntry)}
+               </div>
+           </div>
+       );
+    }
+
+    renderDemo(demoEntry: DemoEntry | null) {
+        const {registryName, demoName, entryTitle} = this.state;
+
+        if (!demoEntry) {
             return (
-                <ComponentDemo
-                    demoEntry={demoEntry}
-                    selectedTitle={entryTitle}
-                    onlySelected={true}
-                    onInstanceSelect={this.selectInstanceByTitle}
-                />
+                <div>Can't find demo entry: {registryName} -> {demoName}</div>
             );
         }
 
         return (
-            <div className="rcw-components-viewer">
-                <div className="rcw-registry-selection-panel">
-                    <RegistrySelection
-                        names={this._registries.names}
-                        selectedName={registryName}
-                        onSelect={this.selectRegistry}
-                    />
-                </div>
-
-                <div className="rcw-toolbar-panel">
-                    <Toolbar actions={this._actions}/>
-                </div>
-
-                <div className="rcw-search-box">
-                    <input
-                        className="rcw-search-box-input"
-                        value={filterText}
-                        placeholder="filter by demo name..."
-                        onChange={this.onFilterTextChange}
-                    />
-                </div>
-
-                <div className="rcw-toc-panel">
-                    <TableOfContents
-                        names={this.demoNames}
-                        selectedName={demoName}
-                        onSelect={this.selectDemo}
-                    />
-                </div>
-
-                <div className="rcw-preview">
-                    <ComponentDemo
-                        demoEntry={demoEntry}
-                        selectedTitle={entryTitle}
-                        onlySelected={false}
-                        onInstanceSelect={this.selectInstanceByTitle}
-                    />
-                </div>
-            </div>
+            <ComponentDemo
+                demoEntry={demoEntry}
+                selectedTitle={entryTitle}
+                onlySelected={false}
+                onInstanceSelect={this.selectInstanceByTitle}
+            />
         );
     }
 

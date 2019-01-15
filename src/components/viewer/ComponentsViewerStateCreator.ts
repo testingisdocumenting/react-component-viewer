@@ -19,7 +19,8 @@ export class ComponentsViewerStateCreator {
     }
 
     private static firstTitleByDemoName(registry: Registry, name: string) {
-        return registry.findByName(name).firstEntryTitle;
+        const demoEntry = registry.findByName(name);
+        return demoEntry ? demoEntry.firstEntryTitle : '';
     }
 
     constructor(registries: Registries) {
