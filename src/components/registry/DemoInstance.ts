@@ -1,5 +1,7 @@
+import * as React from 'react';
+
 export interface DemoInstance {
     title: string;
     description: string;
-    instance: JSX.Element;
+    component: React.ComponentType;
 }

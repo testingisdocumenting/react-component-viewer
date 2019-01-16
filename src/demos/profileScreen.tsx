@@ -9,5 +9,5 @@ export function DummyScreen() {
 }
 
 export function profileScreenDemo(registry: Registry) {
-    registry.add('', <DummyScreen/>);
+    registry.add('', () => <DummyScreen/>);
 }

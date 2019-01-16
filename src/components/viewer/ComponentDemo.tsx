@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { DemoEntry } from '../registry/DemoEntry';
 
+import { stateChangeListener } from '../state/StateChangeListeners';
+
 import './ComponentDemo.css';
 
 export interface Props {
@@ -11,7 +13,7 @@ export interface Props {
     onInstanceSelect: (name: string) => void;
 }
 
-class ComponentDemo extends React.PureComponent<Props> {
+class ComponentDemo extends React.Component<Props> {
     render() {
         const {demoEntry, onlySelected} = this.props;
 
@@ -22,6 +24,14 @@ class ComponentDemo extends React.PureComponent<Props> {
         } else {
             return this.renderInstances();
         }
+    }
+
+    componentDidMount() {
+        this.subscribeToSimulatedState();
+    }
+
+    componentWillUnmount() {
+        this.unsubscribeFromSimulatedState();
     }
 
     private renderMiniApp() {
@@ -40,7 +50,7 @@ class ComponentDemo extends React.PureComponent<Props> {
         const {demoEntry, selectedTitle} = this.props;
         const demoInstance = demoEntry.findByTitle(selectedTitle);
 
-        return demoInstance.instance;
+        return <demoInstance.component/>;
     }
 
     private renderInstances() {
@@ -63,6 +73,18 @@ class ComponentDemo extends React.PureComponent<Props> {
                 })}
             </div>
         );
+    }
+
+    private subscribeToSimulatedState() {
+        stateChangeListener.addListener(this.refresh);
+    }
+
+    private unsubscribeFromSimulatedState() {
+        stateChangeListener.removeListener(this.refresh);
+    }
+
+    private refresh = () => {
+        this.forceUpdate();
     }
 }
 

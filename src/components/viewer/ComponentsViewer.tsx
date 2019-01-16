@@ -134,7 +134,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         return this._stateCreator.stateFromUrl(document.location.search);
     }
 
-    updateStateFromUrl() {
+    updateStateFromUrl = () => {
         this.setState(this.stateFromUrl());
     }
 
@@ -143,10 +143,16 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         this.subscribeToUrlChanges();
     }
 
+    componentWillUnmount() {
+        this.unsubscribeFromUrlChanges();
+    }
+
     private subscribeToUrlChanges() {
-        window.addEventListener('popstate', () => {
-            this.updateStateFromUrl();
-        });
+        window.addEventListener('popstate', this.updateStateFromUrl);
+    }
+
+    private unsubscribeFromUrlChanges() {
+        window.removeEventListener('popstate', this.updateStateFromUrl);
     }
 
     private onFullScreenToggle = () => {

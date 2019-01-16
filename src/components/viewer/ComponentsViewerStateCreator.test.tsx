@@ -11,10 +11,10 @@ describe('ComponentsViewerStateCreator', () => {
 
     beforeAll(() => {
         registryA = new Registry('core');
-        registryA.registerSingle('FirstC', (registry => registry.add('title-c-a', <div/>)));
+        registryA.registerSingle('FirstC', (registry => registry.add('title-c-a', () => <div/>)));
 
         registryB = new Registry('widgets');
-        registryA.registerSingle('FirstW', (registry => registry.add('title-w-a', <div/>)));
+        registryA.registerSingle('FirstW', (registry => registry.add('title-w-a', () => <div/>)));
 
         registries = new Registries([registryA, registryB]);
     });

@@ -4,7 +4,7 @@ import * as React from 'react';
 export interface SingleLayoutItemProps {
     title: string;
     description?: string;
-    instance: JSX.Element;
+    component: React.ComponentType;
     isSelected: boolean;
     onSelect: (description: string) => void;
 }
@@ -30,7 +30,7 @@ export function AllItemsAtOnceLayoutBase({
                     key={demoInstance.title}
                     title={demoInstance.title}
                     description={demoInstance.description}
-                    instance={demoInstance.instance}
+                    component={demoInstance.component}
                     isSelected={selectedTitle === demoInstance.title}
                     onSelect={onSelect}
                 />
