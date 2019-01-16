@@ -5,5 +5,5 @@ const SideBySide = ({label}: {label: string}) => <div>Form {label}</div>;
 
 export function sideBySideDemo(registry: Registry) {
     registry
-        .add('state one', <SideBySide label="1"/>);
+        .add('state one', () => <SideBySide label="1"/>);
 }

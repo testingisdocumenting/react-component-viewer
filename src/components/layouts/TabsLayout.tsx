@@ -30,11 +30,11 @@ function TabsHeader({selectedTitle, demoInstancesGroup, onSelect}: LayoutProps) 
 }
 
 function SelectedTabContent({selectedTitle, demoInstancesGroup}: LayoutProps) {
-    const instance = demoInstancesGroup.findByTitle(selectedTitle);
+    const Component = demoInstancesGroup.findByTitle(selectedTitle);
 
     return (
         <div className="tab-content">
-            {instance}
+            <Component/>
         </div>
     );
 }

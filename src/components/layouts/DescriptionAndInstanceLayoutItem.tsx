@@ -8,7 +8,7 @@ export class DescriptionAndInstanceLayoutItem extends React.Component<SingleLayo
     render() {
         const {
             title,
-            instance,
+            component: Component,
             isSelected,
             onSelect
         } = this.props;
@@ -21,7 +21,7 @@ export class DescriptionAndInstanceLayoutItem extends React.Component<SingleLayo
                     {title}
                 </div>
                 <div className="rcw-demo-layout-instance">
-                    {instance}
+                    <Component/>
                 </div>
             </div>
         );

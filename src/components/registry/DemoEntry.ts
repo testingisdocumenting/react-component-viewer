@@ -6,12 +6,12 @@ import { DemoInstance } from './DemoInstance';
 
 export class DemoEntry {
     name: string;
-    layoutComponent: React.StatelessComponent<LayoutProps>;
+    layoutComponent: React.ComponentType<LayoutProps>;
     layoutOpts: object;
     demoInstances: DemoInstances;
     urlPrefix: string;
 
-    constructor(name: string, layoutInstance: React.StatelessComponent, urlPrefix: string, layoutOpts: object) {
+    constructor(name: string, layoutInstance: React.ComponentType<LayoutProps>, urlPrefix: string, layoutOpts: object) {
         this.name = name;
         this.layoutComponent = layoutInstance;
         this.urlPrefix = urlPrefix;
@@ -19,7 +19,7 @@ export class DemoEntry {
         this.demoInstances = new DemoInstances();
     }
 
-    add(title: string, description: string, instance: JSX.Element) {
+    add(title: string, description: string, instance: React.ComponentType) {
         this.demoInstances.add(title, description, instance);
     }
 

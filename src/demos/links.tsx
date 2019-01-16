@@ -6,8 +6,8 @@ const AnotherTestComponent = ({label}: {label: string}) => <div>Another TC: {lab
 
 export function linksDemo(registry: Registry) {
     registry
-        .add('state one', <TestComponent label="1"/>)
-        .add('state two', <TestComponent label="2"/>)
-        .add('state three', <AnotherTestComponent label="3"/>)
-        .add('state four', <AnotherTestComponent label="4"/>);
+        .add('state one', () => <TestComponent label="1"/>)
+        .add('state two', () => <TestComponent label="2"/>)
+        .add('state three', () => <AnotherTestComponent label="3"/>)
+        .add('state four', () => <AnotherTestComponent label="4"/>);
 }

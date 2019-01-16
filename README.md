@@ -45,15 +45,15 @@ It will work with your build system, the language of your choice and style proce
 
 # Demo functions
 
-Demo must be defined in a function that accepts `Registry` and adds instances to it.
+Demo must be defined in a function that accepts `Registry`. Function should register components to display.
 
 ```typescript
 export function buttonsDemo(registry: Registry) {
     registry
-        .add('enabled', <Button label="click me" onClick={onClick}/>,
+        .add('enabled', () => <Button label="click me" onClick={onClick}/>,
              `long description
              multiline markdown`)
-        .add('disabled', <Button label="click me" enabled={false} onClick={onClick}/>)
+        .add('disabled', () => <Button label="click me" enabled={false} onClick={onClick}/>)
 }
 ``` 
 

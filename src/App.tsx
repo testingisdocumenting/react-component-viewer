@@ -8,12 +8,14 @@ import { profileScreenDemo } from './demos/profileScreen';
 import { formsDemo } from './demos/forms';
 import { sideBySideDemo } from './demos/sideBySide';
 import { longContentDemo } from './demos/longContent';
+import { inputsDemo } from './demos/inputs';
 
 const widgets = new Registry('widgets');
 widgets
     .registerAsGrid('Links', 300, linksDemo)
     .registerAsTwoColumnTable('Forms', formsDemo)
     .registerAsTwoColumnTable('Buttons', buttonsDemo)
+    .registerAsRows('Inputs', inputsDemo)
     .registerAsTabs('Long Content', longContentDemo)
     .registerSingle('Single Screen', profileScreenDemo)
     .registerAsMiniApp('Single Screen mini app', '/app', profileScreenDemo);

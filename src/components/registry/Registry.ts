@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { DemoEntry } from './DemoEntry';
 import { GridLayout } from '../layouts/GridLayout';
 import { TabsLayout } from '../layouts/TabsLayout';
@@ -42,7 +44,7 @@ class Registry {
     }
 
     register(name: string,
-             layoutComponent: React.StatelessComponent<LayoutProps>,
+             layoutComponent: React.ComponentType<LayoutProps>,
              componentsRegistrator: (registry: Registry) => void,
              urlPrefix: string = '',
              layoutOpts: object = {}) {
@@ -75,9 +77,9 @@ class Registry {
         return this;
     }
 
-    add(title: string, componentInstance: JSX.Element, description: string = '') {
+    add(title: string, component: React.ComponentType, description: string = '') {
         if (this._currentDemo) {
-            this._currentDemo.add(title, description, componentInstance);
+            this._currentDemo.add(title, description, component);
         } else {
             throw new Error('call register method prior adding elements');
         }
