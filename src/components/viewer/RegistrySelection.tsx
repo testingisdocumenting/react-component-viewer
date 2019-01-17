@@ -12,10 +12,6 @@ export class RegistrySelection extends React.PureComponent<Props> {
     render() {
         const {names, selectedName, onSelect} = this.props;
 
-        if (names.length < 2) {
-            return null;
-        }
-
         return (
             <div className="rcw-registry-selection">
                 {names.map(name => {
