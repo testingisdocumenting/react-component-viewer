@@ -14,12 +14,12 @@ const queryParamNames = {
 export class ComponentsViewerStateCreator {
     private _registries: Registries;
 
-    private static firstDemoName(registry: Registry) {
-        return registry.names[0];
+    private static firstDemoName(registry: Registry | null) {
+        return registry ? registry.names[0] : '';
     }
 
-    private static firstTitleByDemoName(registry: Registry, name: string) {
-        const demoEntry = registry.findByName(name);
+    private static firstTitleByDemoName(registry: Registry | null, name: string) {
+        const demoEntry = registry ? registry.findByName(name) : null;
         return demoEntry ? demoEntry.firstEntryTitle : '';
     }
 
