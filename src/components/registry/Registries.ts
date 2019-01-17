@@ -17,13 +17,8 @@ export class Registries {
         return this._names;
     }
 
-    registryByName(name: string): Registry {
+    registryByName(name: string) {
         const found = this.registries.filter(r => r.name === name);
-
-        if (found.length === 0) {
-            throw new Error(`cannot find registry with ${name} name`);
-        }
-
-        return found.length ? found[0] : this.registries[0];
+        return found.length ? found[0] : null;
     }
 }

@@ -52,7 +52,8 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
             isFullScreen
         } = this.state;
 
-        const demoEntry = this.selectedRegistry.findByName(demoName);
+        const registry = this.findSelectedRegistry();
+        const demoEntry = registry ? registry.findByName(demoName) : null;
 
         const rendered = demoEntry && (demoEntry.isMiniApp() || isFullScreen) ?
             this.renderDemo(demoEntry, true) :
@@ -171,7 +172,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         this.pushUrl(this.state.registryName, this.state.demoName, title, this.state.isFullScreen);
     }
 
-    private get selectedRegistry(): Registry {
+    private findSelectedRegistry() {
         const {registryName} = this.state;
         return this._registries.registryByName(registryName);
     }
@@ -179,8 +180,11 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     private get demoNames() {
         const {filterText} = this.state;
 
-        return this.selectedRegistry.names.filter(name =>
-            name.toLocaleLowerCase().indexOf(filterText.toLowerCase()) >= 0);
+        const registry = this.findSelectedRegistry();
+
+        return registry ?
+            registry.names.filter(name => name.toLocaleLowerCase().indexOf(filterText.toLowerCase()) >= 0) :
+            [];
     }
 
     private pushUrl(registryName: string, demoName: string, entryTitle: string, isFullScreen: boolean) {
