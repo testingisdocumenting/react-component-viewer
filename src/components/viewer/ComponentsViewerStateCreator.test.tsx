@@ -28,7 +28,8 @@ describe('ComponentsViewerStateCreator', () => {
             demoName: 'FirstC',
             entryTitle: 'title-c-a',
             filterText: '',
-            isFullScreen: false
+            isFullScreen: false,
+            selectedToolbarItem: ''
         });
     });
 
