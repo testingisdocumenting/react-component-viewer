@@ -24,8 +24,24 @@ const layouts = new Registry('layouts');
 layouts
     .registerSingle('Side by Side', sideBySideDemo);
 
-export function App() {
-    return (
-        <ComponentsViewer registries={[widgets, layouts]}/>
-    );
+export class App extends React.Component {
+    render() {
+        return (
+            <ComponentsViewer
+                registries={[widgets, layouts]}
+                dropDown={{
+                    label: 'Brand',
+                    items: [
+                        {label: 'Brand-A'},
+                        {label: 'B-Brand'}
+                    ],
+                    onSelect: this.onBrandSelect
+                }}
+            />
+        );
+    }
+
+    private onBrandSelect(brand: string) {
+        console.log(brand);
+    }
 }

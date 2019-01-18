@@ -1,28 +1,46 @@
 import * as React from 'react';
 
-import './Toolbar.css';
 import { FullScreenIcon } from './FullScreenIcon';
+import { ToolbarDropDown } from './ToolbarDropDown';
+import { ToolbarDropDownItem } from './ToolbarDropDownItem';
 
-export interface ToolbarActions {
-    onFullScreen(): void;
-}
+import './Toolbar.css';
 
 export interface Props {
-    actions: ToolbarActions;
+    dropDownLabel?: string;
+    dropDownItems?: ToolbarDropDownItem[];
+    dropDownSelected?: string;
+    onDropDownItemSelection?(label: string): void;
+    onFullScreen(): void;
 }
 
 export class Toolbar extends React.PureComponent<Props> {
     render() {
+        const {dropDownLabel, dropDownItems, dropDownSelected, onFullScreen} = this.props;
+
         return (
             <div className="rcw-toolbar">
+                {dropDownItems && dropDownItems.length > 0 && <ToolbarDropDown
+                    label={dropDownLabel || ''}
+                    items={dropDownItems}
+                    selectedLabel={dropDownSelected}
+                    onItemSelection={this.onDropDownItemSelection}
+                />}
                 <div
                     className="rcw-toolbar-action"
                     title="Full Screen (Alt+F)"
-                    onClick={this.props.actions.onFullScreen}
+                    onClick={onFullScreen}
                 >
                     <FullScreenIcon/>
                 </div>
             </div>
         );
+    }
+
+    private onDropDownItemSelection = (label: string) => {
+        const {onDropDownItemSelection} = this.props;
+        if (onDropDownItemSelection) {
+            onDropDownItemSelection(label);
+        }
     }
 }

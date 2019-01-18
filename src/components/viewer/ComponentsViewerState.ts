@@ -4,4 +4,5 @@ export interface ComponentsViewerState {
     entryTitle: string;
     isFullScreen: boolean;
     filterText: string;
+    selectedToolbarItem: string;
 }

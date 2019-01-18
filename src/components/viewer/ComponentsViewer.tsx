@@ -9,7 +9,7 @@ import { ComponentDemo } from './ComponentDemo';
 import { RegistrySelection } from './RegistrySelection';
 import { TableOfContents } from './toc/TableOfContents';
 
-import { Toolbar, ToolbarActions } from './toolbar/Toolbar';
+import { Toolbar } from './toolbar/Toolbar';
 import { ComponentsViewerState } from './ComponentsViewerState';
 import { ComponentsViewerStateCreator } from './ComponentsViewerStateCreator';
 
@@ -18,19 +18,28 @@ import { DemoEntry } from '../registry/DemoEntry';
 import { GlobalHotKeysHandler } from '../hotkeys/GlobalHotKeysHandler';
 
 import { HotKeyBoundActions } from '../hotkeys/HotKeyBoundActions';
+import { ComponentViewerDropDownItem } from './ComponentViewerDropDownItem';
+
+import { ToolbarDropDownItem } from './toolbar/ToolbarDropDownItem';
+
+import { hotKeyFromString } from '../hotkeys/hotKeyBuilder';
+
+import { ComponentViewerDropDown } from './ComponentViewerDropDown';
 
 import './ComponentsViewer.css';
 
 export interface Props {
     registries: Registry[];
+    dropDown?: ComponentViewerDropDown;
 }
 
 class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     private _registries: Registries;
     private _stateCreator: ComponentsViewerStateCreator;
-    private _actions: ToolbarActions;
 
     private _hotKeyBoundActions: HotKeyBoundActions;
+
+    private _dropDownItems: ToolbarDropDownItem[];
 
     constructor(props: Props) {
         super(props);
@@ -40,10 +49,10 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         this._registries = new Registries(registries);
         this._stateCreator = new ComponentsViewerStateCreator(this._registries);
 
-        this._actions = {onFullScreen: this.onFullScreenToggle};
-
         this.state = this.stateFromUrl();
         this._hotKeyBoundActions = {'Alt F': this.onFullScreenToggle};
+
+        this._dropDownItems = props.dropDown ? convertDropDownItems(props.dropDown.items) : [];
     }
 
     render() {
@@ -67,10 +76,13 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     }
 
     renderSelectionPanelAndDemo(demoEntry: DemoEntry | null) {
+        const {dropDown} = this.props;
+
         const {
             registryName,
             demoName,
             filterText,
+            selectedToolbarItem
         } = this.state;
 
         return (
@@ -84,7 +96,13 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
                 </div>
 
                 <div className="rcw-toolbar-panel">
-                    <Toolbar actions={this._actions}/>
+                    <Toolbar
+                        onFullScreen={this.onFullScreenToggle}
+                        dropDownLabel={dropDown ? dropDown.label : undefined}
+                        dropDownSelected={selectedToolbarItem}
+                        dropDownItems={this._dropDownItems}
+                        onDropDownItemSelection={this.selectToolbarItem}
+                    />
                 </div>
 
                 <div className="rcw-search-box">
@@ -156,19 +174,54 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     }
 
     private onFullScreenToggle = () => {
-        this.pushUrl(this.state.registryName, this.state.demoName, this.state.entryTitle, !this.state.isFullScreen);
+        this.pushUrl(
+            this.state.registryName,
+            this.state.demoName,
+            this.state.entryTitle,
+            !this.state.isFullScreen,
+            this.state.selectedToolbarItem);
     }
 
     private selectRegistry = (registryName: string) => {
-        this.pushUrl(registryName, '', '', this.state.isFullScreen);
+        this.pushUrl(
+            registryName,
+            '',
+            '',
+            this.state.isFullScreen,
+            this.state.selectedToolbarItem);
     }
 
     private selectDemo = (demoName: string) => {
-        this.pushUrl(this.state.registryName, demoName, '', this.state.isFullScreen);
+        this.pushUrl(
+            this.state.registryName,
+            demoName,
+            '',
+            this.state.isFullScreen,
+            this.state.selectedToolbarItem);
     }
 
     private selectInstanceByTitle = (title: string) => {
-        this.pushUrl(this.state.registryName, this.state.demoName, title, this.state.isFullScreen);
+        this.pushUrl(
+            this.state.registryName,
+            this.state.demoName,
+            title,
+            this.state.isFullScreen,
+            this.state.selectedToolbarItem);
+    }
+
+    private selectToolbarItem = (label: string) => {
+        const {dropDown} = this.props;
+
+        this.pushUrl(
+            this.state.registryName,
+            this.state.demoName,
+            this.state.entryTitle,
+            this.state.isFullScreen,
+            label);
+
+        if (dropDown) {
+            dropDown.onSelect(label);
+        }
     }
 
     private get selectedRegistry(): Registry {
@@ -183,9 +236,15 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
             name.toLocaleLowerCase().indexOf(filterText.toLowerCase()) >= 0);
     }
 
-    private pushUrl(registryName: string, demoName: string, entryTitle: string, isFullScreen: boolean) {
+    private pushUrl(
+        registryName: string,
+        demoName: string,
+        entryTitle: string,
+        isFullScreen: boolean,
+        selectedToolbarItem: string
+    ) {
         const searchParams = this._stateCreator.buildUrlSearchParams(
-            {registryName, demoName, entryTitle, isFullScreen, filterText: ''});
+            {registryName, demoName, entryTitle, isFullScreen, selectedToolbarItem, filterText: ''});
         const newUrl = '?' + searchParams;
 
         window.history.pushState({}, '', newUrl);
@@ -195,6 +254,15 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     private onFilterTextChange = (e: React.FormEvent<HTMLInputElement>) => {
         this.setState({filterText: e.currentTarget.value});
     }
+}
+
+function convertDropDownItems(dropDownItems: ComponentViewerDropDownItem[]) {
+    return dropDownItems ?
+        dropDownItems.map(item => (
+            {
+                label: item.label,
+                hotKey: item.hotKey ? hotKeyFromString(item.hotKey) : undefined
+            })) : [];
 }
 
 export { ComponentsViewer };
