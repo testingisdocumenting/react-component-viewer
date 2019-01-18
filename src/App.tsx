@@ -42,6 +42,6 @@ export class App extends React.Component {
     }
 
     private onBrandSelect(brand: string) {
-        console.log(brand);
+        console.log('selected brand', brand);
     }
 }

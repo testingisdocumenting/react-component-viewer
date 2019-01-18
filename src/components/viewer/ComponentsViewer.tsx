@@ -149,17 +149,29 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         );
     }
 
+    componentDidMount() {
+        this.updateStateFromUrl(this.triggerDropDownSelection);
+        this.subscribeToUrlChanges();
+    }
+
     stateFromUrl() {
         return this._stateCreator.stateFromUrl(document.location.search);
     }
 
-    updateStateFromUrl = () => {
-        this.setState(this.stateFromUrl());
+    updateStateFromUrl = (callback?: () => void) => {
+        this.setState(this.stateFromUrl(), callback);
     }
 
-    componentDidMount() {
-        this.updateStateFromUrl();
-        this.subscribeToUrlChanges();
+    triggerDropDownSelection() {
+        const {dropDown} = this.props;
+        if (!dropDown) {
+            return;
+        }
+
+        const {selectedToolbarItem} = this.state;
+        if (selectedToolbarItem.length > 0) {
+            dropDown.onSelect(selectedToolbarItem);
+        }
     }
 
     componentWillUnmount() {
@@ -167,11 +179,11 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     }
 
     private subscribeToUrlChanges() {
-        window.addEventListener('popstate', this.updateStateFromUrl);
+        window.addEventListener('popstate', () => this.updateStateFromUrl());
     }
 
     private unsubscribeFromUrlChanges() {
-        window.removeEventListener('popstate', this.updateStateFromUrl);
+        window.removeEventListener('popstate', () => this.updateStateFromUrl());
     }
 
     private onFullScreenToggle = () => {
