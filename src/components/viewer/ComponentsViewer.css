@@ -1,5 +1,6 @@
 :root {
   --rcw-font-family: Verdana, serif;
+  --rcw-font-size: 14px;
   --rcw-primary-text-color: #555;
   --rcw-primary-background-color: #f2f2f2;
   --rcw-primary-border-color: #ddd;
@@ -8,6 +9,7 @@
   --rcw-secondary-background-color: #747780;
   --rcw-selected-background-color: #313149;
   --rcw-attention-text-color: #e38a59;
+  --rcw-drop-down-width: 200px;
 }
 
 body {
@@ -15,14 +17,15 @@ body {
 }
 
 .rcw-components-viewer {
-  font-size: 14px;
-
   display: grid;
 
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px 1fr auto;
   grid-template-rows: 28px 34px 1fr;
 
-  grid-template-areas: "registry-selection registry-selection tool-bar" "search-box preview preview" "toc preview preview";
+  grid-template-areas:
+          "registry-selection registry-selection tool-bar"
+          "search-box preview preview"
+          "toc preview preview";
 
   min-height: 100vh;
   max-height: 100vh;
@@ -32,6 +35,8 @@ body {
 
 .rcw-registry-selection-panel {
   grid-area: registry-selection;
+
+  font-size: var(--rcw-font-size);
   font-family: var(--rcw-font-family);
 
   border-bottom: 1px var(--rcw-secondary-border-color) solid;
@@ -39,6 +44,8 @@ body {
 
 .rcw-toolbar-panel {
   grid-area: tool-bar;
+
+  font-size: var(--rcw-font-size);
   font-family: var(--rcw-font-family);
 
   border-bottom: 1px var(--rcw-secondary-border-color) solid;
@@ -46,6 +53,8 @@ body {
 
 .rcw-search-box {
   grid-area: search-box;
+
+  font-size: var(--rcw-font-size);
   font-family: var(--rcw-font-family);
 
   border-right: 1px solid var(--rcw-primary-border-color);
@@ -65,6 +74,8 @@ body {
 
 .rcw-toc-panel {
   grid-area: toc;
+
+  font-size: var(--rcw-font-size);
   font-family: var(--rcw-font-family);
 
   background-color: var(--rcw-primary-background-color);

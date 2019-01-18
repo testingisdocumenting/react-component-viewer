@@ -8,7 +8,8 @@ const queryParamNames = {
     registryName: 'registryName',
     demoName: 'demoName',
     entryTitle: 'entryTitle',
-    isFullScreen: 'fullScreen'
+    isFullScreen: 'fullScreen',
+    selectedToolbarItem: 'toolbarItem'
 };
 
 export class ComponentsViewerStateCreator {
@@ -30,6 +31,8 @@ export class ComponentsViewerStateCreator {
     stateFromUrl(url: string): ComponentsViewerState {
         const searchParams = new URLSearchParams(url);
 
+        const selectedToolbarItem = searchParams.get(queryParamNames.selectedToolbarItem) || '';
+
         const miniAppByUrl = this.miniAppByUrl(url);
         if (miniAppByUrl) {
             return {
@@ -37,7 +40,8 @@ export class ComponentsViewerStateCreator {
                 demoName: miniAppByUrl.demoEntry.name,
                 entryTitle: miniAppByUrl.demoEntry.firstEntryTitle,
                 isFullScreen: true,
-                filterText: ''
+                filterText: '',
+                selectedToolbarItem
             };
         }
 
@@ -58,6 +62,7 @@ export class ComponentsViewerStateCreator {
             demoName,
             entryTitle,
             isFullScreen,
+            selectedToolbarItem,
             filterText: ''
         };
     }

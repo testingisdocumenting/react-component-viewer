@@ -28,7 +28,8 @@ describe('ComponentsViewerStateCreator', () => {
             demoName: 'FirstC',
             entryTitle: 'title-c-a',
             filterText: '',
-            isFullScreen: false
+            isFullScreen: false,
+            selectedToolbarItem: ''
         });
     });
 
@@ -46,7 +47,8 @@ describe('ComponentsViewerStateCreator', () => {
             demoName: 'demo-name',
             entryTitle: '',
             isFullScreen: true,
-            filterText: ''
+            filterText: '',
+            selectedToolbarItem: ''
         });
 
         expect(url).toEqual('registryName=core&demoName=demo-name&fullScreen=true');
