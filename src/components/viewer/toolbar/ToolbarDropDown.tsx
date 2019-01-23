@@ -2,15 +2,21 @@ import * as React from 'react';
 
 import { ToolbarDropDownItem } from './ToolbarDropDownItem';
 
-import './ToolbarDropDown.css';
 import { ToolbarDropDownSelectionPlacement } from './ToolbarDropDownSelectionPlacement';
+import { GlobalHotKeysHandler } from '../../hotkeys/GlobalHotKeysHandler';
+
+import { HotKeyBoundActions } from '../../hotkeys/HotKeyBoundActions';
+
+import { ToolbarDropDownSelectionItem } from './ToolbarDropDownSelectionItem';
+
+import './ToolbarDropDown.css';
 
 export interface Props {
     label: string;
     selectedLabel?: string;
     items: ToolbarDropDownItem[];
 
-    onItemSelection(label: string): void;
+    onItemSelect(label: string): void;
 }
 
 export interface State {
@@ -22,13 +28,15 @@ export class ToolbarDropDown extends React.Component<Props, State> {
         selectionVisible: false
     };
 
-    private _selectedLabelNode: HTMLElement;
+    private selectedLabelNode: HTMLElement;
 
     render() {
         const {label} = this.props;
 
         return (
             <div className="rcw-toolbar-drop-down">
+                <GlobalHotKeysHandler keyBoundActions={this.hotKeyBoundActions()}/>
+
                 <div className="rcw-toolbar-drop-down-label">{label}</div>
                 {this.renderSelected()}
                 {this.renderSelectionIfRequired()}
@@ -36,8 +44,19 @@ export class ToolbarDropDown extends React.Component<Props, State> {
         );
     }
 
+    private hotKeyBoundActions(): HotKeyBoundActions {
+        const result: HotKeyBoundActions = {};
+
+        const {items} = this.props;
+        items
+            .filter(item => !!item.hotKey)
+            .forEach(item => result[item.hotKey!] = () => this.onItemSelect(item.label));
+
+        return result;
+    }
+
     private saveSelectedLabelNode = (node: HTMLDivElement) => {
-        this._selectedLabelNode = node;
+        this.selectedLabelNode = node;
     }
 
     private renderSelectionIfRequired() {
@@ -51,29 +70,23 @@ export class ToolbarDropDown extends React.Component<Props, State> {
         const {items} = this.props;
 
         return (
-            <ToolbarDropDownSelectionPlacement parent={this._selectedLabelNode}>
+            <ToolbarDropDownSelectionPlacement parent={this.selectedLabelNode}>
                 <div className="rcw-toolbar-drop-down-selection">
-                    {items.map(item => (
-                        <div
-                            key={item.label}
-                            className="rcw-toolbar-drop-down-selection-item"
-                            onClick={() => this.onItemSelect(item.label)}
-                        >
-                            {item.label}
-                        </div>))}
+                    {items.map(item =>
+                        <ToolbarDropDownSelectionItem key={item.label} item={item} onItemSelect={this.onItemSelect}/>)}
                 </div>
             </ToolbarDropDownSelectionPlacement>
         );
     }
 
-    private onItemSelect(label: string) {
-        const {onItemSelection} = this.props;
+    private onItemSelect = (label: string) => {
+        const {onItemSelect} = this.props;
 
         this.setState({
             selectionVisible: false
         });
 
-        onItemSelection(label);
+        onItemSelect(label);
     }
 
     private renderSelected() {

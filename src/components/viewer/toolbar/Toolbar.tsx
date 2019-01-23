@@ -24,7 +24,7 @@ export class Toolbar extends React.PureComponent<Props> {
                     label={dropDownLabel || ''}
                     items={dropDownItems}
                     selectedLabel={dropDownSelected}
-                    onItemSelection={this.onDropDownItemSelection}
+                    onItemSelect={this.onDropDownItemSelection}
                 />}
                 <div
                     className="rcw-toolbar-action"

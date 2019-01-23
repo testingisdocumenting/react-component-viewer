@@ -1,7 +1,7 @@
-import { ComponentViewerDropDownItem } from './ComponentViewerDropDownItem';
+import { ToolbarDropDownItem } from './toolbar/ToolbarDropDownItem';
 
 export interface ComponentViewerDropDown {
     label: string;
-    items: ComponentViewerDropDownItem[];
+    items: ToolbarDropDownItem[];
     onSelect(label: string): void;
 }

@@ -1,0 +1,16 @@
+.rcw-toolbar-drop-down-selection-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rcw-toolbar-drop-down-selection-item-hotkey {
+    font-size: 12px;
+
+    margin-right: 4px;
+    margin-left: 4px;
+
+    padding: 3px;
+    border: 1px solid var(--rcw-secondary-border-color);
+    border-radius: 4px;
+}
