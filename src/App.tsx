@@ -32,8 +32,8 @@ export class App extends React.Component {
                 dropDown={{
                     label: 'Brand',
                     items: [
-                        {label: 'Brand-A'},
-                        {label: 'B-Brand'}
+                        {label: 'Brand-A', hotKey: 'Alt 1'},
+                        {label: 'B-Brand', hotKey: 'Alt 2'}
                     ],
                     onSelect: this.onBrandSelect
                 }}

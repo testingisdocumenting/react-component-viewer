@@ -1,6 +1,4 @@
-import { HotKey } from '../../hotkeys/HotKey';
-
 export interface ToolbarDropDownItem {
-    hotKey?: HotKey;
+    hotKey?: string;
     label: string;
 }
