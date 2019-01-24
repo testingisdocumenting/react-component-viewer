@@ -9,7 +9,11 @@ export function simulateState<T>(initial: T): [() => T, (v: T) => void] {
         () => holder.value,
         (newValue: T) => {
             holder.value = newValue;
-            stateChangeListener.notify();
+            refreshComponents();
         }
     ];
+}
+
+export function refreshComponents() {
+    stateChangeListener.notify();
 }
