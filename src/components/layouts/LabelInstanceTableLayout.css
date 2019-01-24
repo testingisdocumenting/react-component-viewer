@@ -1,17 +1,17 @@
-.rcw-label-instance-table-layout {
+.rcv-label-instance-table-layout {
     display: flex;
     flex-direction: column;
 }
 
-.rcw-label-instance-table-layout .rcw-demo-layout-item {
+.rcv-label-instance-table-layout .rcv-demo-layout-item {
     display: flex;
     flex-direction: row;
     margin-right: 20px;
     padding-bottom: 20px;
 }
 
-.rcw-label-instance-table-layout .rcw-demo-layout-item-title {
-    font-family: var(--rcw-font-family);
+.rcv-label-instance-table-layout .rcv-demo-layout-item-title {
+    font-family: var(--rcv-font-family);
 
     padding-right: 10px;
     margin-right: 10px;
@@ -20,6 +20,6 @@
     cursor: pointer;
 }
 
-.rcw-label-instance-table-layout .rcw-demo-layout-item-title.selected {
+.rcv-label-instance-table-layout .rcv-demo-layout-item-title.selected {
     font-weight: bold;
 }

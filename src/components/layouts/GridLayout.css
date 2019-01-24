@@ -1,15 +1,15 @@
-.rcw-grid-layout {
+.rcv-grid-layout {
     display: grid;
     grid-gap: 20px;
 }
 
-.rcw-grid-layout .rcw-demo-layout-item {
+.rcv-grid-layout .rcv-demo-layout-item {
     display: flex;
     flex-direction: column;
 }
 
-.rcw-grid-layout .rcw-demo-layout-item-title {
-    font-family: var(--rcw-font-family);
+.rcv-grid-layout .rcv-demo-layout-item-title {
+    font-family: var(--rcv-font-family);
     font-size: 12px;
 
     padding-bottom: 2px;
@@ -18,7 +18,7 @@
     cursor: pointer;
 }
 
-.rcw-grid-layout .rcw-demo-layout-item-title.selected {
+.rcv-grid-layout .rcv-demo-layout-item-title.selected {
     font-weight: bold;
 }
 

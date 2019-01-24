@@ -1,16 +1,16 @@
-.rcw-registry-selection {
+.rcv-registry-selection {
   display: flex;
   align-items: center;
   height: 100%;
 }
 
-.rcw-registry-selection-tab {
-  color: var(--rcw-secondary-text-color);
+.rcv-registry-selection-tab {
+  color: var(--rcv-secondary-text-color);
   padding: 0 15px;
 
   cursor: pointer;
 }
 
-.rcw-registry-selection-tab.selected {
-  color: var(--rcw-attention-text-color);
+.rcv-registry-selection-tab.selected {
+  color: var(--rcv-attention-text-color);
 }

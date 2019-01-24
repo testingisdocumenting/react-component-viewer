@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import './ToolbarDropDownSelectionPlacement.css';
 
-const selectionId = 'rcw-toolbar-drop-down-selection-placement';
+const selectionId = 'rcv-toolbar-drop-down-selection-placement';
 
 export interface Props {
     parent: HTMLElement;

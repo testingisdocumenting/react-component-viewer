@@ -4,7 +4,7 @@ import { LayoutProps } from './LayoutProps';
 export function SingleItemLayout({selectedTitle, demoInstancesGroup}: LayoutProps) {
     const Component = demoInstancesGroup.data[0].component;
     return (
-        <div className="rcw-single-item-layout">
+        <div className="rcv-single-item-layout">
             <Component/>
         </div>
     );

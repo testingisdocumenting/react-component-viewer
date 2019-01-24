@@ -1,11 +1,11 @@
-.rcw-toolbar {
+.rcv-toolbar {
     display: flex;
     align-items: center;
     height: 100%;
     margin-right: 20px;
 }
 
-.rcw-toolbar-action {
+.rcv-toolbar-action {
     line-height: 1;
     cursor: pointer;
 }

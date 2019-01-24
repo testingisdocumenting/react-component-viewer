@@ -15,7 +15,7 @@ export class TableOfContents extends React.PureComponent<TocProps> {
         const {names, selectedName, onSelect} = this.props;
 
         return (
-            <div className="rcw-toc">
+            <div className="rcv-toc">
                 {names.map(name => {
                     const isSelected = selectedName === name;
 

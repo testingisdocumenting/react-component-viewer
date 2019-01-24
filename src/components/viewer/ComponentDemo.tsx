@@ -57,11 +57,11 @@ class ComponentDemo extends React.Component<Props> {
         const {demoEntry, selectedTitle, onInstanceSelect} = this.props;
 
         return (
-            <div className="rcw-component-demo">
+            <div className="rcv-component-demo">
                 {demoEntry.demoInstances.groups.map((group, idx) => {
                     return (
-                        <div key={idx} className="rcw-component-group-with-description">
-                            <div className="rcw-component-group-description">{group.description}</div>
+                        <div key={idx} className="rcv-component-group-with-description">
+                            <div className="rcv-component-group-description">{group.description}</div>
                             <demoEntry.layoutComponent
                                 selectedTitle={selectedTitle}
                                 demoInstancesGroup={group}

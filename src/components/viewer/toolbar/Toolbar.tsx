@@ -19,7 +19,7 @@ export class Toolbar extends React.PureComponent<Props> {
         const {dropDownLabel, dropDownItems, dropDownSelected, onFullScreen} = this.props;
 
         return (
-            <div className="rcw-toolbar">
+            <div className="rcv-toolbar">
                 {dropDownItems && dropDownItems.length > 0 && <ToolbarDropDown
                     label={dropDownLabel || ''}
                     items={dropDownItems}
@@ -27,7 +27,7 @@ export class Toolbar extends React.PureComponent<Props> {
                     onItemSelect={this.onDropDownItemSelection}
                 />}
                 <div
-                    className="rcw-toolbar-action"
+                    className="rcv-toolbar-action"
                     title="Full Screen (Alt+F)"
                     onClick={onFullScreen}
                 >

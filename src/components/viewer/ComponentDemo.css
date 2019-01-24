@@ -1,5 +1,5 @@
-.rcw-component-group-description {
-    font-family: var(--rcw-font-family);
-    color: var(--rcw-primary-text-color);
+.rcv-component-group-description {
+    font-family: var(--rcv-font-family);
+    color: var(--rcv-primary-text-color);
     margin-bottom: 10px;
 }
