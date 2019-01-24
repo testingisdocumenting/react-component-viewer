@@ -78,8 +78,8 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         } = this.state;
 
         return (
-            <div className="rcw-components-viewer">
-                <div className="rcw-registry-selection-panel">
+            <div className="rcv-components-viewer">
+                <div className="rcv-registry-selection-panel">
                     <RegistrySelection
                         names={this.registries.names}
                         selectedName={registryName}
@@ -87,7 +87,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
                     />
                 </div>
 
-                <div className="rcw-toolbar-panel">
+                <div className="rcv-toolbar-panel">
                     <Toolbar
                         onFullScreen={this.onFullScreenToggle}
                         dropDownLabel={dropDown ? dropDown.label : undefined}
@@ -97,16 +97,16 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
                     />
                 </div>
 
-                <div className="rcw-search-box">
+                <div className="rcv-search-box">
                     <input
-                        className="rcw-search-box-input"
+                        className="rcv-search-box-input"
                         value={filterText}
                         placeholder="filter by demo name..."
                         onChange={this.onFilterTextChange}
                     />
                 </div>
 
-                <div className="rcw-toc-panel">
+                <div className="rcv-toc-panel">
                     <TableOfContents
                         names={this.demoNames}
                         selectedName={demoName}
@@ -114,7 +114,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
                     />
                 </div>
 
-                <div className="rcw-preview">
+                <div className="rcv-preview">
                     {this.renderDemo(demoEntry, false)}
                 </div>
             </div>

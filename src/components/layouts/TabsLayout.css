@@ -1,6 +1,6 @@
-.rcw-tabs-layout-tabs-header {
+.rcv-tabs-layout-tabs-header {
     display: flex;
-    font-family: var(--rcw-font-family);
+    font-family: var(--rcv-font-family);
 
     background-color: #f5f5f5;
 
@@ -8,7 +8,7 @@
     margin-bottom: 5px;
 }
 
-.rcw-tabs-layout-tab-header {
+.rcv-tabs-layout-tab-header {
     display: flex;
 
     color: #999;
@@ -17,7 +17,7 @@
     cursor: pointer;
 }
 
-.rcw-tabs-layout-tab-header.selected {
+.rcv-tabs-layout-tab-header.selected {
     color: #222;
 
     border-bottom: 1px solid #000;

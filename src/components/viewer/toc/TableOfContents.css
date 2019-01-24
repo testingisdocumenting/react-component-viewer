@@ -1,21 +1,21 @@
-.rcw-toc {
+.rcv-toc {
   display: flex;
   flex-direction: column;
 }
 
-.rcw-toc-entry-name {
+.rcv-toc-entry-name {
   flex-shrink: 0;
   font-size: 14px;
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
   padding: 8px 15px;
-  border-bottom: 1px solid var(--rcw-primary-border-color);
-  color: var(--rcw-primary-text-color);
+  border-bottom: 1px solid var(--rcv-primary-border-color);
+  color: var(--rcv-primary-text-color);
   cursor: pointer;
 }
 
-.rcw-toc-entry-name.selected {
-  border-left: 4px solid var(--rcw-primary-text-color);
+.rcv-toc-entry-name.selected {
+  border-left: 4px solid var(--rcv-primary-text-color);
   font-weight: bold;
 }

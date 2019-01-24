@@ -13,14 +13,14 @@ export class DescriptionAndInstanceLayoutItem extends React.Component<SingleLayo
             onSelect
         } = this.props;
 
-        const titleClassName = 'rcw-demo-layout-item-title' + (isSelected ? ' selected' : '');
+        const titleClassName = 'rcv-demo-layout-item-title' + (isSelected ? ' selected' : '');
 
         return (
-            <div className="rcw-demo-layout-item" ref={this.saveNodeRef}>
+            <div className="rcv-demo-layout-item" ref={this.saveNodeRef}>
                 <div className={titleClassName} onClick={() => onSelect(title)}>
                     {title}
                 </div>
-                <div className="rcw-demo-layout-instance">
+                <div className="rcv-demo-layout-instance">
                     <Component/>
                 </div>
             </div>

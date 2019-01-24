@@ -9,7 +9,7 @@ export interface TocItemProps {
 export class TocItem extends React.PureComponent<TocItemProps> {
     render() {
         const {name, isSelected, onSelect} = this.props;
-        const className = 'rcw-toc-entry-name' + (isSelected ? ' selected' : '');
+        const className = 'rcv-toc-entry-name' + (isSelected ? ' selected' : '');
 
         return (
             <div key={name} className={className} onClick={() => onSelect(name)}>

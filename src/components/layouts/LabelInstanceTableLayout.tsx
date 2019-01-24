@@ -10,7 +10,7 @@ import './LabelInstanceTableLayout.css';
 export function LabelInstanceTableLayout({selectedTitle, demoInstancesGroup, onSelect}: LayoutProps) {
     return (
         <AllItemsAtOnceLayoutBase
-            topLevelClassName="rcw-label-instance-table-layout"
+            topLevelClassName="rcv-label-instance-table-layout"
             selectedTitle={selectedTitle}
             demoInstancesGroup={demoInstancesGroup}
             onSelect={onSelect}

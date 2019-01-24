@@ -34,10 +34,10 @@ export class ToolbarDropDown extends React.Component<Props, State> {
         const {label} = this.props;
 
         return (
-            <div className="rcw-toolbar-drop-down">
+            <div className="rcv-toolbar-drop-down">
                 <GlobalHotKeysHandler keyBoundActions={this.hotKeyBoundActions()}/>
 
-                <div className="rcw-toolbar-drop-down-label">{label}</div>
+                <div className="rcv-toolbar-drop-down-label">{label}</div>
                 {this.renderSelected()}
                 {this.renderSelectionIfRequired()}
             </div>
@@ -71,7 +71,7 @@ export class ToolbarDropDown extends React.Component<Props, State> {
 
         return (
             <ToolbarDropDownSelectionPlacement parent={this.selectedLabelNode}>
-                <div className="rcw-toolbar-drop-down-selection">
+                <div className="rcv-toolbar-drop-down-selection">
                     {items.map(item =>
                         <ToolbarDropDownSelectionItem key={item.label} item={item} onItemSelect={this.onItemSelect}/>)}
                 </div>
@@ -95,7 +95,7 @@ export class ToolbarDropDown extends React.Component<Props, State> {
         const labelToRender = selectedLabel ? selectedLabel : 'Select...';
         return (
             <div
-                className="rcw-toolbar-drop-down-selected-label"
+                className="rcv-toolbar-drop-down-selected-label"
                 ref={this.saveSelectedLabelNode}
                 onClick={this.toggleSelection}
             >

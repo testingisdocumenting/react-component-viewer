@@ -23,7 +23,7 @@ export function GridLayout({selectedTitle, demoInstancesGroup, layoutOpts, onSel
     return (
         <AllItemsAtOnceLayoutBase
             style={style}
-            topLevelClassName="rcw-grid-layout"
+            topLevelClassName="rcv-grid-layout"
             selectedTitle={selectedTitle}
             demoInstancesGroup={demoInstancesGroup}
             onSelect={onSelect}
