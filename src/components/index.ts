@@ -6,7 +6,7 @@ import { GridLayout } from './layouts/GridLayout';
 import { TabsLayout } from './layouts/TabsLayout';
 import { LayoutProps } from './layouts/LayoutProps';
 
-import { simulateState } from './state/stateSimulation';
+import { simulateState, refreshComponents } from './state/stateSimulation';
 
 export {
     Registry,
@@ -16,5 +16,6 @@ export {
     LayoutProps,
     GridLayout,
     TabsLayout,
-    simulateState
+    simulateState,
+    refreshComponents
 };
