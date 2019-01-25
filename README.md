@@ -1,7 +1,7 @@
 # Installation
 
 ```
-npm install react-components-viewer --save-dev 
+npm install react-component-viewer --save-dev 
 ```
 
 # React Components Viewer
