@@ -1,4 +1,4 @@
-export interface ComponentsViewerState {
+export interface ComponentViewerState {
     registryName: string;
     demoName: string;
     entryTitle: string;

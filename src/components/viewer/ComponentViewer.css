@@ -16,7 +16,7 @@ body {
   margin: 0;
 }
 
-.rcv-components-viewer {
+.rcv-component-viewer {
   display: grid;
 
   grid-template-columns: 280px 1fr auto;

@@ -1,17 +1,17 @@
 {
   "name": "react-component-viewer",
   "version": "0.11.0",
-  "description": "components viewer for UI library development",
+  "description": "React Component to help with development of other React components",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MykolaGolubyev/react-components-viewer.git"
+    "url": "git+https://github.com/MykolaGolubyev/react-component-viewer.git"
   },
   "author": "mykolagolubyev",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/MykolaGolubyev/react-components-viewer/issues"
+    "url": "https://github.com/MykolaGolubyev/react-component-viewer/issues"
   },
-  "homepage": "https://github.com/MykolaGolubyev/react-components-viewer#readme",
+  "homepage": "https://github.com/MykolaGolubyev/react-component-viewer#readme",
   "private": false,
   "main": "build/lib/components/index.js",
   "types": "build/lib/components/index.d.ts",
