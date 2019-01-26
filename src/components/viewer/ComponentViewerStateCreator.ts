@@ -1,6 +1,6 @@
 import 'url-search-params-polyfill';
 
-import { ComponentsViewerState } from './ComponentsViewerState';
+import { ComponentViewerState } from './ComponentViewerState';
 import { Registry, Registries } from '../';
 import { DemoEntryAndRegistry } from '../registry/DemoEntryAndRegistry';
 
@@ -12,7 +12,7 @@ const queryParamNames = {
     selectedToolbarItem: 'toolbarItem'
 };
 
-export class ComponentsViewerStateCreator {
+export class ComponentViewerStateCreator {
     private _registries: Registries;
 
     private static firstDemoName(registry: Registry | null) {
@@ -28,7 +28,7 @@ export class ComponentsViewerStateCreator {
         this._registries = registries;
     }
 
-    stateFromUrl(url: string): ComponentsViewerState {
+    stateFromUrl(url: string): ComponentViewerState {
         const searchParams = new URLSearchParams(url);
 
         const selectedToolbarItem = searchParams.get(queryParamNames.selectedToolbarItem) || '';
@@ -49,10 +49,10 @@ export class ComponentsViewerStateCreator {
         const registry = this._registries.registryByName(registryName);
 
         const demoName = searchParams.get(queryParamNames.demoName) ||
-            ComponentsViewerStateCreator.firstDemoName(registry);
+            ComponentViewerStateCreator.firstDemoName(registry);
 
         const entryTitle = searchParams.get(queryParamNames.entryTitle) ||
-            ComponentsViewerStateCreator.firstTitleByDemoName(registry, demoName);
+            ComponentViewerStateCreator.firstTitleByDemoName(registry, demoName);
 
         const fullScreenValue = searchParams.get(queryParamNames.isFullScreen) || 'false';
         const isFullScreen = fullScreenValue === 'true';
@@ -67,7 +67,7 @@ export class ComponentsViewerStateCreator {
         };
     }
 
-    buildUrlSearchParams(state: ComponentsViewerState): string {
+    buildUrlSearchParams(state: ComponentViewerState): string {
         const searchParams = new URLSearchParams();
 
         Object.keys(state).forEach(k => {

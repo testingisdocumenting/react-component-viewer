@@ -1,10 +1,10 @@
 # Installation
 
 ```
-npm install react-components-viewer --save-dev 
+npm install react-component-viewer --save-dev 
 ```
 
-# React Components Viewer
+# React Component Viewer
 
 Is a React component to preview and develop your components.
 Use it in your CRA created app as a demo app.
@@ -12,7 +12,7 @@ Use it in your CRA created app as a demo app.
 ```typescript 
 import * as React from 'react';
 
-import { Registry, ComponentsViewer } from 'react-components-viewer';
+import { Registry, ComponentViewer } from 'react-component-viewer';
 
 import { buttonsDemo } from './demos/buttons';
 import { linksDemo } from './demos/links';
@@ -34,7 +34,7 @@ layouts
 
 export function App() {
     return (
-        <ComponentsViewer registries={[widgets, layouts]}/>
+        <ComponentViewer registries={[widgets, layouts]}/>
     );
 }
 ```

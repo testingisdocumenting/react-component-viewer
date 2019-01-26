@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { Registries, Registry } from '../';
-import { ComponentsViewerStateCreator } from './ComponentsViewerStateCreator';
+import { ComponentViewerStateCreator } from './ComponentViewerStateCreator';
 
-describe('ComponentsViewerStateCreator', () => {
+describe('ComponentViewerStateCreator', () => {
     let registryA: Registry;
     let registryB: Registry ;
 
@@ -20,7 +20,7 @@ describe('ComponentsViewerStateCreator', () => {
     });
 
     it('should pick the first registry, first demo and demo entry if url has no query params', () => {
-        const stateCreator = new ComponentsViewerStateCreator(registries);
+        const stateCreator = new ComponentViewerStateCreator(registries);
         const state = stateCreator.stateFromUrl('/path');
 
         expect(state).toEqual({
@@ -34,14 +34,14 @@ describe('ComponentsViewerStateCreator', () => {
     });
 
     it('should take fullscreen state from url', () => {
-        const stateCreator = new ComponentsViewerStateCreator(registries);
+        const stateCreator = new ComponentViewerStateCreator(registries);
         const state = stateCreator.stateFromUrl('fullScreen=true');
 
         expect(state.isFullScreen).toEqual(true);
     });
 
     it('should build url search params based on state', () => {
-        const stateCreator = new ComponentsViewerStateCreator(registries);
+        const stateCreator = new ComponentViewerStateCreator(registries);
         const url = stateCreator.buildUrlSearchParams({
             registryName: 'core',
             demoName: 'demo-name',

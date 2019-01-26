@@ -10,8 +10,8 @@ import { RegistrySelection } from './RegistrySelection';
 import { TableOfContents } from './toc/TableOfContents';
 
 import { Toolbar } from './toolbar/Toolbar';
-import { ComponentsViewerState } from './ComponentsViewerState';
-import { ComponentsViewerStateCreator } from './ComponentsViewerStateCreator';
+import { ComponentViewerState } from './ComponentViewerState';
+import { ComponentViewerStateCreator } from './ComponentViewerStateCreator';
 
 import { DemoEntry } from '../registry/DemoEntry';
 
@@ -21,16 +21,16 @@ import { HotKeyBoundActions } from '../hotkeys/HotKeyBoundActions';
 
 import { ComponentViewerDropDown } from './ComponentViewerDropDown';
 
-import './ComponentsViewer.css';
+import './ComponentViewer.css';
 
 export interface Props {
     registries: Registry[];
     dropDown?: ComponentViewerDropDown;
 }
 
-class ComponentsViewer extends Component<Props, ComponentsViewerState> {
+class ComponentViewer extends Component<Props, ComponentViewerState> {
     private registries: Registries;
-    private stateCreator: ComponentsViewerStateCreator;
+    private stateCreator: ComponentViewerStateCreator;
 
     private hotKeyBoundActions: HotKeyBoundActions;
 
@@ -40,7 +40,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         const {registries} = this.props;
 
         this.registries = new Registries(registries);
-        this.stateCreator = new ComponentsViewerStateCreator(this.registries);
+        this.stateCreator = new ComponentViewerStateCreator(this.registries);
 
         this.state = this.stateFromUrl();
         this.hotKeyBoundActions = {'Alt F': this.onFullScreenToggle};
@@ -78,7 +78,7 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
         } = this.state;
 
         return (
-            <div className="rcv-components-viewer">
+            <div className="rcv-component-viewer">
                 <div className="rcv-registry-selection-panel">
                     <RegistrySelection
                         names={this.registries.names}
@@ -263,4 +263,4 @@ class ComponentsViewer extends Component<Props, ComponentsViewerState> {
     }
 }
 
-export { ComponentsViewer };
+export { ComponentViewer };

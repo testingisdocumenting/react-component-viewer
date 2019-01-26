@@ -18,34 +18,34 @@ class Registry {
         this.name = name;
     }
 
-    registerAsGrid(name: string, minWidth: number, componentsRegistrator: (registry: Registry) => void) {
-        return this.register(name, GridLayout, componentsRegistrator, '', {minWidth});
+    registerAsGrid(name: string, minWidth: number, componentRegistrator: (registry: Registry) => void) {
+        return this.register(name, GridLayout, componentRegistrator, '', {minWidth});
     }
 
-    registerAsRows(name: string, componentsRegistrator: (registry: Registry) => void) {
-        return this.register(name, GridLayout, componentsRegistrator, '', {minWidth: 0});
+    registerAsRows(name: string, componentRegistrator: (registry: Registry) => void) {
+        return this.register(name, GridLayout, componentRegistrator, '', {minWidth: 0});
     }
 
-    registerAsTabs(name: string, componentsRegistrator: (registry: Registry) => void) {
-        return this.register(name, TabsLayout, componentsRegistrator);
+    registerAsTabs(name: string, componentRegistrator: (registry: Registry) => void) {
+        return this.register(name, TabsLayout, componentRegistrator);
     }
 
-    registerAsTwoColumnTable(name: string, componentsRegistrator: (registry: Registry) => void) {
-        return this.register(name, LabelInstanceTableLayout, componentsRegistrator);
+    registerAsTwoColumnTable(name: string, componentRegistrator: (registry: Registry) => void) {
+        return this.register(name, LabelInstanceTableLayout, componentRegistrator);
     }
 
-    registerSingle(name: string, componentsRegistrator: (registry: Registry) => void) {
-        this.register(name, SingleItemLayout, componentsRegistrator);
+    registerSingle(name: string, componentRegistrator: (registry: Registry) => void) {
+        this.register(name, SingleItemLayout, componentRegistrator);
         return this;
     }
 
-    registerAsMiniApp(name: string, urlPrefix: string, componentsRegistrator: (registry: Registry) => void) {
-        this.register(name, SingleItemLayout, componentsRegistrator, urlPrefix);
+    registerAsMiniApp(name: string, urlPrefix: string, componentRegistrator: (registry: Registry) => void) {
+        this.register(name, SingleItemLayout, componentRegistrator, urlPrefix);
     }
 
     register(name: string,
              layoutComponent: React.ComponentType<LayoutProps>,
-             componentsRegistrator: (registry: Registry) => void,
+             componentRegistrator: (registry: Registry) => void,
              urlPrefix: string = '',
              layoutOpts: object = {}) {
 
@@ -58,7 +58,7 @@ class Registry {
 
         this._usedNames.push(name);
 
-        componentsRegistrator(this);
+        componentRegistrator(this);
 
         return this;
     }

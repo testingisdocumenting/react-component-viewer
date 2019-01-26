@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Registry } from './components';
-import { ComponentsViewer } from './components';
+import { ComponentViewer } from './components';
 import { buttonsDemo } from './demos/buttons';
 import { linksDemo } from './demos/links';
 import { profileScreenDemo } from './demos/profileScreen';
@@ -27,7 +27,7 @@ layouts
 export class App extends React.Component {
     render() {
         return (
-            <ComponentsViewer
+            <ComponentViewer
                 registries={[widgets, layouts]}
                 dropDown={{
                     label: 'Brand',
