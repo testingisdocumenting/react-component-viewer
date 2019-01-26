@@ -29,10 +29,10 @@ export interface Props {
 }
 
 class ComponentViewer extends Component<Props, ComponentViewerState> {
-    private registries: Registries;
-    private stateCreator: ComponentViewerStateCreator;
+    private readonly registries: Registries;
+    private readonly hotKeyBoundActions: HotKeyBoundActions;
 
-    private hotKeyBoundActions: HotKeyBoundActions;
+    private stateCreator: ComponentViewerStateCreator;
 
     constructor(props: Props) {
         super(props);
@@ -43,7 +43,9 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         this.stateCreator = new ComponentViewerStateCreator(this.registries);
 
         this.state = this.stateFromUrl();
-        this.hotKeyBoundActions = {'Alt F': this.onFullScreenToggle};
+        this.hotKeyBoundActions = {
+            'Alt F': this.onFullScreenToggle,
+            ...this.dropDownKeyBoundActions()};
     }
 
     render() {
@@ -167,6 +169,21 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
 
     componentWillUnmount() {
         this.unsubscribeFromUrlChanges();
+    }
+
+    private dropDownKeyBoundActions() {
+        const result: HotKeyBoundActions = {};
+
+        const {dropDown} = this.props;
+        if (!dropDown) {
+            return result;
+        }
+
+        dropDown.items
+            .filter(item => !!item.hotKey)
+            .forEach(item => result[item.hotKey!] = () => this.selectToolbarItem(item.label));
+
+        return result;
     }
 
     private subscribeToUrlChanges() {
