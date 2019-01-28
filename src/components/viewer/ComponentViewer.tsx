@@ -45,7 +45,8 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         this.state = this.stateFromUrl();
         this.hotKeyBoundActions = {
             'Alt F': this.onFullScreenToggle,
-            ...this.dropDownKeyBoundActions()};
+            ...this.dropDownKeyBoundActions()
+        };
     }
 
     render() {

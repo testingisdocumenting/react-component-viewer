@@ -6,16 +6,24 @@ import { TabsLayout } from '../layouts/TabsLayout';
 import { LayoutProps } from '../layouts/LayoutProps';
 import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
 import { SingleItemLayout } from '../layouts/SingleItemLayout';
+import { wrapComponent } from './componentWrapper';
+
+export interface RegistryConfig {
+    componentWrapper?: React.ComponentType;
+}
 
 class Registry {
-    name: string;
-    _usedNames: string[] = [];
+    private readonly config?: RegistryConfig;
+    private readonly usedNames: string[] = [];
+    private readonly demoEntries: DemoEntry[] = [];
 
-    _demoEntries: DemoEntry[] = [];
-    _currentDemo?: DemoEntry;
+    private currentDemo?: DemoEntry;
 
-    constructor(name: string) {
+    readonly name: string;
+
+    constructor(name: string, config?: RegistryConfig) {
         this.name = name;
+        this.config = config;
     }
 
     registerAsGrid(name: string, minWidth: number, componentRegistrator: (registry: Registry) => void) {
@@ -49,14 +57,14 @@ class Registry {
              urlPrefix: string = '',
              layoutOpts: object = {}) {
 
-        if (this._usedNames.indexOf(name) !== -1) {
+        if (this.usedNames.indexOf(name) !== -1) {
             throw new Error(`name ${name} was already used`);
         }
 
-        this._currentDemo = new DemoEntry(name, layoutComponent, urlPrefix, layoutOpts);
-        this._demoEntries.push(this._currentDemo);
+        this.currentDemo = new DemoEntry(name, layoutComponent, urlPrefix, layoutOpts);
+        this.demoEntries.push(this.currentDemo);
 
-        this._usedNames.push(name);
+        this.usedNames.push(name);
 
         componentRegistrator(this);
 
@@ -64,12 +72,12 @@ class Registry {
     }
 
     get names(): string[] {
-        return this._usedNames;
+        return this.usedNames;
     }
 
     description(markdown: string) {
-        if (this._currentDemo) {
-            this._currentDemo.description(markdown);
+        if (this.currentDemo) {
+            this.currentDemo.description(markdown);
         } else {
             throw new Error('call register method prior setting the description');
         }
@@ -78,8 +86,12 @@ class Registry {
     }
 
     add(title: string, component: React.ComponentType, description: string = '') {
-        if (this._currentDemo) {
-            this._currentDemo.add(title, description, component);
+        const componentToRegister = this.config && this.config.componentWrapper ?
+            wrapComponent(this.config.componentWrapper, component) :
+            component;
+
+        if (this.currentDemo) {
+            this.currentDemo.add(title, description, componentToRegister);
         } else {
             throw new Error('call register method prior adding elements');
         }
@@ -88,14 +100,14 @@ class Registry {
     }
 
     firstMiniAppByUrl(url: string): DemoEntry | null {
-        const byUrl = this._demoEntries
+        const byUrl = this.demoEntries
             .filter(entry => entry.isMiniApp() && url.startsWith(entry.urlPrefix));
 
         return byUrl.length > 0 ? byUrl[0] : null;
     }
 
     findByName(name: string): DemoEntry | null {
-        const byName = this._demoEntries
+        const byName = this.demoEntries
             .filter(entry => entry.name === name);
 
         if (byName.length === 0) {
