@@ -10,7 +10,7 @@ import { sideBySideDemo } from './demos/sideBySide';
 import { longContentDemo } from './demos/longContent';
 import { inputsDemo } from './demos/inputs';
 
-const widgets = new Registry('widgets');
+const widgets = new Registry('widgets', {componentWrapper: DemoWrapper});
 widgets
     .registerAsGrid('Links', 300, linksDemo)
     .registerAsTwoColumnTable('Forms', formsDemo)
@@ -44,4 +44,16 @@ export class App extends React.Component {
     private onBrandSelect(brand: string) {
         console.log('selected brand', brand);
     }
+}
+
+interface Props {
+    children: JSX.Element | JSX.Element[];
+}
+
+function DemoWrapper({children}: Props) {
+    return (
+        <div className="component-demo-local-wrapper">
+            {children}
+        </div>
+    );
 }
