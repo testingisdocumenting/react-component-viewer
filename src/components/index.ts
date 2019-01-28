@@ -8,11 +8,14 @@ import { LayoutProps } from './layouts/LayoutProps';
 
 import { simulateState, refreshComponents } from './state/stateSimulation';
 
+import { WrapperProps } from './registry/componentWrapper';
+
 export {
     Registry,
     Registries,
     ComponentDemo,
     ComponentViewer,
+    WrapperProps,
     LayoutProps,
     GridLayout,
     TabsLayout,
