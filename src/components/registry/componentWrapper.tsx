@@ -1,9 +1,11 @@
 import * as React from 'react';
 
-export function wrapComponent(Wrapper: React.ComponentType, Component: React.ComponentType) {
+export interface WrapperProps {
+    OriginalComponent: React.ComponentType;
+}
+
+export function wrapComponent(Wrapper: React.ComponentType<WrapperProps>, Component: React.ComponentType) {
     return () => (
-        <Wrapper>
-            <Component/>
-        </Wrapper>
+        <Wrapper OriginalComponent={Component}/>
     );
 }

@@ -9,6 +9,7 @@ import { formsDemo } from './demos/forms';
 import { sideBySideDemo } from './demos/sideBySide';
 import { longContentDemo } from './demos/longContent';
 import { inputsDemo } from './demos/inputs';
+import { WrapperProps } from './components/registry/componentWrapper';
 
 const widgets = new Registry('widgets', {componentWrapper: DemoWrapper});
 widgets
@@ -46,14 +47,10 @@ export class App extends React.Component {
     }
 }
 
-interface Props {
-    children: JSX.Element | JSX.Element[];
-}
-
-function DemoWrapper({children}: Props) {
+function DemoWrapper({OriginalComponent}: WrapperProps) {
     return (
         <div className="component-demo-local-wrapper">
-            {children}
+            <OriginalComponent/>
         </div>
     );
 }

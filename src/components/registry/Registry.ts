@@ -6,10 +6,10 @@ import { TabsLayout } from '../layouts/TabsLayout';
 import { LayoutProps } from '../layouts/LayoutProps';
 import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
 import { SingleItemLayout } from '../layouts/SingleItemLayout';
-import { wrapComponent } from './componentWrapper';
+import { wrapComponent, WrapperProps } from './componentWrapper';
 
 export interface RegistryConfig {
-    componentWrapper?: React.ComponentType;
+    componentWrapper?: React.ComponentType<WrapperProps>;
 }
 
 class Registry {
