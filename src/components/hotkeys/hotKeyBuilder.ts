@@ -65,7 +65,11 @@ function createKeyMapping() {
         '/': 'Slash',
         '-': 'Minus',
         '=': 'Equal',
-        '`': 'Backquote'
+        '`': 'Backquote',
+        'DOWN': 'ArrowDown',
+        'UP': 'ArrowUp',
+        'LEFT': 'ArrowLeft',
+        'RIGHT': 'ArrowRight',
     };
 }
 

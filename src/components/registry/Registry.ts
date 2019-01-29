@@ -106,16 +106,34 @@ class Registry {
         return byUrl.length > 0 ? byUrl[0] : null;
     }
 
-    findByName(name: string): DemoEntry | null {
-        const byName = this.demoEntries
-            .filter(entry => entry.name === name);
-
-        if (byName.length === 0) {
-            return null;
-        }
-
-        return byName[0];
+    findDemoByName(name: string): DemoEntry | null {
+        const found = findDemoAndReturn(this.demoEntries, name, idx => this.demoEntries[idx]);
+        return found ? found : null;
     }
+
+    findNextDemoByCurrentName(name: string): DemoEntry {
+        const found = findDemoAndReturn(this.demoEntries, name, idx => this.demoEntries[idx + 1]);
+        return found ? found : this.demoEntries[this.demoEntries.length - 1];
+    }
+
+    findPrevDemoByCurrentName(name: string): DemoEntry {
+        const found = findDemoAndReturn(this.demoEntries, name, idx => this.demoEntries[idx - 1]);
+        return found ? found : this.demoEntries[0];
+    }
+}
+
+function findDemoAndReturn(demos: DemoEntry[],
+                           currentDemoName: string,
+                           returnFunc: (idx: number) => DemoEntry | null) {
+    let idx = 0;
+    for (const demo of demos) {
+        if (demo.name === currentDemoName) {
+            return returnFunc(idx);
+        }
+        idx++;
+    }
+
+    return undefined;
 }
 
 export { Registry };

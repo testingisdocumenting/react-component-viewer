@@ -20,7 +20,7 @@ export class ComponentViewerStateCreator {
     }
 
     private static firstTitleByDemoName(registry: Registry | null, name: string) {
-        const demoEntry = registry ? registry.findByName(name) : null;
+        const demoEntry = registry ? registry.findDemoByName(name) : null;
         return demoEntry ? demoEntry.firstEntryTitle : '';
     }
 

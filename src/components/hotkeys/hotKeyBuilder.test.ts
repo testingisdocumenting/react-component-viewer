@@ -16,4 +16,9 @@ describe('hotKeyBuilder', () => {
         const altF5 = hotKeyFromString('Alt F5');
         expect(altF5).toEqual({code: 'F5', shift: false, meta: false, ctrl: false, alt: true});
     });
+
+    it('maps arrow keys', () => {
+        const shiftArrow = hotKeyFromString('Shift Down');
+        expect(shiftArrow).toEqual({code: 'ArrowDown', shift: true, meta: false, ctrl: false, alt: false});
+    });
 });
