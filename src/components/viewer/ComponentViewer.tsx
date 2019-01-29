@@ -45,6 +45,8 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         this.state = this.stateFromUrl();
         this.hotKeyBoundActions = {
             'Alt F': this.onFullScreenToggle,
+            'Alt Down': this.onNextDemo,
+            'Alt Up': this.onPrevDemo,
             ...this.dropDownKeyBoundActions()
         };
     }
@@ -56,7 +58,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         } = this.state;
 
         const registry = this.findSelectedRegistry();
-        const demoEntry = registry ? registry.findByName(demoName) : null;
+        const demoEntry = registry ? registry.findDemoByName(demoName) : null;
 
         const rendered = demoEntry && (demoEntry.isMiniApp() || isFullScreen) ?
             this.renderDemo(demoEntry, true) :
@@ -202,6 +204,31 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             this.state.entryTitle,
             !this.state.isFullScreen,
             this.state.selectedToolbarItem);
+    }
+
+    private onNextDemo = () => {
+        this.withRegistryAndDemoNameWhenPresent(((registry, demoName) => {
+            const nextDemo = registry.findNextDemoByCurrentName(demoName);
+            this.selectDemo(nextDemo.name);
+        }));
+    }
+
+    private onPrevDemo = () => {
+        this.withRegistryAndDemoNameWhenPresent(((registry, demoName) => {
+            const prevDemo = registry.findPrevDemoByCurrentName(demoName);
+            this.selectDemo(prevDemo.name);
+        }));
+    }
+
+    private withRegistryAndDemoNameWhenPresent = (code: (registry: Registry, demoName: string) => void) => {
+        const registry = this.findSelectedRegistry();
+        const {demoName} = this.state;
+
+        if (!registry) {
+            return;
+        }
+
+        code(registry, demoName);
     }
 
     private selectRegistry = (registryName: string) => {
