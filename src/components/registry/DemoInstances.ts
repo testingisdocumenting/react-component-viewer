@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { DemoInstance } from './DemoInstance';
 import { DemoInstancesGroup } from './DemoInstancesGroup';
+import { findAndReturn } from './listUtils';
 
 export class DemoInstances {
     groups: DemoInstancesGroup[] = [];
@@ -31,16 +32,32 @@ export class DemoInstances {
     }
 
     findByTitle(title: string): DemoInstance {
-        const found = this.all.filter(instance => instance.title === title);
-        if (! found.length) {
+        const found = findInstanceAndReturn(this.all, title, idx => this.all[idx]);
+        if (!found) {
             throw new Error('cannot find demo instance with "' + title + '" title');
         }
 
-        return found[0];
+        return found;
+    }
+
+    findNextInstanceByCurrentTitle(title: string): DemoInstance {
+        const found = findInstanceAndReturn(this.all, title, idx => this.all[idx + 1]);
+        return found ? found : this.all[this.all.length - 1];
+    }
+
+    findPrevInstanceByCurrentTitle(title: string): DemoInstance {
+        const found = findInstanceAndReturn(this.all, title, idx => this.all[idx - 1]);
+        return found ? found : this.all[0];
     }
 
     private createNewGroup(description: string) {
         this.currentGroup = new DemoInstancesGroup(description);
         this.groups.push(this.currentGroup);
     }
+}
+
+function findInstanceAndReturn(instances: DemoInstance[],
+                               title: string,
+                               returnFunc: (idx: number) => DemoInstance | undefined) {
+    return findAndReturn(instances, instance => instance.title === title, returnFunc);
 }

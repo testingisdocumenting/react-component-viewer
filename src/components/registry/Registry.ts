@@ -7,6 +7,7 @@ import { LayoutProps } from '../layouts/LayoutProps';
 import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
 import { SingleItemLayout } from '../layouts/SingleItemLayout';
 import { wrapComponent, WrapperProps } from './componentWrapper';
+import { findAndReturn } from './listUtils';
 
 export interface RegistryConfig {
     componentWrapper?: React.ComponentType<WrapperProps>;
@@ -124,16 +125,8 @@ class Registry {
 
 function findDemoAndReturn(demos: DemoEntry[],
                            currentDemoName: string,
-                           returnFunc: (idx: number) => DemoEntry | null) {
-    let idx = 0;
-    for (const demo of demos) {
-        if (demo.name === currentDemoName) {
-            return returnFunc(idx);
-        }
-        idx++;
-    }
-
-    return undefined;
+                           returnFunc: (idx: number) => DemoEntry | undefined) {
+    return findAndReturn(demos, demo => demo.name === currentDemoName, returnFunc);
 }
 
 export { Registry };

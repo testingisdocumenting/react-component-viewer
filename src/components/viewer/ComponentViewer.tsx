@@ -45,8 +45,10 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         this.state = this.stateFromUrl();
         this.hotKeyBoundActions = {
             'Alt F': this.onFullScreenToggle,
-            'Alt Down': this.onNextDemo,
-            'Alt Up': this.onPrevDemo,
+            'Ctrl Alt Down': this.onNextDemo,
+            'Ctrl Alt Up': this.onPrevDemo,
+            'Ctrl Alt Right': this.onNextDemoEntry,
+            'Ctrl Alt Left': this.onPrevDemoEntry,
             ...this.dropDownKeyBoundActions()
         };
     }
@@ -220,6 +222,18 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         }));
     }
 
+    private onNextDemoEntry = () => {
+        this.withRegistryAndDemoAndTitleWhenPresent(((registry, demo, title) => {
+            this.selectInstanceByTitle(demo.findNextInstanceByCurrentTitle(title).title);
+        }));
+    }
+
+    private onPrevDemoEntry = () => {
+        this.withRegistryAndDemoAndTitleWhenPresent(((registry, demo, title) => {
+            this.selectInstanceByTitle(demo.findPrevInstanceByCurrentTitle(title).title);
+        }));
+    }
+
     private withRegistryAndDemoNameWhenPresent = (code: (registry: Registry, demoName: string) => void) => {
         const registry = this.findSelectedRegistry();
         const {demoName} = this.state;
@@ -229,6 +243,20 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         }
 
         code(registry, demoName);
+    }
+
+    private withRegistryAndDemoAndTitleWhenPresent = (
+        code: (registry: Registry, demo: DemoEntry, title: string) => void
+    ) => {
+        this.withRegistryAndDemoNameWhenPresent(((registry, demoName) => {
+            const demo = registry.findDemoByName(demoName);
+            if (!demo) {
+                return;
+            }
+
+            const {entryTitle} = this.state;
+            code(registry, demo, entryTitle);
+        }));
     }
 
     private selectRegistry = (registryName: string) => {

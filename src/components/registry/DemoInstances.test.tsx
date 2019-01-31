@@ -47,4 +47,32 @@ describe('DemoInstances', () => {
         expect(demoInstances.groups[0].description).toEqual('');
         expect(demoInstances.groups[1].description).toEqual(desc);
     });
+
+    it('should find next entry by given current entry title', () => {
+        demoInstances.add('a', 'description', () => <div/>);
+        demoInstances.add('b', 'description', () => <div/>);
+
+        expect(demoInstances.findNextInstanceByCurrentTitle('a').title).toEqual('b');
+    });
+
+    it('should find prev entry by given current entry title', () => {
+        demoInstances.add('a', 'description', () => <div/>);
+        demoInstances.add('b', 'description', () => <div/>);
+
+        expect(demoInstances.findPrevInstanceByCurrentTitle('b').title).toEqual('a');
+    });
+
+    it('should find first entry when looking for a prev entry and no entry with given title exist', () => {
+        demoInstances.add('a', 'description', () => <div/>);
+        demoInstances.add('b', 'description', () => <div/>);
+
+        expect(demoInstances.findPrevInstanceByCurrentTitle('wrong-title').title).toEqual('a');
+    });
+
+    it('should find last entry when looking for a next entry and current title is last already', () => {
+        demoInstances.add('a', 'description', () => <div/>);
+        demoInstances.add('b', 'description', () => <div/>);
+
+        expect(demoInstances.findNextInstanceByCurrentTitle('b').title).toEqual('b');
+    });
 });

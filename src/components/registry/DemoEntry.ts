@@ -31,6 +31,14 @@ export class DemoEntry {
         return this.demoInstances.findByTitle(title);
     }
 
+    findNextInstanceByCurrentTitle(title: string): DemoInstance {
+        return this.demoInstances.findNextInstanceByCurrentTitle(title);
+    }
+
+    findPrevInstanceByCurrentTitle(title: string): DemoInstance {
+        return this.demoInstances.findPrevInstanceByCurrentTitle(title);
+    }
+
     isMiniApp(): boolean {
         return this.urlPrefix.length > 0;
     }
