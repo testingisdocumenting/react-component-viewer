@@ -29,6 +29,7 @@ describe('ComponentViewerStateCreator', () => {
             entryTitle: 'title-c-a',
             filterText: '',
             isFullScreen: false,
+            isHelpOn: false,
             selectedToolbarItem: ''
         });
     });
