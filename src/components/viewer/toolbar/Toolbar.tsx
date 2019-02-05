@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { FullScreenIcon } from './FullScreenIcon';
 import { ToolbarDropDown } from './ToolbarDropDown';
 import { ToolbarDropDownItem } from './ToolbarDropDownItem';
 
@@ -10,14 +9,22 @@ export interface Props {
     dropDownLabel?: string;
     dropDownItems?: ToolbarDropDownItem[];
     dropDownSelected?: string;
+    questionMarkToggledOn: boolean;
     onDropDownItemSelection?(label: string): void;
-    onFullScreen(): void;
+    onQuestionMarkClick(): void;
 }
 
 export class Toolbar extends React.PureComponent<Props> {
     render() {
-        const {dropDownLabel, dropDownItems, dropDownSelected, onFullScreen} = this.props;
+        const {
+            dropDownLabel,
+            dropDownItems,
+            dropDownSelected,
+            questionMarkToggledOn,
+            onQuestionMarkClick
+        } = this.props;
 
+        const questionMarkClassName = 'rcv-toolbar-action' + (questionMarkToggledOn ? ' on' : '');
         return (
             <div className="rcv-toolbar">
                 {dropDownItems && dropDownItems.length > 0 && <ToolbarDropDown
@@ -27,11 +34,10 @@ export class Toolbar extends React.PureComponent<Props> {
                     onItemSelect={this.onDropDownItemSelection}
                 />}
                 <div
-                    className="rcv-toolbar-action"
-                    title="Full Screen (Alt+F)"
-                    onClick={onFullScreen}
+                    className={questionMarkClassName}
+                    onClick={onQuestionMarkClick}
                 >
-                    <FullScreenIcon/>
+                    ?
                 </div>
             </div>
         );

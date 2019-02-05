@@ -1,0 +1,36 @@
+.rcv-component-viewer-help {
+    font-size: 14px;
+    font-family: var(--rcv-font-family);
+
+    width: 400px;
+    background-color: var(--rcv-primary-background-color);
+
+    height: 100%;
+    border-left: 1px solid var(--rcv-primary-border-color);
+    box-sizing: border-box;
+
+    padding-left: 16px;
+    padding-top: 8px;
+
+    overflow: auto;
+}
+
+.rcv-component-viewer-help > h1 {
+    font-size: 20px;
+}
+
+.rcv-component-viewer-help > h1:not(:first-child) {
+    margin-top: 30px;
+}
+
+.rcv-component-viewer-help > a,
+.rcv-component-viewer-help > a:visited {
+    color: #618be1;
+}
+
+.rcv-component-viewer-help-hotkeys-grid {
+    display: grid;
+
+    grid-template-columns: auto 1fr;
+    grid-gap: 8px 32px;
+}

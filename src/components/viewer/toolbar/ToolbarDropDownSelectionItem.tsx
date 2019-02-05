@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ToolbarDropDownItem } from './ToolbarDropDownItem';
 
 import './ToolbarDropDownSelectionItem.css';
+import { HotKeyPill } from '../../hotkeys/HotKeyPill';
 
 export interface Props {
     item: ToolbarDropDownItem;
@@ -20,9 +21,7 @@ export function ToolbarDropDownSelectionItem({item, onItemSelect}: Props) {
                 {item.label}
             </div>
 
-            {item.hotKey && <div className="rcv-toolbar-drop-down-selection-item-hotkey">
-                {item.hotKey}
-            </div>}
+            {item.hotKey && <HotKeyPill hotKey={item.hotKey}/>}
         </div>
     );
 }

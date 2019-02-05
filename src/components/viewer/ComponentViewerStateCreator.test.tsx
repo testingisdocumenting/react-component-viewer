@@ -47,6 +47,7 @@ describe('ComponentViewerStateCreator', () => {
             demoName: 'demo-name',
             entryTitle: '',
             isFullScreen: true,
+            isHelpOn: false,
             filterText: '',
             selectedToolbarItem: ''
         });
