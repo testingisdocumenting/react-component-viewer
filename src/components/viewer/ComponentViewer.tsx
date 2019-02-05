@@ -21,6 +21,9 @@ import { HotKeyBoundActions } from '../hotkeys/HotKeyBoundActions';
 
 import { ComponentViewerDropDown } from './ComponentViewerDropDown';
 
+import { ComponentViewerHelp } from './help/ComponentViewerHelp';
+import { globalActionDefaultKeys } from './GlobalActions';
+
 import './ComponentViewer.css';
 
 export interface Props {
@@ -44,11 +47,11 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
 
         this.state = this.stateFromUrl();
         this.hotKeyBoundActions = {
-            'Alt F': this.onFullScreenToggle,
-            'Ctrl Alt Down': this.onNextDemo,
-            'Ctrl Alt Up': this.onPrevDemo,
-            'Ctrl Alt Right': this.onNextDemoEntry,
-            'Ctrl Alt Left': this.onPrevDemoEntry,
+            [globalActionDefaultKeys.fullScreenToggle]: this.onFullScreenToggle,
+            [globalActionDefaultKeys.nextDemo]: this.onNextDemo,
+            [globalActionDefaultKeys.prevDemo]: this.onPrevDemo,
+            [globalActionDefaultKeys.nextDemoEntry]: this.onNextDemoEntry,
+            [globalActionDefaultKeys.prevDemoEntry]: this.onPrevDemoEntry,
             ...this.dropDownKeyBoundActions()
         };
     }
@@ -81,7 +84,8 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             registryName,
             demoName,
             filterText,
-            selectedToolbarItem
+            selectedToolbarItem,
+            isHelpOn
         } = this.state;
 
         return (
@@ -96,7 +100,8 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
 
                 <div className="rcv-toolbar-panel">
                     <Toolbar
-                        onFullScreen={this.onFullScreenToggle}
+                        questionMarkToggledOn={isHelpOn}
+                        onQuestionMarkClick={this.onQuestionMarkToggle}
                         dropDownLabel={dropDown ? dropDown.label : undefined}
                         dropDownSelected={selectedToolbarItem}
                         dropDownItems={dropDown ? dropDown.items : undefined}
@@ -124,6 +129,10 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
                 <div className="rcv-preview">
                     {this.renderDemo(demoEntry, false)}
                 </div>
+
+                {isHelpOn && <div className="rcv-help">
+                    <ComponentViewerHelp/>
+                </div>}
             </div>
         );
     }
@@ -200,12 +209,11 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     private onFullScreenToggle = () => {
-        this.pushUrl(
-            this.state.registryName,
-            this.state.demoName,
-            this.state.entryTitle,
-            !this.state.isFullScreen,
-            this.state.selectedToolbarItem);
+        this.pushUrl({isFullScreen: !this.state.isFullScreen});
+    }
+
+    private onQuestionMarkToggle = () => {
+        this.pushUrl({isHelpOn: !this.state.isHelpOn});
     }
 
     private onNextDemo = () => {
@@ -260,41 +268,24 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     private selectRegistry = (registryName: string) => {
-        this.pushUrl(
+        this.pushUrl({
             registryName,
-            '',
-            '',
-            this.state.isFullScreen,
-            this.state.selectedToolbarItem);
+            demoName: '',
+            entryTitle: ''});
     }
 
     private selectDemo = (demoName: string) => {
-        this.pushUrl(
-            this.state.registryName,
-            demoName,
-            '',
-            this.state.isFullScreen,
-            this.state.selectedToolbarItem);
+        this.pushUrl({demoName, entryTitle: ''});
     }
 
     private selectInstanceByTitle = (title: string) => {
-        this.pushUrl(
-            this.state.registryName,
-            this.state.demoName,
-            title,
-            this.state.isFullScreen,
-            this.state.selectedToolbarItem);
+        this.pushUrl({entryTitle: title});
     }
 
     private selectToolbarItem = (label: string) => {
         const {dropDown} = this.props;
 
-        this.pushUrl(
-            this.state.registryName,
-            this.state.demoName,
-            this.state.entryTitle,
-            this.state.isFullScreen,
-            label);
+        this.pushUrl({selectedToolbarItem: label});
 
         if (dropDown) {
             dropDown.onSelect(label);
@@ -316,15 +307,9 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             [];
     }
 
-    private pushUrl(
-        registryName: string,
-        demoName: string,
-        entryTitle: string,
-        isFullScreen: boolean,
-        selectedToolbarItem: string
-    ) {
-        const searchParams = this.stateCreator.buildUrlSearchParams(
-            {registryName, demoName, entryTitle, isFullScreen, selectedToolbarItem, filterText: ''});
+    private pushUrl(newState: Partial<ComponentViewerState>) {
+        const fullState = {...this.state, ...newState};
+        const searchParams = this.stateCreator.buildUrlSearchParams({...fullState, filterText: ''});
         const newUrl = '?' + searchParams;
 
         window.history.pushState({}, '', newUrl);

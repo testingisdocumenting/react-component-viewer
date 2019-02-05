@@ -2,10 +2,26 @@
     display: flex;
     align-items: center;
     height: 100%;
-    margin-right: 20px;
+    margin-right: 8px;
 }
 
 .rcv-toolbar-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+
     line-height: 1;
+    user-select: none;
     cursor: pointer;
+}
+
+.rcv-toolbar-action.on {
+    text-align: center;
+
+    background-color: var(--rcv-attention-text-color);
+    color: white;
+
+    border-radius: 4px;
 }

@@ -29,6 +29,7 @@ describe('ComponentViewerStateCreator', () => {
             entryTitle: 'title-c-a',
             filterText: '',
             isFullScreen: false,
+            isHelpOn: false,
             selectedToolbarItem: ''
         });
     });
@@ -47,6 +48,7 @@ describe('ComponentViewerStateCreator', () => {
             demoName: 'demo-name',
             entryTitle: '',
             isFullScreen: true,
+            isHelpOn: false,
             filterText: '',
             selectedToolbarItem: ''
         });

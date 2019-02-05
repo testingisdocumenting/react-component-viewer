@@ -8,8 +8,9 @@ const queryParamNames = {
     registryName: 'registryName',
     demoName: 'demoName',
     entryTitle: 'entryTitle',
+    selectedToolbarItem: 'toolbarItem',
     isFullScreen: 'fullScreen',
-    selectedToolbarItem: 'toolbarItem'
+    isHelpOn: 'help'
 };
 
 export class ComponentViewerStateCreator {
@@ -40,6 +41,7 @@ export class ComponentViewerStateCreator {
                 demoName: miniAppByUrl.demoEntry.name,
                 entryTitle: miniAppByUrl.demoEntry.firstEntryTitle,
                 isFullScreen: true,
+                isHelpOn: false,
                 filterText: '',
                 selectedToolbarItem
             };
@@ -57,11 +59,15 @@ export class ComponentViewerStateCreator {
         const fullScreenValue = searchParams.get(queryParamNames.isFullScreen) || 'false';
         const isFullScreen = fullScreenValue === 'true';
 
+        const helpOnValue = searchParams.get(queryParamNames.isHelpOn) || 'false';
+        const isHelpOn = helpOnValue === 'true';
+
         return {
             registryName,
             demoName,
             entryTitle,
             isFullScreen,
+            isHelpOn,
             selectedToolbarItem,
             filterText: ''
         };

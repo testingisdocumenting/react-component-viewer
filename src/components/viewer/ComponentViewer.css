@@ -90,3 +90,10 @@ body {
 
   overflow: auto;
 }
+
+.rcv-help {
+  grid-area: preview;
+  justify-self: right;
+
+  z-index: 1000;
+}
