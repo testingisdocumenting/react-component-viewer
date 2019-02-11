@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, serif;
+
+    --rcv-doc-left-gap: 48px;
+}
+
+.layout {
+    display: grid;
+    grid-template-rows: 56px 1fr;
+    height: 100vh;
+}
+
+.layout .tool-name {
+    font-size: 18px;
+}
+
+.layout .guide-label {
+    color: #cccccc;
+    font-size: 14px;
+    margin-left: 16px;
+}
+
+.layout .top-panel {
+    display: flex;
+    align-items: center;
+    padding-left: var(--rcv-doc-left-gap);
+    background-color: #5b6271;
+    color: white;
+}
+
+.layout .content-panel {
+    padding-left: var(--rcv-doc-left-gap);
+    overflow: auto;
+}
+
+.layout .zoomed-in-overlay,
+.layout .zoomed-in-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.layout .zoomed-in-overlay {
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 1000;
+}
+
+.layout .zoomed-in-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 1;
+    margin: 24px;
+
+    z-index: 1001;
+}
