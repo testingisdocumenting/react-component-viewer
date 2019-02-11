@@ -41,7 +41,7 @@ export function App() {
 
 It will work with your build system, the language of your choice and style processing.
 
-![screen example](img/screen-example.png)
+![screen example](documentation/rcv/static/screen-example.png)
 
 # Demo functions
 
