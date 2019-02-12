@@ -16,20 +16,22 @@ widgets
     .registerAsGrid('Links', 300, linksDemo)
     .registerAsTwoColumnTable('Forms', formsDemo)
     .registerAsTwoColumnTable('Buttons', buttonsDemo)
-    .registerAsRows('Inputs', inputsDemo)
-    .registerAsTabs('Long Content', longContentDemo)
-    .registerSingle('Single Screen', profileScreenDemo)
-    .registerAsMiniApp('Single Screen mini app', '/app', profileScreenDemo);
+    .registerAsRows('Inputs', inputsDemo);
 
 const layouts = new Registry('layouts');
 layouts
     .registerSingle('Side by Side', sideBySideDemo);
 
+const endToEnd = new Registry('end to end');
+endToEnd.registerAsTabs('Long Content', longContentDemo)
+    .registerSingle('Single Screen', profileScreenDemo)
+    .registerAsMiniApp('Single Screen mini app', '/app', profileScreenDemo);
+
 export class App extends React.Component {
     render() {
         return (
             <ComponentViewer
-                registries={[widgets, layouts]}
+                registries={[widgets, layouts, endToEnd]}
                 dropDown={{
                     label: 'Brand',
                     items: [
