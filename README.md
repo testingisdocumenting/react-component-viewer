@@ -1,3 +1,13 @@
+# Intro
+
+![screen example](documentation/rcv/static/screen-example.png)
+
+React Component to help with development of other react components.
+* Just a component, no build system: works with your setup seamlessly.
+* See your components at once in the different states.
+* Zoom-in into a single component for debug.
+* User defined theme switching for multi brand/theme development. 
+
 # Installation
 
 ```
@@ -5,9 +15,6 @@ npm install react-component-viewer --save-dev
 ```
 
 # React Component Viewer
-
-Is a React component to preview and develop your components.
-Use it in your CRA created app as a demo app.
 
 ```typescript 
 import * as React from 'react';
@@ -25,23 +32,33 @@ widgets
     .registerAsGrid('Links', 300, linksDemo)
     .registerAsTwoColumnTable('Forms', formsDemo)
     .registerAsTwoColumnTable('Buttons', buttonsDemo)
-    .registerSingle('Single Screen', profileScreenDemo)
-    .registerAsMiniApp('Single Screen mini app', '/app', profileScreenDemo);
+    .registerAsRows('Inputs', inputsDemo);
 
 const layouts = new Registry('layouts');
-layouts
-    .registerSingle('Side by Side', sideBySideDemo);
+const endToEnd = new Registry('end to end');
 
-export function App() {
-    return (
-        <ComponentViewer registries={[widgets, layouts]}/>
-    );
+export class App extends React.Component {
+    render() {
+        return (
+            <ComponentViewer
+                registries={[widgets, layouts, endToEnd]}
+                dropDown={{
+                    label: 'Brand',
+                    items: [
+                        {label: 'Brand-A', hotKey: 'Alt 1'},
+                        {label: 'B-Brand', hotKey: 'Alt 2'}
+                    ],
+                    onSelect: this.onBrandSelect
+                }}
+            />
+        );
+    }
+
+    private onBrandSelect(brand: string) {
+        // ...
+    }
 }
 ```
-
-It will work with your build system, the language of your choice and style processing.
-
-![screen example](documentation/rcv/static/screen-example.png)
 
 # Demo functions
 
@@ -50,10 +67,10 @@ Demo must be defined in a function that accepts `Registry`. Function should regi
 ```typescript
 export function buttonsDemo(registry: Registry) {
     registry
-        .add('enabled', () => <Button label="click me" onClick={onClick}/>,
+        .add('primary', () => <Button primary label="click me" onClick={onClick}/>,
              `long description
              multiline markdown`)
-        .add('disabled', () => <Button label="click me" enabled={false} onClick={onClick}/>)
+        .add('secondary', () => <Button label="click me" onClick={onClick}/>);
 }
 ``` 
 

@@ -1,4 +1,10 @@
 .button {
     padding: 8px;
     border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button.primary {
+    background-color: #618be1;
+    color: #fafafa;
 }
