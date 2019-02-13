@@ -1,0 +1,21 @@
+.rcv-visualized-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+
+    position: fixed;
+    right: 0;
+    bottom: 0;
+
+    z-index: 1000;
+}
+
+.rcv-visualized-action {
+    font-family: var(--rcv-font-family);
+    background-color: var(--rcv-attention-text-color);
+    color: white;
+
+    padding: 16px;
+    border: 1px solid var(--rcv-primary-border-color);
+}
