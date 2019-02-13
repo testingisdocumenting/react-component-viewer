@@ -24,6 +24,8 @@ import { ComponentViewerDropDown } from './ComponentViewerDropDown';
 import { ComponentViewerHelp } from './help/ComponentViewerHelp';
 import { globalActionDefaultKeys } from './GlobalActions';
 
+import { VisualizedActions } from '../actions/VisualizedActions';
+
 import './ComponentViewer.css';
 
 export interface Props {
@@ -73,6 +75,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             <React.Fragment>
                 <GlobalHotKeysHandler keyBoundActions={this.hotKeyBoundActions}/>
                 {rendered}
+                <VisualizedActions/>
             </React.Fragment>
         );
     }
