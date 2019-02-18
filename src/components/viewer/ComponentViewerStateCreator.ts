@@ -5,12 +5,12 @@ import { Registry, Registries } from '../';
 import { DemoEntryAndRegistry } from '../registry/DemoEntryAndRegistry';
 
 const queryParamNames = {
-    registryName: 'registryName',
-    demoName: 'demoName',
-    entryTitle: 'entryTitle',
-    selectedToolbarItem: 'toolbarItem',
-    isFullScreen: 'fullScreen',
-    isHelpOn: 'help'
+    registryName: '_rcv_rname',
+    demoName: '_rcv_dname',
+    entryTitle: '_rcv_title',
+    selectedToolbarItem: '_rcv_titem',
+    isFullScreen: '_rcv_fs',
+    isHelpOn: '_rcv_help'
 };
 
 export class ComponentViewerStateCreator {
