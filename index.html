@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/4.3d16889797b4bfd08306.css">code[class*=language-],pre[class*=language-]{color:#000;background:none;text-shadow:0 1px #fff;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#9a6e3a;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.class-name,.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}pre[data-line]{position:relative;padding:1em 0 1em 3em}.line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(90deg,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}.line-highlight:before,.line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f5f2f0;font:700 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}.line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}.line-numbers .line-highlight:after,.line-numbers .line-highlight:before{content:none}</style><style data-href="/component---src-pages-index-js.db735e75760bd4f01f41.css">:root{--rcv-doc-left-gap:48px;--rcv-doc-right-gap:48px;--rcv-content-width:920px}body{margin:0;padding:0;font-family:Verdana,serif}.layout{display:grid;grid-template-rows:56px 1fr;height:100vh}.layout .tool-name{font-size:18px}.layout .guide-label{color:#ccc;font-size:14px;margin-left:16px}.layout .top-panel{background-color:#5b6271;color:#fff}.top-panel-content{display:flex;align-items:center;height:100%;width:var(--rcv-content-width);margin-left:auto;margin-right:auto}.layout .content-panel{padding-left:var(--rcv-doc-left-gap);padding-right:var(--rcv-doc-right-gap);overflow:auto}.layout .zoomed-in-content,.layout .zoomed-in-overlay{position:fixed;top:0;right:0;left:0;bottom:0}.layout .zoomed-in-overlay{background-color:#000;opacity:.5;z-index:1000}.layout .zoomed-in-content{display:flex;align-items:center;justify-content:center;opacity:1;margin:24px;z-index:1001}@media (max-width:960px){:root{--rcv-doc-left-gap:8px;--rcv-doc-right-gap:8px;--rcv-content-width:100%}}.two-side{display:grid;grid-template-columns:auto;padding-right:16px}@media (min-width:1100px){.two-side{grid-template-columns:740px 1fr;grid-column-gap:24px}}.zoomable{cursor:pointer}.image img{max-width:100%;max-height:100%}.image{height:100%}.single-column{width:var(--rcv-content-width);margin-left:auto;margin-right:auto}</style><meta name="generator" content="Gatsby 2.0.76"/><link as="script" rel="preload" href="/component---src-pages-index-js-ecfe3f6013a9180f32e3.js"/><link as="script" rel="preload" href="/4-d720e9cb6482dd37fa0c.js"/><link as="script" rel="preload" href="/app-4de08ce1f5ad0c16bf15.js"/><link as="script" rel="preload" href="/webpack-runtime-bbb90233bd82e81d4564.js"/><link as="fetch" rel="preload" href="/static/d/173/path---index-6a9-NZuapzHg3X9TaN1iIixfv1W23E.json" crossOrigin="use-credentials"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div class="layout"><div class="top-panel"><div class="top-panel-content"><div class="tool-name">React Component Viewer</div><div class="guide-label">guide</div></div></div><div class="content-panel"><div class="single-column"><div class="MarkdownBlock"><h1 id="react-component-viewer">React Component Viewer</h1>
+</div><div class="zoomable"><div class="image"><img src="/screen-example.png" srcSet="/screen-example.png 2x" alt="example output"/></div></div><div class="MarkdownBlock"><p>Is a React component to preview and develop your components.
+Use it in your CRA created app as a demo app.</p>
+<pre><code class="language-typescript">import * as React from &#39;react&#39;;
+
+import { Registry, ComponentViewer } from &#39;react-component-viewer&#39;;
+
+import { buttonsDemo } from &#39;./demos/buttons&#39;;
+import { linksDemo } from &#39;./demos/links&#39;;
+import { profileScreenDemo } from &#39;./demos/profileScreen&#39;;
+import { formsDemo } from &#39;./demos/forms&#39;;
+import { sideBySideDemo } from &#39;./demos/sideBySide&#39;;
+
+const registries = new Registries();
+registries.add(&#39;widgets&#39;)
+    .registerAsGrid(&#39;Links&#39;, 300, linksDemo)
+    .registerAsTwoColumnTable(&#39;Forms&#39;, formsDemo)
+    .registerAsTwoColumnTable(&#39;Buttons&#39;, buttonsDemo)
+    .registerAsRows(&#39;Inputs&#39;, inputsDemo);
+
+registries.add(&#39;layouts&#39;)
+    .registerSingle(&#39;Side by Side&#39;, sideBySideDemo);
+
+registries.add(&#39;end to end&#39;)
+    .registerSingle(&#39;Single Screen&#39;, profileScreenDemo)
+    .registerAsMiniApp(&#39;Single Screen mini app&#39;, &#39;/app&#39;, profileScreenDemo);
+
+export class App extends React.Component {
+    render() {
+        return (
+            &lt;ComponentViewer registries={registries}/&gt;
+        );
+    }
+}</code></pre>
+<p>It will work with your build system, the language of your choice and style processing.</p>
+</div><div class="MarkdownBlock"><h1 id="demo-functions">Demo functions</h1>
+<p>Demo must be defined in a function that accepts <code>Registry</code>. Function should register components to display.</p>
+<pre><code class="language-typescript">export function buttonsDemo(registry: Registry) {
+    registry
+        .add(&#39;enabled&#39;, () =&gt; &lt;Button label=&quot;click me&quot; 
+                                      onClick={onClick}/&gt;)
+        .add(&#39;disabled&#39;, () =&gt; &lt;Button label=&quot;click me&quot;  
+                                       enabled={false} 
+                                       onClick={onClick}/&gt;)
+}</code></pre>
+<h1 id="installation">Installation</h1>
+<pre><code>npm install react-component-viewer --save-dev</code></pre></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-pages-index-js","jsonName":"index","path":"/"};window.dataPath="173/path---index-6a9-NZuapzHg3X9TaN1iIixfv1W23E";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-4de08ce1f5ad0c16bf15.js"],"component---src-pages-index-js":["/component---src-pages-index-js.db735e75760bd4f01f41.css","/component---src-pages-index-js-ecfe3f6013a9180f32e3.js"],"pages-manifest":["/pages-manifest-1b95b5ff77a3279888ab.js"]};/*]]>*/</script><script src="/webpack-runtime-bbb90233bd82e81d4564.js" async=""></script><script src="/app-4de08ce1f5ad0c16bf15.js" async=""></script><script src="/4-d720e9cb6482dd37fa0c.js" async=""></script><script src="/component---src-pages-index-js-ecfe3f6013a9180f32e3.js" async=""></script></body></html>
