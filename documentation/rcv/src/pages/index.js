@@ -4,32 +4,23 @@ import {MarkdownBlock} from "../components/MarkdownBlock";
 import {Layout} from "../components/Layout";
 import {LeftSide, RightSide, TwoSides} from "../components/TwoSides";
 import {Image} from "../components/Image";
+import {SingleColumn} from "../components/SingleColumn";
 
 export default () => (
     <Layout>
-        <TwoSides>
-            <LeftSide>
-                <MarkdownBlock markdown={markdownExample()}/>
-            </LeftSide>
-            <RightSide>
-                <div style={{height: 200}}/>
-                <Image path={'/screen-example.png'} description="example output"/>
-            </RightSide>
-        </TwoSides>
+        <SingleColumn>
+            <MarkdownBlock markdown="# React Component Viewer"/>
+            <Image path={'/screen-example.png'} description="example output"/>
+
+            <MarkdownBlock markdown={intro()}/>
+            <MarkdownBlock markdown={rest()}/>
+        </SingleColumn>
     </Layout>
 )
 
 // language=Markdown
-function markdownExample() {
+function intro() {
     return `
-# Installation
-
-
-    npm install react-component-viewer --save-dev 
-
-
-# React Component Viewer
-
 Is a React component to preview and develop your components.
 Use it in your CRA created app as a demo app.
  
@@ -44,26 +35,35 @@ import { profileScreenDemo } from './demos/profileScreen';
 import { formsDemo } from './demos/forms';
 import { sideBySideDemo } from './demos/sideBySide';
 
-const widgets = new Registry('widgets');
+const widgets = new Registry('widgets', {componentWrapper: DemoWrapper});
 widgets
     .registerAsGrid('Links', 300, linksDemo)
     .registerAsTwoColumnTable('Forms', formsDemo)
     .registerAsTwoColumnTable('Buttons', buttonsDemo)
-    .registerSingle('Single Screen', profileScreenDemo);
+    .registerAsRows('Inputs', inputsDemo);
 
 const layouts = new Registry('layouts');
 layouts
     .registerSingle('Side by Side', sideBySideDemo);
 
-export function App() {
-    return (
-        <ComponentViewer registries={[widgets, layouts]}/>
-    );
-}
+const endToEnd = new Registry('end to end');
+endToEnd.registerAsTabs('Long Content', longContentDemo)
+    .registerSingle('Single Screen', profileScreenDemo)
+    .registerAsMiniApp('Single Screen mini app', '/app', profileScreenDemo);
 \`\`\`    
 
 It will work with your build system, the language of your choice and style processing.
 
+# Installation
+
+    npm install react-component-viewer --save-dev 
+
+`
+}
+
+// language=Markdown
+function rest() {
+    return `
 # Demo functions
 
 Demo must be defined in a function that accepts \`Registry\`. Function should register components to display.

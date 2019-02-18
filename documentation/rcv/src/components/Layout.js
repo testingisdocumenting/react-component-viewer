@@ -15,8 +15,10 @@ export class Layout extends React.Component {
         return (
             <div className="layout">
                 <div className="top-panel">
-                    <div className="tool-name">React Component Viewer</div>
-                    <div className="guide-label">guide</div>
+                    <div className="top-panel-content">
+                        <div className="tool-name">React Component Viewer</div>
+                        <div className="guide-label">guide</div>
+                    </div>
                 </div>
 
                 <div className="content-panel">

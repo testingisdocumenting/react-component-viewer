@@ -1,3 +1,5 @@
 .single-column {
-    width: 960px;
+    width: var(--rcv-content-width);
+    margin-left: auto;
+    margin-right: auto;
 }
