@@ -36,7 +36,7 @@ describe('ComponentViewerStateCreator', () => {
 
     it('should take fullscreen state from url', () => {
         const stateCreator = new ComponentViewerStateCreator(registries);
-        const state = stateCreator.stateFromUrl('fullScreen=true');
+        const state = stateCreator.stateFromUrl('_rcv_fs=true');
 
         expect(state.isFullScreen).toEqual(true);
     });
@@ -53,6 +53,6 @@ describe('ComponentViewerStateCreator', () => {
             selectedToolbarItem: ''
         });
 
-        expect(url).toEqual('registryName=core&demoName=demo-name&fullScreen=true');
+        expect(url).toEqual('_rcv_rname=core&_rcv_dname=demo-name&_rcv_fs=true');
     });
 });
