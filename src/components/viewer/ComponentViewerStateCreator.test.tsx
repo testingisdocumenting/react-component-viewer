@@ -1,22 +1,18 @@
 import * as React from 'react';
 
-import { Registries, Registry } from '../';
+import { Registries } from '../';
 import { ComponentViewerStateCreator } from './ComponentViewerStateCreator';
 
 describe('ComponentViewerStateCreator', () => {
-    let registryA: Registry;
-    let registryB: Registry ;
-
     let registries: Registries;
 
     beforeAll(() => {
-        registryA = new Registry('core');
-        registryA.registerSingle('FirstC', (registry => registry.add('title-c-a', () => <div/>)));
+        registries = new Registries();
+        registries.add('core')
+            .registerSingle('FirstC', (registry => registry.add('title-c-a', () => <div/>)));
+        registries.add('widgets')
+            .registerSingle('FirstW', (registry => registry.add('title-w-a', () => <div/>)));
 
-        registryB = new Registry('widgets');
-        registryA.registerSingle('FirstW', (registry => registry.add('title-w-a', () => <div/>)));
-
-        registries = new Registries([registryA, registryB]);
     });
 
     it('should pick the first registry, first demo and demo entry if url has no query params', () => {
