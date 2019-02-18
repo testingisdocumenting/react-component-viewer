@@ -29,12 +29,11 @@ import { VisualizedActions } from '../actions/VisualizedActions';
 import './ComponentViewer.css';
 
 export interface Props {
-    registries: Registry[];
+    registries: Registries;
     dropDown?: ComponentViewerDropDown;
 }
 
 class ComponentViewer extends Component<Props, ComponentViewerState> {
-    private readonly registries: Registries;
     private readonly hotKeyBoundActions: HotKeyBoundActions;
 
     private stateCreator: ComponentViewerStateCreator;
@@ -44,8 +43,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
 
         const {registries} = this.props;
 
-        this.registries = new Registries(registries);
-        this.stateCreator = new ComponentViewerStateCreator(this.registries);
+        this.stateCreator = new ComponentViewerStateCreator(registries);
 
         this.state = this.stateFromUrl();
         this.hotKeyBoundActions = {
@@ -81,7 +79,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     renderSelectionPanelAndDemo(demoEntry: DemoEntry | null) {
-        const {dropDown} = this.props;
+        const {registries, dropDown} = this.props;
 
         const {
             registryName,
@@ -95,7 +93,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             <div className="rcv-component-viewer">
                 <div className="rcv-registry-selection-panel">
                     <RegistrySelection
-                        names={this.registries.names}
+                        names={registries.names}
                         selectedName={registryName}
                         onSelect={this.selectRegistry}
                     />
@@ -296,8 +294,9 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     private findSelectedRegistry() {
+        const {registries} = this.props;
         const {registryName} = this.state;
-        return this.registries.registryByName(registryName);
+        return registries.registryByName(registryName);
     }
 
     private get demoNames() {
