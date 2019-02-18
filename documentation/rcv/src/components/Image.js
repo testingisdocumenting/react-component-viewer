@@ -7,10 +7,11 @@ import {Zoomable} from "./Zoomable";
 import './Image.css'
 
 export function Image({path, description}) {
+    const fullPath = withPrefix(path);
     return (
         <Zoomable>
             <div className="image">
-                <img src={withPrefix(path)} alt={description}/>
+                <img src={fullPath} srcSet={fullPath + " 2x"} alt={description}/>
             </div>
         </Zoomable>
     )
