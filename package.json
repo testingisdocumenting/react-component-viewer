@@ -1,6 +1,6 @@
 {
   "name": "react-component-viewer",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "React Component to help with development of other React components",
   "repository": {
     "type": "git",
