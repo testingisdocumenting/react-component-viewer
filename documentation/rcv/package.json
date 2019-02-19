@@ -9,14 +9,17 @@
     "start": "npm run develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
   },
   "dependencies": {
     "gatsby": "^2.0.76",
+    "gatsby-plugin-react-helmet": "^3.0.6",
     "marked": "^0.6.0",
     "prismjs": "^1.15.0",
     "react": "^16.5.1",
-    "react-dom": "^16.5.1"
+    "react-dom": "^16.5.1",
+    "react-helmet": "^5.2.0"
   },
   "repository": {
     "type": "git",
@@ -24,5 +27,8 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
   }
 }
