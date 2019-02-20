@@ -7,6 +7,7 @@ import { TabsLayout } from './layouts/TabsLayout';
 import { LayoutProps } from './layouts/LayoutProps';
 
 import { simulateState, refreshComponents } from './state/stateSimulation';
+import { simpleAction } from 'components/actions/actions';
 
 import { WrapperProps } from './registry/componentWrapper';
 
@@ -20,5 +21,6 @@ export {
     GridLayout,
     TabsLayout,
     simulateState,
-    refreshComponents
+    refreshComponents,
+    simpleAction
 };
