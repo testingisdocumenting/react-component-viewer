@@ -7,7 +7,7 @@ import { TabsLayout } from './layouts/TabsLayout';
 import { LayoutProps } from './layouts/LayoutProps';
 
 import { simulateState, refreshComponents } from './state/stateSimulation';
-import { simpleAction } from 'components/actions/actions';
+import { simpleAction } from './actions/actions';
 
 import { WrapperProps } from './registry/componentWrapper';
 
