@@ -54,5 +54,5 @@ export class App extends React.Component {
 
 # Read more
 
-[More details explanation](https://medium.com/@mykolagolubyev/react-component-viewer-ff7cf793695a) 
+[More detailed explanation](https://medium.com/@mykolagolubyev/react-component-viewer-ff7cf793695a) 
 
