@@ -5,22 +5,20 @@ import { ComponentViewer } from './components';
 import { buttonsDemo } from './demos/buttons';
 import { linksDemo } from './demos/links';
 import { profileScreenDemo } from './demos/profileScreen';
-import { formsDemo } from './demos/forms';
 import { sideBySideDemo } from './demos/sideBySide';
 import { inputsDemo } from './demos/inputs';
 import { WrapperProps } from './components/registry/componentWrapper';
 
 const registries = new Registries({componentWrapper: DemoWrapper});
-registries.add('widgets')
+registries.add('components')
     .registerAsGrid('Links', 300, linksDemo)
-    .registerAsTwoColumnTable('Forms', formsDemo)
     .registerAsTwoColumnTable('Buttons', buttonsDemo)
     .registerAsRows('Inputs', inputsDemo);
 
 registries.add('layouts')
-    .registerSingle('Side by Side', sideBySideDemo);
+    .registerAsRows('Side by Side', sideBySideDemo);
 
-registries.add('end to end')
+registries.add('screens')
     .registerSingle('Single Screen', profileScreenDemo)
     .registerAsMiniApp('Single Screen mini app', '/app', profileScreenDemo);
 
