@@ -22,7 +22,7 @@ describe('ComponentViewerStateCreator', () => {
         expect(state).toEqual({
             registryName: 'core',
             demoName: 'FirstC',
-            entryTitle: 'title-c-a',
+            entryTitle: 'FirstC',
             filterText: '',
             isFullScreen: false,
             isHelpOn: false,
