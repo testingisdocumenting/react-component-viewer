@@ -4,10 +4,11 @@ import { Registries } from './components';
 import { ComponentViewer } from './components';
 import { buttonsDemo } from './demos/buttons';
 import { linksDemo } from './demos/links';
-import { profileScreenDemo } from './demos/profileScreen';
+import { ProfileApp } from './demos/ProfileApp';
 import { sideBySideDemo } from './demos/sideBySide';
 import { inputsDemo } from './demos/inputs';
 import { WrapperProps } from './components/registry/componentWrapper';
+import { ProfileScreenDemo } from './demos/ProfileScreenDemo';
 
 const registries = new Registries({componentWrapper: DemoWrapper});
 registries.add('components')
@@ -19,8 +20,8 @@ registries.add('layouts')
     .registerAsRows('Side by Side', sideBySideDemo);
 
 registries.add('screens')
-    .registerSingle('Single Screen', profileScreenDemo)
-    .registerAsMiniApp('Single Screen mini app', '/app', profileScreenDemo);
+    .registerSingle('Single Screen', ProfileScreenDemo)
+    .registerAsMiniApp('Single Screen mini app', '/app', /\/app/, ProfileApp);
 
 export class App extends React.Component {
     render() {
