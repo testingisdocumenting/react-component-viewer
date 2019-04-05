@@ -8,6 +8,7 @@ import { LabelInstanceTableLayout } from '../layouts/LabelInstanceTableLayout';
 import { SingleItemLayout } from '../layouts/SingleItemLayout';
 import { wrapComponent, WrapperProps } from './componentWrapper';
 import { findAndReturn } from './listUtils';
+import { createRegistratorForMiniApp, createRegistratorForSingle } from '../registrators/registrators';
 
 export interface RegistryConfig {
     componentWrapper?: React.ComponentType<WrapperProps>;
@@ -28,11 +29,11 @@ class Registry {
     }
 
     registerAsGrid(name: string, minWidth: number, componentRegistrator: (registry: Registry) => void) {
-        return this.register(name, GridLayout, componentRegistrator, '', {minWidth});
+        return this.register(name, GridLayout, componentRegistrator, undefined, {minWidth});
     }
 
     registerAsRows(name: string, componentRegistrator: (registry: Registry) => void) {
-        return this.register(name, GridLayout, componentRegistrator, '', {minWidth: 0});
+        return this.register(name, GridLayout, componentRegistrator, undefined, {minWidth: 0});
     }
 
     registerAsTabs(name: string, componentRegistrator: (registry: Registry) => void) {
@@ -43,26 +44,26 @@ class Registry {
         return this.register(name, LabelInstanceTableLayout, componentRegistrator);
     }
 
-    registerSingle(name: string, componentRegistrator: (registry: Registry) => void) {
-        this.register(name, SingleItemLayout, componentRegistrator);
-        return this;
+    registerSingle(name: string, singleComponent: React.ComponentType) {
+        return this.register(name, SingleItemLayout, createRegistratorForSingle(name, singleComponent));
     }
 
-    registerAsMiniApp(name: string, urlPrefix: string, componentRegistrator: (registry: Registry) => void) {
-        this.register(name, SingleItemLayout, componentRegistrator, urlPrefix);
+    registerAsMiniApp(name: string, initialUrl: string, urlRegexp: RegExp, appComponent: React.ComponentType) {
+        return this.register(name, SingleItemLayout,
+                             createRegistratorForMiniApp(initialUrl, urlRegexp, appComponent), urlRegexp);
     }
 
     register(name: string,
              layoutComponent: React.ComponentType<LayoutProps>,
              componentRegistrator: (registry: Registry) => void,
-             urlPrefix: string = '',
+             urlRegexp: RegExp | undefined = undefined,
              layoutOpts: object = {}) {
 
         if (this.usedNames.indexOf(name) !== -1) {
             throw new Error(`name ${name} was already used`);
         }
 
-        this.currentDemo = new DemoEntry(name, layoutComponent, urlPrefix, layoutOpts);
+        this.currentDemo = new DemoEntry(name, layoutComponent, urlRegexp, layoutOpts);
         this.demoEntries.push(this.currentDemo);
 
         this.usedNames.push(name);
@@ -102,7 +103,7 @@ class Registry {
 
     firstMiniAppByUrl(url: string): DemoEntry | null {
         const byUrl = this.demoEntries
-            .filter(entry => entry.isMiniApp() && url.startsWith(entry.urlPrefix));
+            .filter(entry => entry.isMiniApp() && entry.urlRegexp!.test(url));
 
         return byUrl.length > 0 ? byUrl[0] : null;
     }

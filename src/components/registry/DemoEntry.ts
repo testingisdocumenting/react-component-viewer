@@ -9,12 +9,15 @@ export class DemoEntry {
     layoutComponent: React.ComponentType<LayoutProps>;
     layoutOpts: object;
     demoInstances: DemoInstances;
-    urlPrefix: string;
+    urlRegexp?: RegExp;
 
-    constructor(name: string, layoutInstance: React.ComponentType<LayoutProps>, urlPrefix: string, layoutOpts: object) {
+    constructor(name: string,
+                layoutInstance: React.ComponentType<LayoutProps>,
+                urlRegexp: RegExp | undefined,
+                layoutOpts: object) {
         this.name = name;
         this.layoutComponent = layoutInstance;
-        this.urlPrefix = urlPrefix;
+        this.urlRegexp = urlRegexp;
         this.layoutOpts = layoutOpts;
         this.demoInstances = new DemoInstances();
     }
@@ -40,7 +43,7 @@ export class DemoEntry {
     }
 
     isMiniApp(): boolean {
-        return this.urlPrefix.length > 0;
+        return !!this.urlRegexp;
     }
 
     get firstEntryTitle(): string {

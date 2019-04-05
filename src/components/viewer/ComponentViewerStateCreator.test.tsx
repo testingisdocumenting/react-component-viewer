@@ -9,15 +9,15 @@ describe('ComponentViewerStateCreator', () => {
     beforeAll(() => {
         registries = new Registries();
         registries.add('core')
-            .registerSingle('FirstC', (registry => registry.add('title-c-a', () => <div/>)));
+            .registerSingle('FirstC', () => <div/>);
         registries.add('widgets')
-            .registerSingle('FirstW', (registry => registry.add('title-w-a', () => <div/>)));
+            .registerSingle('FirstW', () => <div/>);
 
     });
 
     it('should pick the first registry, first demo and demo entry if url has no query params', () => {
         const stateCreator = new ComponentViewerStateCreator(registries);
-        const state = stateCreator.stateFromUrl('/path');
+        const state = stateCreator.stateFromUrl('/path', '');
 
         expect(state).toEqual({
             registryName: 'core',
@@ -32,7 +32,7 @@ describe('ComponentViewerStateCreator', () => {
 
     it('should take fullscreen state from url', () => {
         const stateCreator = new ComponentViewerStateCreator(registries);
-        const state = stateCreator.stateFromUrl('_rcv_fs=true');
+        const state = stateCreator.stateFromUrl('', '_rcv_fs=true');
 
         expect(state.isFullScreen).toEqual(true);
     });

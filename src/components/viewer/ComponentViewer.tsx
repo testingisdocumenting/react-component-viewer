@@ -163,7 +163,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     stateFromUrl() {
-        return this.stateCreator.stateFromUrl(document.location.search);
+        return this.stateCreator.stateFromUrl(document.location.pathname, document.location.search);
     }
 
     updateStateFromUrl = (callback?: () => void) => {

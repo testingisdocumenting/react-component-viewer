@@ -29,12 +29,12 @@ export class ComponentViewerStateCreator {
         this._registries = registries;
     }
 
-    stateFromUrl(url: string): ComponentViewerState {
-        const searchParams = new URLSearchParams(url);
+    stateFromUrl(path: string, search: string): ComponentViewerState {
+        const searchParams = new URLSearchParams(search);
 
         const selectedToolbarItem = searchParams.get(queryParamNames.selectedToolbarItem) || '';
 
-        const miniAppByUrl = this.miniAppByUrl(url);
+        const miniAppByUrl = this.miniAppByUrl(path + search);
         if (miniAppByUrl) {
             return {
                 registryName: miniAppByUrl.registry.name,
