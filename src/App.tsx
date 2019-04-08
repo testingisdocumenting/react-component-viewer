@@ -28,20 +28,39 @@ export class App extends React.Component {
         return (
             <ComponentViewer
                 registries={registries}
-                dropDown={{
-                    label: 'Brand',
-                    items: [
-                        {label: 'Brand-A', hotKey: 'Alt 1'},
-                        {label: 'B-Brand', hotKey: 'Alt 2'}
-                    ],
-                    onSelect: this.onBrandSelect
-                }}
+                dropDowns={[this.createServiceDropDown(), this.createBrandDropDown()]}
             />
         );
     }
 
-    private onBrandSelect(brand: string) {
+    private createBrandDropDown() {
+        return {
+            label: 'Brand',
+            items: [
+                {label: 'Brand-A', hotKey: 'Alt 1'},
+                {label: 'B-Brand', hotKey: 'Alt 2'}
+            ],
+            onSelect: this.onBrandSelect
+        };
+    }
+
+    private createServiceDropDown() {
+        return {
+            label: 'Services',
+            items: [
+                {label: 'Fake', hotKey: 'Alt 5'},
+                {label: 'REST', hotKey: 'Alt 6'}
+            ],
+            onSelect: this.onServiceSelect
+        };
+    }
+
+    private onBrandSelect = (brand: string) => {
         console.log('selected brand', brand);
+    }
+
+    private onServiceSelect = (service: string) => {
+        console.log('selected service', service);
     }
 }
 

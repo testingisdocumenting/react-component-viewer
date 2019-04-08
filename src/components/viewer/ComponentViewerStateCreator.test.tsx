@@ -26,7 +26,7 @@ describe('ComponentViewerStateCreator', () => {
             filterText: '',
             isFullScreen: false,
             isHelpOn: false,
-            selectedToolbarItem: ''
+            selectedToolbarItems: {}
         });
     });
 
@@ -46,9 +46,21 @@ describe('ComponentViewerStateCreator', () => {
             isFullScreen: true,
             isHelpOn: false,
             filterText: '',
-            selectedToolbarItem: ''
+            selectedToolbarItems: {brand: 'brand_one', services: 'fake_services'}
         });
 
-        expect(url).toEqual('_rcv_rname=core&_rcv_dname=demo-name&_rcv_fs=true');
+        expect(url).toEqual('_rcv_rname=core&_rcv_dname=demo-name&_rcv_fs=true' +
+            '&_rcv_dropdown_brand=brand_one&_rcv_dropdown_services=fake_services');
+    });
+
+    it('should extract toolbar items from url', () => {
+        const stateCreator = new ComponentViewerStateCreator(registries);
+        const state = stateCreator.stateFromUrl(
+            '/path',
+            '_rcv_rname=core&_rcv_dropdown_brand=brand_one&_rcv_dropdown_services=fake_services');
+
+        expect(state.selectedToolbarItems).toEqual({
+            brand: 'brand_one',
+            services: 'fake_services'});
     });
 });

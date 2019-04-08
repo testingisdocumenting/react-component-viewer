@@ -24,7 +24,7 @@
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "url-search-params-polyfill": "^3.0.0"
+    "url-search-params-polyfill": "^5.1.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

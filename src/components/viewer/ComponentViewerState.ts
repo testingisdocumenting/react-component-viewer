@@ -5,5 +5,5 @@ export interface ComponentViewerState {
     isFullScreen: boolean;
     isHelpOn: boolean;
     filterText: string;
-    selectedToolbarItem: string;
+    selectedToolbarItems: {[labelKey: string]: string};
 }

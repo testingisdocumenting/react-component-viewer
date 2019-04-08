@@ -8,7 +8,7 @@ const queryParamNames = {
     registryName: '_rcv_rname',
     demoName: '_rcv_dname',
     entryTitle: '_rcv_title',
-    selectedToolbarItem: '_rcv_titem',
+    selectedToolbarItemPrefix: '_rcv_dropdown_',
     isFullScreen: '_rcv_fs',
     isHelpOn: '_rcv_help'
 };
@@ -32,9 +32,9 @@ export class ComponentViewerStateCreator {
     stateFromUrl(path: string, search: string): ComponentViewerState {
         const searchParams = new URLSearchParams(search);
 
-        const selectedToolbarItem = searchParams.get(queryParamNames.selectedToolbarItem) || '';
+        const selectedToolbarItems = extractSelectedToolbarItems();
 
-        const miniAppByUrl = this.miniAppByUrl(path + search);
+        const miniAppByUrl = this.miniAppByUrl(path + '?' + search);
         if (miniAppByUrl) {
             return {
                 registryName: miniAppByUrl.registry.name,
@@ -43,7 +43,7 @@ export class ComponentViewerStateCreator {
                 isFullScreen: true,
                 isHelpOn: false,
                 filterText: '',
-                selectedToolbarItem
+                selectedToolbarItems
             };
         }
 
@@ -68,9 +68,22 @@ export class ComponentViewerStateCreator {
             entryTitle,
             isFullScreen,
             isHelpOn,
-            selectedToolbarItem,
+            selectedToolbarItems,
             filterText: ''
         };
+
+        function extractSelectedToolbarItems(): {[key: string]: string} {
+            const result = {};
+
+            // @ts-ignore
+            Array.from(searchParams.keys()).forEach((k: string) => {
+                if (k.indexOf(queryParamNames.selectedToolbarItemPrefix) === 0) {
+                    result[k.substring(queryParamNames.selectedToolbarItemPrefix.length)] = searchParams.get(k);
+                }
+            });
+
+            return result;
+        }
     }
 
     buildUrlSearchParams(state: ComponentViewerState): string {
@@ -79,7 +92,11 @@ export class ComponentViewerStateCreator {
         Object.keys(state).forEach(k => {
             const v = state[k];
 
-            if (v) {
+            if (k === 'selectedToolbarItems') {
+                const toolbarItems: {[labelKey: string]: string} = v;
+                Object.keys(v).forEach(dropDownLabelKey => searchParams.set(
+                    queryParamNames.selectedToolbarItemPrefix + dropDownLabelKey, toolbarItems[dropDownLabelKey]));
+            } else if (v) {
                 searchParams.set(queryParamNames[k], v.toString());
             }
         });

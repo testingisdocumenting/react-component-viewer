@@ -28,9 +28,11 @@ import { VisualizedActions } from '../actions/VisualizedActions';
 
 import './ComponentViewer.css';
 
+import { labelToKey } from './toolbar/labelUtils';
+
 export interface Props {
     registries: Registries;
-    dropDown?: ComponentViewerDropDown;
+    dropDowns: ComponentViewerDropDown[];
 }
 
 class ComponentViewer extends Component<Props, ComponentViewerState> {
@@ -79,13 +81,13 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     renderSelectionPanelAndDemo(demoEntry: DemoEntry | null) {
-        const {registries, dropDown} = this.props;
+        const {registries, dropDowns} = this.props;
 
         const {
             registryName,
             demoName,
             filterText,
-            selectedToolbarItem,
+            selectedToolbarItems,
             isHelpOn
         } = this.state;
 
@@ -102,10 +104,9 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
                 <div className="rcv-toolbar-panel">
                     <Toolbar
                         questionMarkToggledOn={isHelpOn}
+                        dropDowns={dropDowns}
+                        selectedItems={selectedToolbarItems}
                         onQuestionMarkClick={this.onQuestionMarkToggle}
-                        dropDownLabel={dropDown ? dropDown.label : undefined}
-                        dropDownSelected={selectedToolbarItem}
-                        dropDownItems={dropDown ? dropDown.items : undefined}
                         onDropDownItemSelection={this.selectToolbarItem}
                     />
                 </div>
@@ -171,14 +172,33 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     triggerDropDownSelection() {
-        const {dropDown} = this.props;
-        if (!dropDown) {
+        const {dropDowns} = this.props;
+        if (dropDowns.length === 0) {
             return;
         }
 
-        const {selectedToolbarItem} = this.state;
-        if (selectedToolbarItem.length > 0) {
-            dropDown.onSelect(selectedToolbarItem);
+        const {selectedToolbarItems} = this.state;
+        Object.keys(selectedToolbarItems).forEach(dropDownKey => {
+            const dropDown = dropDownByLabelKey(dropDownKey);
+            const itemKey = selectedToolbarItems[dropDownKey];
+            if (!dropDown) {
+                return;
+            }
+
+            const itemLabel = dropItemLabelByKey();
+            if (itemLabel) {
+                dropDown.onSelect(itemLabel);
+            }
+
+            function dropItemLabelByKey() {
+                const found = dropDown!.items.filter(item => labelToKey(item.label) === itemKey);
+                return found.length > 0 ? found[0].label : undefined;
+            }
+        });
+
+        function dropDownByLabelKey(labelKey: string) {
+            const found = dropDowns.filter(dd => labelToKey(dd.label) === labelKey);
+            return found.length ? found[0] : undefined;
         }
     }
 
@@ -189,14 +209,16 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     private dropDownKeyBoundActions() {
         const result: HotKeyBoundActions = {};
 
-        const {dropDown} = this.props;
-        if (!dropDown) {
+        const {dropDowns} = this.props;
+        if (dropDowns.length === 0) {
             return result;
         }
 
-        dropDown.items
-            .filter(item => !!item.hotKey)
-            .forEach(item => result[item.hotKey!] = () => this.selectToolbarItem(item.label));
+        dropDowns.forEach(dropDown =>
+            dropDown.items
+                .filter(item => !!item.hotKey)
+                .forEach(item => result[item.hotKey!] =
+                    () => this.selectToolbarItem(dropDown.label, item.label)));
 
         return result;
     }
@@ -272,7 +294,8 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         this.pushUrl({
             registryName,
             demoName: '',
-            entryTitle: ''});
+            entryTitle: ''
+        });
     }
 
     private selectDemo = (demoName: string) => {
@@ -283,13 +306,20 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         this.pushUrl({entryTitle: title});
     }
 
-    private selectToolbarItem = (label: string) => {
-        const {dropDown} = this.props;
+    private selectToolbarItem = (dropDownLabel: string, itemLabel: string) => {
+        const {dropDowns} = this.props;
+        const {selectedToolbarItems} = this.state;
 
-        this.pushUrl({selectedToolbarItem: label});
+        this.pushUrl({
+            selectedToolbarItems: {
+                ...selectedToolbarItems,
+                [labelToKey(dropDownLabel)]: labelToKey(itemLabel)
+            }
+        });
 
-        if (dropDown) {
-            dropDown.onSelect(label);
+        const found = dropDowns.filter(dd => dd.label === dropDownLabel);
+        if (found.length > 0) {
+            found[0].onSelect(itemLabel);
         }
     }
 

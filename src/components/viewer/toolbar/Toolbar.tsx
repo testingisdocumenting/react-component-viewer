@@ -1,25 +1,26 @@
 import * as React from 'react';
 
 import { ToolbarDropDown } from './ToolbarDropDown';
-import { ToolbarDropDownItem } from './ToolbarDropDownItem';
+
+import { ComponentViewerDropDown } from '../ComponentViewerDropDown';
+
+import { labelToKey } from './labelUtils';
 
 import './Toolbar.css';
 
 export interface Props {
-    dropDownLabel?: string;
-    dropDownItems?: ToolbarDropDownItem[];
-    dropDownSelected?: string;
+    dropDowns: ComponentViewerDropDown[];
+    selectedItems: {[label: string]: string};
     questionMarkToggledOn: boolean;
-    onDropDownItemSelection?(label: string): void;
+    onDropDownItemSelection?(dropDownLabel: string, itemLabel: string): void;
     onQuestionMarkClick(): void;
 }
 
 export class Toolbar extends React.PureComponent<Props> {
     render() {
         const {
-            dropDownLabel,
-            dropDownItems,
-            dropDownSelected,
+            dropDowns,
+            selectedItems,
             questionMarkToggledOn,
             onQuestionMarkClick
         } = this.props;
@@ -27,12 +28,13 @@ export class Toolbar extends React.PureComponent<Props> {
         const questionMarkClassName = 'rcv-toolbar-action' + (questionMarkToggledOn ? ' on' : '');
         return (
             <div className="rcv-toolbar">
-                {dropDownItems && dropDownItems.length > 0 && <ToolbarDropDown
-                    label={dropDownLabel || ''}
-                    items={dropDownItems}
-                    selectedLabel={dropDownSelected}
+                {dropDowns.map(dropDown => <ToolbarDropDown
+                    key={dropDown.label}
+                    label={dropDown.label}
+                    items={dropDown.items}
+                    selectedLabelKey={selectedItems[labelToKey(dropDown.label)]}
                     onItemSelect={this.onDropDownItemSelection}
-                />}
+                />)}
                 <div
                     className={questionMarkClassName}
                     onClick={onQuestionMarkClick}
@@ -43,10 +45,10 @@ export class Toolbar extends React.PureComponent<Props> {
         );
     }
 
-    private onDropDownItemSelection = (label: string) => {
+    private onDropDownItemSelection = (dropDownLabel: string, itemLabel: string) => {
         const {onDropDownItemSelection} = this.props;
         if (onDropDownItemSelection) {
-            onDropDownItemSelection(label);
+            onDropDownItemSelection(dropDownLabel, itemLabel);
         }
     }
 }

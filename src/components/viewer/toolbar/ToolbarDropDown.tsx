@@ -7,12 +7,14 @@ import { ToolbarDropDownSelectionItem } from './ToolbarDropDownSelectionItem';
 
 import './ToolbarDropDown.css';
 
+import { labelToKey } from './labelUtils';
+
 export interface Props {
     label: string;
-    selectedLabel?: string;
+    selectedLabelKey?: string;
     items: ToolbarDropDownItem[];
 
-    onItemSelect(label: string): void;
+    onItemSelect(dropDownLabel: string, itemLabel: string): void;
 }
 
 export interface State {
@@ -62,20 +64,20 @@ export class ToolbarDropDown extends React.Component<Props, State> {
         );
     }
 
-    private onItemSelect = (label: string) => {
-        const {onItemSelect} = this.props;
+    private onItemSelect = (itemLabel: string) => {
+        const {label, onItemSelect} = this.props;
 
         this.setState({
             selectionVisible: false
         });
 
-        onItemSelect(label);
+        onItemSelect(label, itemLabel);
     }
 
     private renderSelected() {
-        const {selectedLabel} = this.props;
+        const {selectedLabelKey, items} = this.props;
 
-        const labelToRender = selectedLabel ? selectedLabel : 'Select...';
+        const labelToRender = buildLabelToRender(selectedLabelKey);
         return (
             <div
                 className="rcv-toolbar-drop-down-selected-label"
@@ -85,6 +87,17 @@ export class ToolbarDropDown extends React.Component<Props, State> {
                 {labelToRender}
             </div>
         );
+
+        function buildLabelToRender(key?: string) {
+            const nothingSelectedLabel = 'Select...';
+
+            if (!key) {
+                return nothingSelectedLabel;
+            }
+
+            const found = items.filter(item => labelToKey(item.label) === key);
+            return found.length > 0 ? found[0].label : nothingSelectedLabel;
+        }
     }
 
     private toggleSelection = () => {
