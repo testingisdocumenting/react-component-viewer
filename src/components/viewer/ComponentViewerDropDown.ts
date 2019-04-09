@@ -4,4 +4,5 @@ export interface ComponentViewerDropDown {
     label: string;
     items: ToolbarDropDownItem[];
     onSelect(label: string): void;
+    isSelected?(): boolean;
 }

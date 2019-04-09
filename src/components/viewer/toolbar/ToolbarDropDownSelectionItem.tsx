@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { ToolbarDropDownItem } from './ToolbarDropDownItem';
+import { HotKeyPill } from '../../hotkeys/HotKeyPill';
+import { DropDownItem } from '../dropdown/DropDownItem';
 
 import './ToolbarDropDownSelectionItem.css';
-import { HotKeyPill } from '../../hotkeys/HotKeyPill';
 
 export interface Props {
-    item: ToolbarDropDownItem;
+    item: DropDownItem;
     onItemSelect(label: string): void;
 }
 

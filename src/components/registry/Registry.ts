@@ -48,9 +48,12 @@ class Registry {
         return this.register(name, SingleItemLayout, createRegistratorForSingle(name, singleComponent));
     }
 
-    registerAsMiniApp(name: string, initialUrl: string, urlRegexp: RegExp, appComponent: React.ComponentType) {
+    registerAsMiniApp(name: string,
+                      urlRegexp: RegExp,
+                      urlsByLabel: {[label: string]: string},
+                      appComponent: React.ComponentType) {
         return this.register(name, SingleItemLayout,
-                             createRegistratorForMiniApp(initialUrl, urlRegexp, appComponent), urlRegexp);
+                             createRegistratorForMiniApp(name, urlRegexp, urlsByLabel, appComponent), urlRegexp);
     }
 
     register(name: string,
