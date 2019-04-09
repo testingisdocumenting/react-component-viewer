@@ -9,6 +9,7 @@ import { sideBySideDemo } from './demos/sideBySide';
 import { inputsDemo } from './demos/inputs';
 import { WrapperProps } from './components/registry/componentWrapper';
 import { ProfileScreenDemo } from './demos/ProfileScreenDemo';
+import { DropDowns } from './components/viewer/dropdown/DropDowns';
 
 const registries = new Registries({componentWrapper: DemoWrapper});
 registries.add('components')
@@ -21,47 +22,35 @@ registries.add('layouts')
 
 registries.add('screens')
     .registerSingle('Single Screen', ProfileScreenDemo)
-    .registerAsMiniApp('Single Screen mini app', '/app', /\/app/, ProfileApp);
+    .registerAsMiniApp('Single Screen mini app', /\/app/,
+                       {'welcome part': '/app/welcome'},
+                       ProfileApp);
+
+const dropDowns = new DropDowns();
+dropDowns.add('Brand')
+    .addItem('Brand-A', 'Alt 1')
+    .addItem('B-Brand', 'Alt 2')
+    .onSelect(onBrandSelect);
+
+dropDowns.add('Services')
+    .addItem('Fake', 'Alt 5')
+    .addItem('REST', 'Alt 6')
+    .onSelect(onServiceSelect);
 
 export class App extends React.Component {
     render() {
         return (
-            <ComponentViewer
-                registries={registries}
-                dropDowns={[this.createServiceDropDown(), this.createBrandDropDown()]}
-            />
+            <ComponentViewer registries={registries} dropDowns={dropDowns}/>
         );
     }
+}
 
-    private createBrandDropDown() {
-        return {
-            label: 'Brand',
-            items: [
-                {label: 'Brand-A', hotKey: 'Alt 1'},
-                {label: 'B-Brand', hotKey: 'Alt 2'}
-            ],
-            onSelect: this.onBrandSelect
-        };
-    }
+function onBrandSelect(brand: string) {
+    console.log('selected brand', brand);
+}
 
-    private createServiceDropDown() {
-        return {
-            label: 'Services',
-            items: [
-                {label: 'Fake', hotKey: 'Alt 5'},
-                {label: 'REST', hotKey: 'Alt 6'}
-            ],
-            onSelect: this.onServiceSelect
-        };
-    }
-
-    private onBrandSelect = (brand: string) => {
-        console.log('selected brand', brand);
-    }
-
-    private onServiceSelect = (service: string) => {
-        console.log('selected service', service);
-    }
+function onServiceSelect(service: string) {
+    console.log('selected service', service);
 }
 
 function DemoWrapper({OriginalComponent}: WrapperProps) {

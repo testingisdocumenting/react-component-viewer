@@ -19,20 +19,19 @@ import { GlobalHotKeysHandler } from '../hotkeys/GlobalHotKeysHandler';
 
 import { HotKeyBoundActions } from '../hotkeys/HotKeyBoundActions';
 
-import { ComponentViewerDropDown } from './ComponentViewerDropDown';
-
 import { ComponentViewerHelp } from './help/ComponentViewerHelp';
 import { globalActionDefaultKeys } from './GlobalActions';
 
 import { VisualizedActions } from '../actions/VisualizedActions';
 
-import './ComponentViewer.css';
+import { labelToKey } from './dropdown/labelUtils';
+import { DropDowns } from './dropdown/DropDowns';
 
-import { labelToKey } from './toolbar/labelUtils';
+import './ComponentViewer.css';
 
 export interface Props {
     registries: Registries;
-    dropDowns: ComponentViewerDropDown[];
+    dropDowns: DropDowns;
 }
 
 class ComponentViewer extends Component<Props, ComponentViewerState> {
@@ -67,7 +66,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         const registry = this.findSelectedRegistry();
         const demoEntry = registry ? registry.findDemoByName(demoName) : null;
 
-        const rendered = demoEntry && (demoEntry.isMiniApp() || isFullScreen) ?
+        const rendered = demoEntry && isFullScreen ?
             this.renderDemo(demoEntry, true) :
             this.renderSelectionPanelAndDemo(demoEntry);
 
@@ -173,33 +172,23 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
 
     triggerDropDownSelection() {
         const {dropDowns} = this.props;
-        if (dropDowns.length === 0) {
+        if (dropDowns.isEmpty()) {
             return;
         }
 
         const {selectedToolbarItems} = this.state;
         Object.keys(selectedToolbarItems).forEach(dropDownKey => {
-            const dropDown = dropDownByLabelKey(dropDownKey);
-            const itemKey = selectedToolbarItems[dropDownKey];
+            const dropDown = dropDowns.findDropDownByLabelKey(dropDownKey);
             if (!dropDown) {
                 return;
             }
 
-            const itemLabel = dropItemLabelByKey();
-            if (itemLabel) {
-                dropDown.onSelect(itemLabel);
-            }
-
-            function dropItemLabelByKey() {
-                const found = dropDown!.items.filter(item => labelToKey(item.label) === itemKey);
-                return found.length > 0 ? found[0].label : undefined;
+            const itemKey = selectedToolbarItems[dropDownKey];
+            const item = dropDown.findItemByLabelKey(itemKey);
+            if (item) {
+                dropDown.triggerSelectHandler(item.label);
             }
         });
-
-        function dropDownByLabelKey(labelKey: string) {
-            const found = dropDowns.filter(dd => labelToKey(dd.label) === labelKey);
-            return found.length ? found[0] : undefined;
-        }
     }
 
     componentWillUnmount() {
@@ -210,11 +199,11 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         const result: HotKeyBoundActions = {};
 
         const {dropDowns} = this.props;
-        if (dropDowns.length === 0) {
+        if (dropDowns.isEmpty()) {
             return result;
         }
 
-        dropDowns.forEach(dropDown =>
+        dropDowns.list.forEach(dropDown =>
             dropDown.items
                 .filter(item => !!item.hotKey)
                 .forEach(item => result[item.hotKey!] =
@@ -232,11 +221,11 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     private onFullScreenToggle = () => {
-        this.pushUrl({isFullScreen: !this.state.isFullScreen});
+        this.pushUrl({partialState: {isFullScreen: !this.state.isFullScreen}});
     }
 
     private onQuestionMarkToggle = () => {
-        this.pushUrl({isHelpOn: !this.state.isHelpOn});
+        this.pushUrl({partialState: {isHelpOn: !this.state.isHelpOn}});
     }
 
     private onNextDemo = () => {
@@ -291,35 +280,35 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     private selectRegistry = (registryName: string) => {
-        this.pushUrl({
+        this.pushUrl({partialState: {
             registryName,
             demoName: '',
             entryTitle: ''
-        });
+        }, clearPath: true});
     }
 
     private selectDemo = (demoName: string) => {
-        this.pushUrl({demoName, entryTitle: ''});
+        this.pushUrl({partialState: {demoName, entryTitle: ''}, clearPath: true});
     }
 
     private selectInstanceByTitle = (title: string) => {
-        this.pushUrl({entryTitle: title});
+        this.pushUrl({partialState: {entryTitle: title}, clearPath: true});
     }
 
     private selectToolbarItem = (dropDownLabel: string, itemLabel: string) => {
         const {dropDowns} = this.props;
         const {selectedToolbarItems} = this.state;
 
-        this.pushUrl({
+        this.pushUrl({partialState: {
             selectedToolbarItems: {
                 ...selectedToolbarItems,
                 [labelToKey(dropDownLabel)]: labelToKey(itemLabel)
             }
-        });
+        }});
 
-        const found = dropDowns.filter(dd => dd.label === dropDownLabel);
-        if (found.length > 0) {
-            found[0].onSelect(itemLabel);
+        const found = dropDowns.findDropDownByLabel(dropDownLabel);
+        if (found) {
+            found.triggerSelectHandler(itemLabel);
         }
     }
 
@@ -339,10 +328,10 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             [];
     }
 
-    private pushUrl(newState: Partial<ComponentViewerState>) {
-        const fullState = {...this.state, ...newState};
+    private pushUrl({partialState, clearPath}: {partialState: Partial<ComponentViewerState>, clearPath?: boolean}) {
+        const fullState = {...this.state, ...partialState};
         const searchParams = this.stateCreator.buildUrlSearchParams({...fullState, filterText: ''});
-        const newUrl = '?' + searchParams;
+        const newUrl = (clearPath ? '/' : '' ) + '?' + searchParams;
 
         window.history.pushState({}, '', newUrl);
         this.updateStateFromUrl();

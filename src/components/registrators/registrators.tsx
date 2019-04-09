@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { Registry } from '..';
-import { NavigateToUrlWrapper } from './NavigateToUrlWrapper';
+import { MiniAppUrlsSelection } from '../miniapp/MiniAppUrlsSelection';
 
-export function createRegistratorForMiniApp(initialUrl: string, urlRegexp: RegExp, miniApp: React.ComponentType) {
+export function createRegistratorForMiniApp(name: string,
+                                            urlRegexp: RegExp,
+                                            urlsByLabel: { [label: string]: string },
+                                            miniApp: React.ComponentType) {
     return function miniAppRegistrator(registry: Registry) {
-        registry.add(initialUrl, () => (
-            <NavigateToUrlWrapper
-                initialUrl={initialUrl}
+        registry.add(name, () => (
+            <MiniAppUrlsSelection
+                urlsByLabel={urlsByLabel}
                 urlRegexp={urlRegexp}
                 component={miniApp}
-            />)
-        );
+            />));
     };
 }
 
