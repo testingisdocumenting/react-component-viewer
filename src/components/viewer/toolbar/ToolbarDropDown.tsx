@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { ToolbarDropDownSelectionPlacement } from './ToolbarDropDownSelectionPlacement';
 import { ToolbarDropDownSelectionItem } from './ToolbarDropDownSelectionItem';
 
 import { DropDown } from '../dropdown/DropDown';
@@ -24,6 +23,7 @@ export class ToolbarDropDown extends React.Component<Props, State> {
     };
 
     private selectedLabelNode: HTMLElement;
+    private dropDownNode: HTMLElement;
 
     render() {
         const {dropDown} = this.props;
@@ -35,6 +35,14 @@ export class ToolbarDropDown extends React.Component<Props, State> {
                 {this.renderSelectionIfRequired()}
             </div>
         );
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.onGlobalClick);
+    }
+
+    componentWillUnmount() {
+        document.addEventListener('mouseup', this.onGlobalClick);
     }
 
     private saveSelectedLabelNode = (node: HTMLDivElement) => {
@@ -52,13 +60,30 @@ export class ToolbarDropDown extends React.Component<Props, State> {
         const {dropDown} = this.props;
 
         return (
-            <ToolbarDropDownSelectionPlacement parent={this.selectedLabelNode}>
+            <div
+                className="rcv-toolbar-drop-down-selection-placement"
+                style={this.dropDownSelectionStyle()}
+                ref={this.saveDropDownNode}
+            >
                 <div className="rcv-toolbar-drop-down-selection">
                     {dropDown.items.map(item =>
                         <ToolbarDropDownSelectionItem key={item.label} item={item} onItemSelect={this.onItemSelect}/>)}
                 </div>
-            </ToolbarDropDownSelectionPlacement>
+            </div>
         );
+    }
+
+    private saveDropDownNode = (node: HTMLDivElement) => {
+        this.dropDownNode = node;
+    }
+
+    private dropDownSelectionStyle = () => {
+        const pos = this.selectedLabelNode.getBoundingClientRect();
+
+        return {
+            left: pos.left,
+            top: pos.top
+        };
     }
 
     private onItemSelect = (itemLabel: string) => {
@@ -99,5 +124,18 @@ export class ToolbarDropDown extends React.Component<Props, State> {
 
     private toggleSelection = () => {
         this.setState(prev => ({selectionVisible: !prev.selectionVisible}));
+    }
+
+    private hideSelection = () => {
+        this.setState({selectionVisible: false});
+    }
+
+    private onGlobalClick = (e: any) => {
+        if (this.dropDownNode &&
+            this.selectedLabelNode &&
+            !this.dropDownNode.contains(e.target) &&
+            !this.selectedLabelNode.contains(e.target)) {
+            this.hideSelection();
+        }
     }
 }

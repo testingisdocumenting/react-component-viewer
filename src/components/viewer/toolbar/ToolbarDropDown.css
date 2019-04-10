@@ -45,3 +45,8 @@
 .rcv-toolbar-drop-down-selection-item:hover {
     background-color: #eee;
 }
+
+.rcv-toolbar-drop-down-selection-placement {
+    position: fixed;
+    margin-top: 24px;
+}
