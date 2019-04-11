@@ -1,5 +1,3 @@
-import 'url-search-params-polyfill';
-
 import { ComponentViewerState } from './ComponentViewerState';
 import { Registry, Registries } from '../';
 import { DemoEntryAndRegistry } from '../registry/DemoEntryAndRegistry';

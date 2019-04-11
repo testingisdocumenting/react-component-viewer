@@ -23,8 +23,7 @@
   ],
   "dependencies": {
     "react": "16.8.5",
-    "react-dom": "16.8.5",
-    "url-search-params-polyfill": "^5.1.0"
+    "react-dom": "16.8.5"
   },
   "scripts": {
     "start": "react-scripts-ts start",
