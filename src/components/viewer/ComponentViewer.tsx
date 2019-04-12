@@ -55,6 +55,8 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             [globalActionDefaultKeys.prevDemoEntry]: this.onPrevDemoEntry,
             ...this.dropDownKeyBoundActions()
         };
+
+        this.triggerDropDownSelection();
     }
 
     render() {
@@ -158,7 +160,6 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     componentDidMount() {
-        this.updateStateFromUrl(this.triggerDropDownSelection);
         this.subscribeToUrlChanges();
     }
 
