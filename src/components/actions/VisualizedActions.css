@@ -1,8 +1,8 @@
 .rcv-visualized-actions {
     display: flex;
     flex-direction: column;
-    align-items: end;
-    justify-content: end;
+    align-items: flex-end;
+    justify-content: flex-end;
 
     position: fixed;
     right: 0;
