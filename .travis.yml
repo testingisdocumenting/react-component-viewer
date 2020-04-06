@@ -6,5 +6,5 @@ cache:
   - node_modules
 script:
 - npm install
-- npm test
+- npm test -- --watchAll=false
 - npm run build
