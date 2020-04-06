@@ -4,14 +4,14 @@
   "description": "React Component to help with development of other React components",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MykolaGolubyev/react-component-viewer.git"
+    "url": "git+https://github.com/TestingIsDocumenting/react-component-viewer.git"
   },
   "author": "mykolagolubyev",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/MykolaGolubyev/react-component-viewer/issues"
+    "url": "https://github.com/TestingIsDocumenting/react-component-viewer/issues"
   },
-  "homepage": "https://github.com/MykolaGolubyev/react-component-viewer#readme",
+  "homepage": "https://github.com/TestingIsDocumenting/react-component-viewer#readme",
   "private": false,
   "main": "build/lib/components/index.js",
   "types": "build/lib/components/index.d.ts",
