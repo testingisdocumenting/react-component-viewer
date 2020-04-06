@@ -4,7 +4,7 @@
 import { ComponentViewer } from 'react-component-viewer';
 ```
 
-![screen example](documentation/rcv/static/screen-example.png)
+![screen example](documentation/screen-example.png)
 
 React Component to help you with development of other React components.
 * just a component, no separate build system,
