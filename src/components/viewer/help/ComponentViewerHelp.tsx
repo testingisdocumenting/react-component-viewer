@@ -17,7 +17,7 @@ export function ComponentViewerHelp() {
                     />)}
             </div>
             <h1>GitHub</h1>
-            <a href="https://github.com/MykolaGolubyev/react-component-viewer" target="_blank">Repository</a>
+            <a href="https://github.com/TestingIsDocumenting/react-component-viewer" target="_blank">Repository</a>
         </div>
     );
 }
