@@ -35,6 +35,9 @@ export class ComponentViewerStateCreator {
         const fullScreenValue = searchParams.get(queryParamNames.isFullScreen) || 'false';
         const isFullScreen = fullScreenValue === 'true';
 
+        const helpOnValue = searchParams.get(queryParamNames.isHelpOn) || 'false';
+        const isHelpOn = helpOnValue === 'true';
+
         const miniAppByUrl = this.miniAppByUrl(path + '?' + search);
         if (miniAppByUrl) {
             return {
@@ -42,7 +45,7 @@ export class ComponentViewerStateCreator {
                 demoName: miniAppByUrl.demoEntry.name,
                 entryTitle: miniAppByUrl.demoEntry.firstEntryTitle,
                 isFullScreen,
-                isHelpOn: false,
+                isHelpOn: isHelpOn,
                 filterText: '',
                 selectedToolbarItems
             };
@@ -56,9 +59,6 @@ export class ComponentViewerStateCreator {
 
         const entryTitle = searchParams.get(queryParamNames.entryTitle) ||
             ComponentViewerStateCreator.firstTitleByDemoName(registry, demoName);
-
-        const helpOnValue = searchParams.get(queryParamNames.isHelpOn) || 'false';
-        const isHelpOn = helpOnValue === 'true';
 
         return {
             registryName,
