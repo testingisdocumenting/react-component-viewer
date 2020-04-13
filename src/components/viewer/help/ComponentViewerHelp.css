@@ -29,8 +29,4 @@
 }
 
 .rcv-component-viewer-help-hotkeys-grid {
-    display: grid;
-
-    grid-template-columns: auto 1fr;
-    grid-gap: 8px 32px;
 }
