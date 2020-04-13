@@ -73,11 +73,11 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             this.renderSelectionPanelAndDemo(demoEntry);
 
         return (
-            <React.Fragment>
+            <div>
                 <GlobalHotKeysHandler keyBoundActions={this.hotKeyBoundActions}/>
                 {rendered}
                 <VisualizedActions/>
-            </React.Fragment>
+            </div>
         );
     }
 
