@@ -32,7 +32,7 @@ export class ComponentViewerStateCreator {
 
         const selectedToolbarItems = extractSelectedToolbarItems();
 
-        const fullScreenValue = searchParams.get(queryParamNames.isFullScreen) || 'false';
+        const fullScreenValue = searchParams.get(queryParamNames.isFullScreen);
         const isFullScreen = fullScreenValue === 'true';
 
         const helpOnValue = searchParams.get(queryParamNames.isHelpOn) || 'false';
@@ -44,7 +44,7 @@ export class ComponentViewerStateCreator {
                 registryName: miniAppByUrl.registry.name,
                 demoName: miniAppByUrl.demoEntry.name,
                 entryTitle: miniAppByUrl.demoEntry.firstEntryTitle,
-                isFullScreen,
+                isFullScreen: fullScreenValue === null ? true : isFullScreen,
                 isHelpOn: isHelpOn,
                 filterText: '',
                 selectedToolbarItems
@@ -87,15 +87,17 @@ export class ComponentViewerStateCreator {
     buildUrlSearchParams(state: ComponentViewerState): string {
         const searchParams = new URLSearchParams();
 
-        Object.keys(state).forEach(k => {
-            const v = state[k];
+        Object.keys(state).forEach(key => {
+            const value = state[key];
 
-            if (k === 'selectedToolbarItems') {
-                const toolbarItems: {[labelKey: string]: string} = v;
-                Object.keys(v).forEach(dropDownLabelKey => searchParams.set(
+            if (key === 'selectedToolbarItems') {
+                const toolbarItems: {[labelKey: string]: string} = value;
+                Object.keys(value).forEach(dropDownLabelKey => searchParams.set(
                     queryParamNames.selectedToolbarItemPrefix + dropDownLabelKey, toolbarItems[dropDownLabelKey]));
-            } else if (v) {
-                searchParams.set(queryParamNames[k], v.toString());
+            } else {
+                if (value || key === 'isFullScreen') {
+                    searchParams.set(queryParamNames[key], value.toString());
+                }
             }
         });
 

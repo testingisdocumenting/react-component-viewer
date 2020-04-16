@@ -53,6 +53,21 @@ describe('ComponentViewerStateCreator', () => {
             '&_rcv_dropdown_brand=brand_one&_rcv_dropdown_services=fake_services');
     });
 
+    it('should preserve false state of the full screen toggle', () => {
+        const stateCreator = new ComponentViewerStateCreator(registries);
+        const url = stateCreator.buildUrlSearchParams({
+            registryName: '',
+            demoName: '',
+            entryTitle: '',
+            isFullScreen: false,
+            isHelpOn: false,
+            filterText: '',
+            selectedToolbarItems: {}
+        });
+
+        expect(url).toEqual('_rcv_fs=false');
+    });
+
     it('should extract toolbar items from url', () => {
         const stateCreator = new ComponentViewerStateCreator(registries);
         const state = stateCreator.stateFromUrl(
