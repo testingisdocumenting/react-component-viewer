@@ -10,6 +10,9 @@
   --rcv-selected-background-color: #313149;
   --rcv-attention-text-color: #e38a59;
   --rcv-drop-down-width: 200px;
+  --rcv-registry-selection-background-color: #fff;
+  --rcv-filter-background-color: #fff;
+  --rcv-preview-background-color: #fff;
 }
 
 body {
@@ -49,6 +52,7 @@ body {
   font-family: var(--rcv-font-family);
 
   border-bottom: 1px var(--rcv-secondary-border-color) solid;
+  background-color: var(--rcv-registry-selection-background-color);
 }
 
 .rcv-search-box {
@@ -64,6 +68,8 @@ body {
   width: 100%;
   height: 34px;
   box-sizing: border-box;
+
+  background-color: var(--rcv-filter-background-color);
 
   padding: 10px 4px 10px 15px;
   margin: 0;
@@ -86,8 +92,9 @@ body {
 
 .rcv-preview {
   grid-area: preview;
-  margin: 10px 10px 10px 20px;
+  background-color: var(--rcv-preview-background-color);
 
+  padding: 10px 10px 10px 20px;
   overflow: auto;
 }
 
