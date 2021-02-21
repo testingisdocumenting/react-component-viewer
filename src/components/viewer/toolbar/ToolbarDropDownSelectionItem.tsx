@@ -3,8 +3,6 @@ import * as React from 'react';
 import { HotKeyPill } from '../../hotkeys/HotKeyPill';
 import { DropDownItem } from '../dropdown/DropDownItem';
 
-import './ToolbarDropDownSelectionItem.css';
-
 export interface Props {
     item: DropDownItem;
     onItemSelect(label: string): void;

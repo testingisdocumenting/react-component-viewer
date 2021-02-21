@@ -6,12 +6,15 @@
 .rcv-toc-entry-name {
   flex-shrink: 0;
   font-size: 14px;
+
+  color: var(--rcv-primary-text-color);
+  background-color: var(--rcv-primary-background-color);
+
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
   padding: 8px 15px;
   border-bottom: 1px solid var(--rcv-primary-border-color);
-  color: var(--rcv-primary-text-color);
   cursor: pointer;
 }
 

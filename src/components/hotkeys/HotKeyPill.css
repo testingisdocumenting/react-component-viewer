@@ -1,6 +1,9 @@
 .rcv-hotkey-pill {
     font-size: 12px;
 
+    color: var(--rcv-primary-text-color);
+    background-color: var(--rcv-primary-background-color);
+
     margin-right: 4px;
     margin-left: 4px;
 
