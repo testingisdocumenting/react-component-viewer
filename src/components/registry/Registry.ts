@@ -10,6 +10,8 @@ import { wrapComponent, WrapperProps } from './componentWrapper';
 import { findAndReturn } from './listUtils';
 import { createRegistratorForMiniApp, createRegistratorForSingle } from '../registrators/registrators';
 
+import '../layouts/DemoLayoutItemTitle.css';
+
 export interface RegistryConfig {
     componentWrapper?: React.ComponentType<WrapperProps>;
 }

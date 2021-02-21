@@ -7,6 +7,7 @@
 
 .rcv-registry-selection-tab {
   color: var(--rcv-secondary-text-color);
+  background-color: var(--rcv-registry-selection-background-color);
   padding: 0 15px;
 
   cursor: pointer;

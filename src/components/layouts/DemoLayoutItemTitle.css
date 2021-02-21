@@ -1,0 +1,8 @@
+.rcv-demo-layout-item {
+    background-color: var(--rcv-preview-background-color);
+}
+
+.rcv-demo-layout-item-title {
+    color: var(--rcv-primary-text-color);
+    background-color: var(--rcv-preview-background-color);
+}

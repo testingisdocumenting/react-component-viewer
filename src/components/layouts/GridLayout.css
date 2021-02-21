@@ -1,6 +1,7 @@
 .rcv-grid-layout {
     display: grid;
     grid-gap: 20px;
+    background-color: var(--rcv-preview-background-color);
 }
 
 .rcv-grid-layout .rcv-demo-layout-item {

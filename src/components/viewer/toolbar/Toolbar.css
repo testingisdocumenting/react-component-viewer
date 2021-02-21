@@ -1,6 +1,9 @@
 .rcv-toolbar {
     display: flex;
     align-items: center;
+
+    background-color: var(--rcv-toolbar-background-color);
+
     height: 100%;
     margin-right: 8px;
 }
@@ -11,6 +14,9 @@
     justify-content: center;
     width: 18px;
     height: 18px;
+
+    color: var(--rcv-primary-text-color);
+    background-color: var(--rcv-toolbar-background-color);
 
     line-height: 1;
     user-select: none;

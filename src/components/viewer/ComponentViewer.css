@@ -13,6 +13,17 @@
   --rcv-registry-selection-background-color: #fff;
   --rcv-filter-background-color: #fff;
   --rcv-preview-background-color: #fff;
+
+  --rcv-toolbar-background-color: #f2f2f2;
+
+  --rcv-dropdown-color: #313149;
+  --rcv-dropdown-background-color: #f2f2f2;
+
+  --rcv-dropdown-selected-text-color: var(--rcv-primary-text-color);
+  --rcv-dropdown-selected-background-color: #ccc;
+
+  --rcv-dropdown-selection-text-color: var(--rcv-primary-text-color);
+  --rcv-dropdown-selection-background-color: #fff;
 }
 
 body {
