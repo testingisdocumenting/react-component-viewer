@@ -31,7 +31,7 @@ import './ComponentViewer.css';
 
 export interface Props {
     registries: Registries;
-    dropDowns: DropDowns;
+    dropDowns?: DropDowns;
 }
 
 class ComponentViewer extends Component<Props, ComponentViewerState> {
@@ -82,7 +82,10 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
     }
 
     renderSelectionPanelAndDemo(demoEntry: DemoEntry | null) {
-        const {registries, dropDowns} = this.props;
+        const {
+            registries,
+            dropDowns = new DropDowns()
+        } = this.props;
 
         const {
             registryName,
@@ -173,7 +176,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
 
     triggerDropDownSelection() {
         const {dropDowns} = this.props;
-        if (dropDowns.isEmpty()) {
+        if (!dropDowns) {
             return;
         }
 
@@ -200,7 +203,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
         const result: HotKeyBoundActions = {};
 
         const {dropDowns} = this.props;
-        if (dropDowns.isEmpty()) {
+        if (!dropDowns) {
             return result;
         }
 
@@ -307,7 +310,7 @@ class ComponentViewer extends Component<Props, ComponentViewerState> {
             }
         }});
 
-        const found = dropDowns.findDropDownByLabel(dropDownLabel);
+        const found = dropDowns && dropDowns.findDropDownByLabel(dropDownLabel);
         if (found) {
             found.triggerSelectHandler(itemLabel);
         }
