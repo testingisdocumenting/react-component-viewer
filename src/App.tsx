@@ -7,9 +7,9 @@ import { linksDemo } from './demos/links';
 import { ProfileApp } from './demos/ProfileApp';
 import { sideBySideDemo } from './demos/sideBySide';
 import { inputsDemo } from './demos/inputs';
-import { WrapperProps } from './components/registry/componentWrapper';
+import { WrapperProps } from './components';
 import { ProfileScreenDemo } from './demos/ProfileScreenDemo';
-import { DropDowns } from './components/viewer/dropdown/DropDowns';
+import { DropDowns } from './components';
 
 const registries = new Registries({componentWrapper: DemoWrapper});
 registries.add('components')
